@@ -115,7 +115,7 @@ function HomePage() {
             creating blends, and preparing texture-ready outputs. Enter
             the Brick Textures Vault and explore real products for your project.
           </p>
-          <p className="vault-subline">All products. All bonds. All mortars. All seamless.</p>
+          <p className="vault-subline">Start designing your own texture.</p>
           <div className="category-grid hero-category-grid">
             <a
               className="category-tile"
