@@ -333,6 +333,10 @@ function Footer() {
         <p>Brick Textures by BLOC-TEC</p>
         <p>Paver Picker Ltd</p>
         <p>
+          Brick Textures is our development and testing environment for new software ideas before
+          features are rolled into manufacturer-linked accounts.
+        </p>
+        <p>
           <a href="https://bloc-tec.com" target="_blank" rel="noreferrer">
             Visit bloc-tec.com
           </a>
