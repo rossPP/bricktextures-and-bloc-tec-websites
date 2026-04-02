@@ -306,6 +306,34 @@ function IntegrationPage() {
         </p>
       </div>
 
+      <section className="section section-alt" id="how-implementation">
+        <div className="container">
+          <article className="card">
+            <h2>HOW we support implementation</h2>
+            <div className="feature-list">
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Flexible website embedding</h3>
+                  <p>
+                    We can support standalone links or iframe embedding to match your website platform,
+                    page structure, and rollout priorities.
+                  </p>
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Guided integration support</h3>
+                  <p>
+                    Your team gets clear guidance and practical support during setup, so integration is
+                    straightforward.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section className="section">
         <div className="container">
           <article className="card">
@@ -475,24 +503,35 @@ function ManufacturersPage() {
     <main className="section">
       <div className="container page-header">
         <p className="eyebrow">For Manufacturers</p>
-        <h1>Digital product presentation that supports sales and specification teams.</h1>
+        <h1>Digital product presentation for sales and specification teams.</h1>
         <p className="lead">
           BLOC-TEC helps manufacturers present products consistently, support reseller channels, and
-          deliver more interactive website experiences.
+          deliver stronger digital experiences across web, showroom, and field sales touchpoints.
         </p>
       </div>
 
-      <section className="section">
+      <section className="section quick-links-section">
+        <div className="container card quick-links-card">
+          <p className="quick-links-title">Quick links</p>
+          <p className="quick-links">
+            <a className="btn-small" href="#why-bloc-tec">WHY choose BLOC-TEC</a>
+            <a className="btn-small" href="#what-onboarding">What BLOC-TEC offers</a>
+            <a className="btn-small" href="#where-used">WHERE BLOC-TEC is used</a>
+          </p>
+        </div>
+      </section>
+
+      <section className="section" id="why-bloc-tec">
         <div className="container">
           <article className="card">
-            <h2>Why manufacturers use BLOC-TEC</h2>
+            <h2>WHY choose BLOC-TEC</h2>
             <div className="feature-list">
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>Consistent product imagery</h3>
+                  <h3>Consistent product presentation</h3>
                   <p>
-                    Keep image output consistent across ranges, finishes, and marketing channels so
-                    products are shown clearly and reliably.
+                    Keep product imagery consistent across ranges, finishes, and marketing channels so
+                    every product is presented clearly and reliably.
                   </p>
                 </div>
                 <div className="highlight-image-placeholder" aria-hidden="true">
@@ -503,42 +542,42 @@ function ManufacturersPage() {
               </article>
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>Reseller-ready sharing</h3>
+                  <h3>Aligned sales and technical messaging</h3>
                   <p>
-                    Share approved visuals and outputs with resellers and merchant teams so product
-                    presentation stays aligned across the channel.
+                    Sales, technical, and marketing teams can work from the same product story, helping
+                    customer messaging stay consistent across channels.
                   </p>
                 </div>
                 <div className="highlight-image-placeholder" aria-hidden="true">
-                  Channel sharing image
+                  Cross-team consistency image
                   <br />
                   Recommended: 1200 x 400 (WebP)
                 </div>
               </article>
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>Interactive website embedding</h3>
+                  <h3>Faster specification decisions</h3>
                   <p>
-                    Embed BLOC-TEC controls on your own website through iframe integration and deliver
-                    a more useful product exploration experience.
+                    Help specifiers move from shortlists to confident product decisions faster with
+                    clearer, more realistic product comparisons.
                   </p>
                 </div>
                 <div className="highlight-image-placeholder" aria-hidden="true">
-                  Embedded controls image
+                  Faster decision support image
                   <br />
                   Recommended: 1200 x 400 (WebP)
                 </div>
               </article>
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>Stronger client engagement</h3>
+                  <h3>Reduced sampling waste and cost</h3>
                   <p>
-                    Help specifiers and buyers compare options with confidence and stay engaged for
-                    longer during product evaluation.
+                    Improve pre-qualification before requesting physical samples, helping reduce avoidable
+                    sample waste and associated costs.
                   </p>
                 </div>
                 <div className="highlight-image-placeholder" aria-hidden="true">
-                  Engagement outcome image
+                  Sampling efficiency image
                   <br />
                   Recommended: 1200 x 400 (WebP)
                 </div>
@@ -548,14 +587,99 @@ function ManufacturersPage() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section" id="what-onboarding">
         <div className="container">
           <article className="card">
-            <h2>Where manufacturers use BLOC-TEC</h2>
+            <h2>What BLOC-TEC offers</h2>
             <div className="feature-list">
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>Showrooms and specification spaces</h3>
+                  <h3>Base package</h3>
+                  <p>
+                    Core setup includes account routing, product data onboarding, and recommended
+                    defaults so your team can launch with a clear and consistent baseline. Pattern naming
+                    and mortar preferences are also configured at setup and can be refined later.
+                  </p>
+                </div>
+                <div className="highlight-image-placeholder" aria-hidden="true">
+                  Base package image
+                  <br />
+                  Recommended: 1200 x 400 (WebP)
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Blender add-on module</h3>
+                  <p>
+                    Blender is an optional add-on on top of the base package and can be enabled according
+                    to your rollout priorities.
+                  </p>
+                </div>
+                <div className="highlight-image-placeholder" aria-hidden="true">
+                  Blender add-on image
+                  <br />
+                  Recommended: 1200 x 400 (WebP)
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Texture add-on module</h3>
+                  <p>
+                    Texture is an optional add-on on top of the base package and can be enabled according
+                    to your rollout priorities.
+                  </p>
+                </div>
+                <div className="highlight-image-placeholder" aria-hidden="true">
+                  Texture add-on image
+                  <br />
+                  Recommended: 1200 x 400 (WebP)
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Scene options</h3>
+                  <p>
+                    Start with scenes from our existing paving, walling, and flooring libraries. Custom
+                    scenes are available as an add-on option aligned to your own products, settings, and
+                    brand context.
+                  </p>
+                  <p>
+                    <NavLink to="/scenes">View scene options</NavLink>
+                  </p>
+                </div>
+                <div className="highlight-image-placeholder" aria-hidden="true">
+                  Scenes image
+                  <br />
+                  Recommended: 1200 x 400 (WebP)
+                </div>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="section section-alt" id="where-used">
+        <div className="container">
+          <article className="card">
+            <h2>WHERE BLOC-TEC is used</h2>
+            <div className="feature-list">
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Website</h3>
+                  <p>
+                    Run BLOC-TEC on your website so customers can explore products in context and move
+                    from initial interest to more confident product choices.
+                  </p>
+                </div>
+                <div className="highlight-image-placeholder" aria-hidden="true">
+                  Website integration image
+                  <br />
+                  Recommended: 1200 x 400 (WebP)
+                </div>
+              </article>
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Showrooms and design centers</h3>
                   <p>
                     Run BLOC-TEC in your showroom so visitors can compare products, bonds, and mortar
                     options with your team in real time.
@@ -583,7 +707,7 @@ function ManufacturersPage() {
               </article>
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>Sales teams on tablets and laptops</h3>
+                  <h3>Sales teams in the field</h3>
                   <p>
                     Give sales teams a practical tool for iPads and laptops so product options can be
                     presented clearly during meetings and site visits.
@@ -595,108 +719,15 @@ function ManufacturersPage() {
                   Recommended: 1200 x 400 (WebP)
                 </div>
               </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Manufacturer websites and partner channels</h3>
-                  <p>
-                    Embed BLOC-TEC in your website with iframe integration and extend access through
-                    reseller portals or campaign landing pages where needed.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Website and channel image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
             </div>
           </article>
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="manufacturer-contact">
         <div className="container">
           <article className="card">
-            <h2>Onboarding options</h2>
-            <div className="feature-list">
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Base package setup</h3>
-                  <p>
-                    Core setup includes account routing, product data onboarding, and recommended
-                    defaults so your team can launch with a clear and consistent baseline.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Base package image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Blender and Texture add-ons</h3>
-                  <p>
-                    Blender and Texture modules are optional add-ons on top of the base package and can
-                    be enabled according to your rollout priorities.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Module add-on image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Scenes: existing and custom</h3>
-                  <p>
-                    Start with scenes from our existing paving, walling, and flooring libraries, then
-                    add custom scenes aligned to your own products, settings, and brand context.
-                  </p>
-                  <p>
-                    <NavLink to="/scenes">View scene options</NavLink>
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Scenes image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Pattern, naming, and mortar preferences</h3>
-                  <p>
-                    Pattern naming and mortar defaults are configured to your local preferences at setup
-                    and can be refined later. We aim for consistency across products wherever practical.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Configuration preferences image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container card">
-          <h2>Reseller swatch usage policy</h2>
-          <p>
-            Reseller usage for product swatches is currently under review while we finalize policy and
-            commercial terms. Approved usage routes are confirmed during onboarding.
-          </p>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <article className="card">
-            <h2>Discuss your manufacturer setup</h2>
+            <h2>Next step: discuss your setup</h2>
             <p>
               Tell us about your current product content, reseller needs, and website goals. We can
               recommend the best starting route for onboarding and integration.
@@ -717,147 +748,134 @@ function FaqPage() {
       <div className="container page-header">
         <p className="eyebrow">FAQ</p>
         <h1>Frequently asked questions</h1>
-        <p className="lead">
-          Quick answers about imagery, hosting, integration, and commercial setup for BLOC-TEC.
-        </p>
       </div>
 
       <section className="section">
         <div className="container grid two">
           <article className="card">
-            <h2>Images</h2>
-            <h3>Can we use our own images?</h3>
-            <p>
-              Image quality is central to accurate output. We review supplied imagery against BLOC-TEC
-              requirements before use so display quality remains consistent.
-            </p>
-
-            <h3>How are product images created?</h3>
-            <p>
-              We work from product sample photography and structured processing workflows so products can
-              be shown reliably across bonds, joints, and layout options.
-            </p>
-
-            <h3>Do we need to send all product samples?</h3>
-            <p>
-              Not always. We can advise the most practical route based on your product range and current
-              image readiness.
-            </p>
+            <h2>Account set-up and integration</h2>
+            <div className="faq-accordion">
+              <details className="faq-item">
+                <summary>How do we integrate BLOC-TEC into our website?</summary>
+                <p>
+                  You can embed BLOC-TEC in your website via iframe, or use direct account links for
+                  full-page launch depending on your user journey.
+                  {" "}
+                  <NavLink to="/integration">Open Integration guidance</NavLink>
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>Can we host BLOC-TEC on our own servers?</summary>
+                <p>
+                  No. Deployments are managed through BLOC-TEC infrastructure to support security,
+                  maintenance, reliability, and version control.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>Which infrastructure do you use?</summary>
+                <p>
+                  We use managed cloud infrastructure (including AWS-backed deployments) selected for
+                  stability, security, and scalable performance.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>What is bricktextures.com?</summary>
+                <p>
+                  bricktextures.com is the BLOC-TEC development and testing environment used to trial new
+                  software ideas before selected features are rolled into manufacturer-linked accounts.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How is a new manufacturer account priced?</summary>
+                <p>
+                  Pricing is based on scope: product count, onboarding effort, image readiness, and any
+                  required integration modules.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How long does onboarding take?</summary>
+                <p>
+                  Delivery time depends on product volume and preparation quality. We confirm realistic
+                  timelines once scope is reviewed.
+                </p>
+              </details>
+            </div>
           </article>
 
           <article className="card">
-            <h2>Hosting and security</h2>
-            <h3>Can we host BLOC-TEC on our own servers?</h3>
-            <p>
-              Deployments are managed through BLOC-TEC infrastructure to support security, maintenance,
-              reliability, and version control.
-            </p>
-
-            <h3>Which servers do you use?</h3>
-            <p>
-              We use managed cloud infrastructure (including AWS-backed deployments) selected for
-              stability, security, and scalable performance.
-            </p>
-
-            <h3>How is security handled?</h3>
-            <p>
-              Core controls include secure HTTPS transport, controlled system access, and managed backup
-              processes as part of normal platform operations.
-            </p>
-
-            <h3>Can BLOC-TEC be integrated into our website?</h3>
-            <p>
-              Yes. We support website embedding workflows, including iframe-based integration, and can
-              also provide direct account links where needed.
-            </p>
-
-            <h3>How many product samples do we need to send?</h3>
-            <p>
-              This depends on product type, blend complexity, and size variation. We advise sample
-              quantities during onboarding to balance realism and delivery speed.
-            </p>
+            <h2>Account management and support</h2>
+            <div className="faq-accordion">
+              <details className="faq-item">
+                <summary>What level of technical support is offered?</summary>
+                <p>
+                  We provide ongoing support for account updates, compatibility maintenance, and
+                  operational guidance as your setup evolves.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How is security handled?</summary>
+                <p>
+                  Core controls include secure HTTPS transport, controlled system access, and managed
+                  backup processes as part of normal platform operations.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>Where can we use our software?</summary>
+                <p>
+                  Accounts can be used on approved website domains and in non-web contexts such as
+                  showrooms, sales presentations, and exhibition environments.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>Can products be added and removed after launch?</summary>
+                <p>
+                  Yes. We can remove outdated products and onboard new products as your catalogue changes.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>Can modules be added after launch?</summary>
+                <p>
+                  Yes. Additional capabilities can be phased in as commercial and technical priorities
+                  develop.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How are scenes managed after launch?</summary>
+                <p>
+                  Scene selection can be updated as your account evolves, including custom scene requests
+                  where suitable.
+                  {" "}
+                  <NavLink to="/scenes">Open Scenes</NavLink>
+                </p>
+              </details>
+            </div>
           </article>
 
           <article className="card">
-            <h2>Performance</h2>
-            <h3>What platforms does BLOC-TEC run on?</h3>
-            <p>
-              BLOC-TEC runs in modern web browsers and is designed for fast, interactive product
-              exploration without specialist local installation.
-            </p>
-
-            <h3>Is BLOC-TEC responsive on mobile devices?</h3>
-            <p>Yes. The interface is responsive across desktop, tablet, and mobile screen sizes.</p>
-          </article>
-
-          <article className="card">
-            <h2>User accounts</h2>
-            <h3>What is bricktextures.com website?</h3>
-            <p>
-              bricktextures.com is the BLOC-TEC development and testing environment used to trial new
-              software ideas before selected features are rolled into manufacturer-linked accounts.
-            </p>
-
-            <h3>How is a new manufacturer account priced?</h3>
-            <p>
-              Pricing is based on scope: product count, onboarding effort, image readiness, and any
-              required integration modules.
-            </p>
-
-            <h3>How do we link our website to the software?</h3>
-            <p>
-              You can embed BLOC-TEC directly in your website via iframe, or use direct account links
-              for full-page launch depending on your user journey.
-            </p>
-
-            <h3>How long does onboarding take?</h3>
-            <p>
-              Delivery time depends on product volume and preparation quality. We confirm realistic
-              timelines once scope is reviewed.
-            </p>
-
-            <h3>Can modules be added later?</h3>
-            <p>
-              Yes. Additional capabilities can be phased in as commercial and technical priorities
-              develop.
-            </p>
-
-            <h3>What level of technical support is offered?</h3>
-            <p>
-              We provide ongoing support for account updates, compatibility maintenance, and operational
-              guidance as your setup evolves.
-            </p>
-
-            <h3>Where can we use our software?</h3>
-            <p>
-              Accounts can be used on approved website domains and in non-web contexts such as
-              showrooms, sales presentations, and exhibition environments.
-            </p>
-
-            <h3>Can products be added and removed after launch?</h3>
-            <p>
-              Yes. We can remove outdated products and onboard new products as your catalogue changes.
-            </p>
-
-            <h3>Can resellers use product swatches from BLOC-TEC?</h3>
-            <p>
-              Product swatch usage by resellers is currently under review. We confirm approved usage
-              routes during manufacturer onboarding.
-            </p>
-
-            <h3>How do I change scenes?</h3>
-            <p>
-              Scene selection can be updated as your account evolves. We can adjust your scene mix and
-              add new scene options during ongoing account support.
-            </p>
-
-            <h3>Can I add scenes from my own imagery?</h3>
-            <p>
-              Yes. Many clients use custom scenes built around their own context and products. See our
-              scene options page for guidance.
-              {" "}
-              <NavLink to="/scenes">Open Scenes</NavLink>
-            </p>
+            <h2>Product images</h2>
+            <div className="faq-accordion">
+              <details className="faq-item">
+                <summary>Can we use our own images?</summary>
+                <p>
+                  Yes. Image quality is central to accurate output. We review supplied imagery against
+                  BLOC-TEC requirements before use so display quality remains consistent.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How are product images created?</summary>
+                <p>
+                  We work from product sample photography and structured processing workflows so products
+                  can be shown reliably across bonds, joints, and layout options.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How many product samples do we need to send?</summary>
+                <p>
+                  Sample quantity depends on product type, blend complexity, and size variation. We advise
+                  practical quantities during onboarding to balance realism and delivery speed.
+                </p>
+              </details>
+            </div>
           </article>
         </div>
       </section>
@@ -865,14 +883,19 @@ function FaqPage() {
       <section className="section">
         <div className="container">
           <article className="card">
-            <h2>Get in touch</h2>
+            <h2>Didn&apos;t find what you need?</h2>
             <p>
-              If you have other questions that are not covered here, contact us and we will route your
-              enquiry to the right team.
+              For manufacturer-specific questions, talk to our team directly and we will route your
+              enquiry to the right people quickly.
             </p>
-            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
-              Contact BLOC-TEC
-            </NavLink>
+            <div className="faq-cta-actions">
+              <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+                Contact BLOC-TEC
+              </NavLink>
+              <a className="btn btn-secondary scene-cta-btn" href="mailto:info@bloc-tec.com">
+                Email info@bloc-tec.com
+              </a>
+            </div>
           </article>
         </div>
       </section>
@@ -931,10 +954,10 @@ function ProductSamplesPage() {
         </p>
       </div>
 
-      <section className="section samples-quick-section">
-        <div className="container card">
-          <h2>Quick links</h2>
-          <p className="samples-quick-links">
+      <section className="section quick-links-section">
+        <div className="container card quick-links-card">
+          <p className="quick-links-title">Quick links</p>
+          <p className="quick-links">
             <a className="btn-small" href="#delivery-address">Delivery essentials</a>
             <a className="btn-small" href="#preparation">Preparation for photography</a>
             <a className="btn-small" href="#customs-info">Customs and compliance</a>

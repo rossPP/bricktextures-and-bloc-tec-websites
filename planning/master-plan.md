@@ -65,6 +65,8 @@ Create and launch a mobile-friendly website strategy centered on `bricktextures.
 - Defer analytics implementation until after core content flow is finalized.
 - Later add audience-role capture (for example Architect, Gamer, Hardscape Designer, Landscaper, Other) before vault access when tracking setup is ready.
 - Skip popup feedback collection for now.
+- Revisit and rewrite the `Reseller-ready sharing` value proposition on the `For Manufacturers` page after commercial positioning is finalized.
+- Revisit `Stronger client engagement` as a `For Manufacturers` value box once we have clear supporting proof points.
 
 ## Post-Launch Asset Todo
 
