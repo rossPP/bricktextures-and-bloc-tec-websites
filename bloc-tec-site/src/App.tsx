@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
   Call24Regular,
   Box24Regular,
@@ -453,15 +453,17 @@ function IntegrationPage() {
       </section>
 
       <section className="section section-alt">
-        <div className="container card">
-          <h2>Need integration support now?</h2>
-          <p>
-            Contact us with your account route, website context, and whether you need full collection
-            embeds, product-targeted links, or live swatch delivery.
-          </p>
-          <a className="btn btn-primary" href="mailto:info@bloc-tec.com">
-            Email info@bloc-tec.com
-          </a>
+        <div className="container">
+          <article className="card">
+            <h2>Need integration support now?</h2>
+            <p>
+              Contact us with your account route, website context, and whether you need full collection
+              embeds, product-targeted links, or live swatch delivery.
+            </p>
+            <a className="btn btn-primary scene-cta-btn" href="mailto:info@bloc-tec.com">
+              Email info@bloc-tec.com
+            </a>
+          </article>
         </div>
       </section>
     </main>
@@ -692,15 +694,17 @@ function ManufacturersPage() {
       </section>
 
       <section className="section">
-        <div className="container card">
-          <h2>Discuss your manufacturer setup</h2>
-          <p>
-            Tell us about your current product content, reseller needs, and website goals. We can
-            recommend the best starting route for onboarding and integration.
-          </p>
-          <NavLink className="btn btn-primary" to="/contact">
-            Contact BLOC-TEC
-          </NavLink>
+        <div className="container">
+          <article className="card">
+            <h2>Discuss your manufacturer setup</h2>
+            <p>
+              Tell us about your current product content, reseller needs, and website goals. We can
+              recommend the best starting route for onboarding and integration.
+            </p>
+            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+              Contact BLOC-TEC
+            </NavLink>
+          </article>
         </div>
       </section>
     </main>
@@ -859,15 +863,17 @@ function FaqPage() {
       </section>
 
       <section className="section">
-        <div className="container card">
-          <h2>Get in touch</h2>
-          <p>
-            If you have other questions that are not covered here, contact us and we will route your
-            enquiry to the right team.
-          </p>
-          <NavLink className="btn btn-primary" to="/contact">
-            Contact BLOC-TEC
-          </NavLink>
+        <div className="container">
+          <article className="card">
+            <h2>Get in touch</h2>
+            <p>
+              If you have other questions that are not covered here, contact us and we will route your
+              enquiry to the right team.
+            </p>
+            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+              Contact BLOC-TEC
+            </NavLink>
+          </article>
         </div>
       </section>
     </main>
@@ -929,15 +935,15 @@ function ProductSamplesPage() {
         <div className="container card">
           <h2>Quick links</h2>
           <p className="samples-quick-links">
-            <a href="#delivery-address">Delivery essentials</a>
-            <a href="#quantity">Preparation for photography</a>
-            <a href="#customs-info">Customs and compliance</a>
+            <a className="btn-small" href="#delivery-address">Delivery essentials</a>
+            <a className="btn-small" href="#preparation">Preparation for photography</a>
+            <a className="btn-small" href="#customs-info">Customs and compliance</a>
           </p>
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container card" id="delivery-address">
+      <section className="section section-alt" id="delivery-address">
+        <div className="container card">
           <h2>Delivery of samples</h2>
           <div className="feature-list samples-delivery-list">
             <article className="feature-row">
@@ -994,7 +1000,7 @@ function ProductSamplesPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" id="preparation">
         <div className="container card">
           <h2>Preparation of samples for photography</h2>
           <div className="feature-list samples-prep-list">
@@ -1055,8 +1061,8 @@ function ProductSamplesPage() {
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container card" id="customs-info">
+      <section className="section section-alt" id="customs-info">
+        <div className="container card">
           <h2><span className="samples-icon" aria-hidden="true"><Globe24Regular /></span>Customs and compliance</h2>
           <div className="feature-list samples-customs-list">
             <article className="feature-row" id="customs">
@@ -1156,95 +1162,319 @@ function AppTermsPage() {
 }
 
 function ScenesPage() {
+  const [sharedFilter, setSharedFilter] = useState<"Walling" | "Paving" | "Flooring">("Walling");
+  const [sharedSubFilter, setSharedSubFilter] = useState<string>("All");
+  const [lightboxScene, setLightboxScene] = useState<null | { title: string; imageSrc: string }>(null);
+  const sharedFilters = ["Walling", "Paving", "Flooring"] as const;
+
+  const sceneImageBaseUrl = "https://app.bloc-tec.com/images/scenes";
+  const sharedSceneImage = (group: "paving" | "walling" | "flooring", name: string) =>
+    `${sceneImageBaseUrl}/shared/${group}/${encodeURIComponent(name)}.webp`;
+  const customSceneImage = (account: string, name: string) =>
+    `${sceneImageBaseUrl}/custom/${encodeURIComponent(account)}/${encodeURIComponent(name)}.webp`;
+
+  type SharedGroup = "paving" | "walling" | "flooring";
+  type SharedCategory = (typeof sharedFilters)[number];
+  const categoryLabelByGroup: Record<SharedGroup, SharedCategory> = {
+    paving: "Paving",
+    walling: "Walling",
+    flooring: "Flooring"
+  };
+
+  const getSubLevel = (group: SharedGroup, sceneName: string): string => {
+    if (group === "paving") {
+      if (sceneName.startsWith("Patio") || sceneName.startsWith("Pool")) return "Patios";
+      if (sceneName.startsWith("Driveway")) return "Driveways";
+      if (sceneName.startsWith("CommercialPaving")) return "Commercial";
+      return "General";
+    }
+    if (group === "walling") {
+      if (sceneName.startsWith("HouseWall")) return "House";
+      if (sceneName.startsWith("CommercialWall")) return "Commercial";
+      if (sceneName.startsWith("GardenWall")) return "Garden";
+      if (sceneName.startsWith("InternalWall")) return "Internal";
+      return "General";
+    }
+    if (group === "flooring") return "Internal";
+    return "General";
+  };
+
+  const formatSceneTitle = (sceneName: string): string =>
+    sceneName
+      .replace(/([a-z])([A-Z])/g, "$1 $2")
+      .replace(/([A-Za-z])(\d+)/g, "$1 $2")
+      .trim();
+
+  const sharedSceneCatalog: Array<{ group: SharedGroup; sceneName: string }> = [
+    { group: "paving", sceneName: "Driveway1" },
+    { group: "paving", sceneName: "Driveway2" },
+    { group: "paving", sceneName: "Driveway3" },
+    { group: "paving", sceneName: "Driveway4" },
+    { group: "paving", sceneName: "Driveway5" },
+    { group: "paving", sceneName: "Driveway6" },
+    { group: "paving", sceneName: "Driveway7" },
+    { group: "paving", sceneName: "Driveway8" },
+    { group: "paving", sceneName: "Patio1" },
+    { group: "paving", sceneName: "Patio2" },
+    { group: "paving", sceneName: "Patio3" },
+    { group: "paving", sceneName: "Patio4" },
+    { group: "paving", sceneName: "Patio5" },
+    { group: "paving", sceneName: "Patio6" },
+    { group: "paving", sceneName: "Pool1" },
+    { group: "paving", sceneName: "CommercialPaving1" },
+    { group: "paving", sceneName: "CommercialPaving2" },
+    { group: "paving", sceneName: "CommercialPaving3" },
+    { group: "walling", sceneName: "CommercialWall1" },
+    { group: "walling", sceneName: "CommercialWall2" },
+    { group: "walling", sceneName: "CommercialWall3" },
+    { group: "walling", sceneName: "GardenWall1" },
+    { group: "walling", sceneName: "GardenWall2" },
+    { group: "walling", sceneName: "HouseWall1" },
+    { group: "walling", sceneName: "HouseWall2" },
+    { group: "walling", sceneName: "HouseWall3" },
+    { group: "walling", sceneName: "InternalWall1" },
+    { group: "walling", sceneName: "InternalWall2" },
+    { group: "walling", sceneName: "InternalWall3" },
+    { group: "walling", sceneName: "InternalWall4" },
+    { group: "flooring", sceneName: "Floor1" },
+    { group: "flooring", sceneName: "Floor2" },
+    { group: "flooring", sceneName: "Floor3" }
+  ];
+
+  const sharedScenes = sharedSceneCatalog.map(scene => ({
+    title: formatSceneTitle(scene.sceneName),
+    category: categoryLabelByGroup[scene.group],
+    subLevel: getSubLevel(scene.group, scene.sceneName),
+    imageSrc: sharedSceneImage(scene.group, scene.sceneName)
+  }));
+
+  const customScenes = [
+    {
+      title: "Featured housing contract",
+      imageSrc: customSceneImage("AG", "AGHouse1"),
+      reason: "Our client wanted a semi-detached house with a central gable roof to reflect a major housing contract they were supplying bricks to."
+    },
+    {
+      title: "Large commercial and institutional buildings",
+      imageSrc: customSceneImage("ibstock", "IBSTOCKFirrhill"),
+      reason: "Brick manufacturers often want to visualise large facade projects such as hospitals, schools, commercial buildings, and other institutional developments."
+    },
+    {
+      title: "House typical of local factory area",
+      imageSrc: customSceneImage("ibstock", "IBSTOCKRegencyManor"),
+      reason: "This reflects a typical house style in the region around the brick manufacturer's factory."
+    },
+    {
+      title: "Specialist product use",
+      imageSrc: customSceneImage("outhaus", "OUTHAUSInternalBrick1"),
+      reason: "Clients may have specialised walling products, such as internal cladding. Custom scenes can showcase unique applications."
+    },
+    {
+      title: "Focus on architectural features",
+      imageSrc: customSceneImage("outhaus", "OUTHAUSGableWithPorch"),
+      reason: "Custom scenes can highlight unique features, such as a zinc porch or other distinctive architectural details."
+    },
+    {
+      title: "Hero image use",
+      imageSrc: customSceneImage("outhaus", "OUTHAUSPaving1"),
+      reason: "Our client had a high-performing hero image that we were able to incorporate into their account."
+    }
+  ];
+
+  const availableSubFilters = [
+    "All",
+    ...Array.from(
+      new Set(
+        sharedScenes
+          .filter(scene => scene.category === sharedFilter)
+          .map(scene => scene.subLevel)
+      )
+    )
+  ];
+  const realSubFilterCount = availableSubFilters.filter(sub => sub !== "All").length;
+  const subFilterCounts: Record<string, number> = sharedScenes
+    .filter(scene => scene.category === sharedFilter)
+    .reduce((acc, scene) => {
+      acc[scene.subLevel] = (acc[scene.subLevel] ?? 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+  const activeSubFilter = availableSubFilters.includes(sharedSubFilter) ? sharedSubFilter : "All";
+
+  const filteredSharedScenes = sharedScenes.filter(scene => {
+    if (scene.category !== sharedFilter) return false;
+    if (activeSubFilter !== "All" && scene.subLevel !== activeSubFilter) return false;
+    return true;
+  });
+
+  useEffect(() => {
+    if (!lightboxScene) return;
+    const previousOverflow = document.body.style.overflow;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setLightboxScene(null);
+      }
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [lightboxScene]);
+
   return (
     <main className="section">
       <div className="container page-header">
         <p className="eyebrow">Scenes</p>
         <h1>Scene options for manufacturer accounts</h1>
         <p className="lead">
-          Scene packs can start from existing BLOC-TEC libraries and expand with custom scenes tailored
-          to your products and brand context.
+          We provide a library of shared scenes available across all client accounts for anyone who wants
+          to use them.
+        </p>
+        <p className="lead">
+          For a hassle-free launch, we can assign scenes from this shared library so your account is ready
+          quickly without scene setup concerns. After launch, you can refine your scene list using proven
+          shared options and add custom scenes that
+          better match your products and local market.
+        </p>
+        <p className="scene-jump-links">
+          <a className="btn-small" href="#custom-scenes">Jump to custom scenes</a>
         </p>
       </div>
 
       <section className="section">
         <div className="container">
           <article className="card">
-            <h2>Scene setup routes</h2>
-            <div className="feature-list">
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Existing scene libraries</h3>
-                  <p>
-                    Choose from established scene sets across paving, walling, and flooring to launch
-                    quickly with proven formats.
-                  </p>
+            <h2>Shared scenes</h2>
+            <p>
+              Shared scenes are grouped as Paving, Walling, and Flooring to match your product categories.
+            </p>
+            <p>
+              These scenes have been used successfully by our clients, giving you a reliable starting
+              point while keeping your initial setup straightforward.
+            </p>
+            <div className="scene-filter-bar" role="tablist" aria-label="Shared scene category filters">
+              {sharedFilters.map(filter => (
+                <button
+                  key={filter}
+                  className={`scene-filter-btn${sharedFilter === filter ? " active" : ""}`}
+                  type="button"
+                  onClick={() => {
+                    setSharedFilter(filter);
+                    setSharedSubFilter("All");
+                  }}
+                >
+                  <span>{filter}</span>
+                </button>
+              ))}
+            </div>
+            {realSubFilterCount > 1 ? (
+              <>
+                <p className="scene-subfilter-label">Filter {sharedFilter} scenes</p>
+                <div className="scene-subfilter-bar" role="tablist" aria-label={`${sharedFilter} scene sub-category filters`}>
+                  {availableSubFilters.map(subFilter => {
+                    const count =
+                      subFilter === "All"
+                        ? sharedScenes.filter(scene => scene.category === sharedFilter).length
+                        : (subFilterCounts[subFilter] ?? 0);
+                    return (
+                      <button
+                        key={subFilter}
+                        className={`scene-subfilter-btn${activeSubFilter === subFilter ? " active" : ""}`}
+                        type="button"
+                        onClick={() => setSharedSubFilter(subFilter)}
+                      >
+                        <span>{subFilter} ({count})</span>
+                      </button>
+                    );
+                  })}
                 </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Existing scene library image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Custom scene development</h3>
-                  <p>
-                    Add custom scenes aligned to your products, photography style, and preferred
-                    customer journey.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Custom scene image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Phased scene rollout</h3>
-                  <p>
-                    Start with a core scene set, then expand over time as product ranges and campaign
-                    needs evolve.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Scene rollout image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Ongoing scene adjustments</h3>
-                  <p>
-                    Scene choices can be updated post-launch so your account stays aligned with sales
-                    priorities, market seasonality, and new product introductions.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Scene updates image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
+              </>
+            ) : null}
+            <div className="scene-grid">
+              {filteredSharedScenes.map(scene => (
+                <article key={`${scene.category}-${scene.title}`} className="scene-card">
+                  <button
+                    className="scene-card-trigger"
+                    type="button"
+                    onClick={() => setLightboxScene({ title: scene.title, imageSrc: scene.imageSrc })}
+                    aria-label={`View larger: ${scene.title}`}
+                  >
+                    <div className="scene-thumb">
+                      <img src={scene.imageSrc} alt={scene.title} loading="lazy" decoding="async" />
+                    </div>
+                    <h3>{scene.title}</h3>
+                    <p className="scene-meta">{scene.category} | {scene.subLevel}</p>
+                  </button>
+                </article>
+              ))}
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="section section-alt" id="custom-scenes">
+        <div className="container">
+          <article className="card">
+            <h2>Custom scenes</h2>
+            <p>
+              Custom scenes are the key option when you need local relevance or a specific context for
+              your market. This is often the strongest reason clients choose custom scene work.
+            </p>
+            <p>
+              If you already have a hero scene or image that performs well, send it to us and we will do
+              our best to include it in the software. If adjustments are needed, we will guide you on the
+              required changes.
+            </p>
+            <div className="scene-grid scene-grid-custom">
+              {customScenes.map(scene => (
+                <article key={scene.title} className="scene-card">
+                  <button
+                    className="scene-card-trigger"
+                    type="button"
+                    onClick={() => setLightboxScene({ title: scene.title, imageSrc: scene.imageSrc })}
+                    aria-label={`View larger: ${scene.title}`}
+                  >
+                    <div className="scene-thumb">
+                      <img src={scene.imageSrc} alt={scene.title} loading="lazy" decoding="async" />
+                    </div>
+                    <h3>{scene.title}</h3>
+                    <p className="scene-reason"><strong>Reason:</strong> {scene.reason}</p>
+                  </button>
+                </article>
+              ))}
             </div>
           </article>
         </div>
       </section>
 
       <section className="section section-alt">
-        <div className="container card">
-          <h2>Have a scene idea?</h2>
-          <p>
-            If you have a scene concept and want to know whether it can be added to your account,
-            contact us and we can review suitability, setup approach, and rollout options.
-          </p>
-          <NavLink className="btn btn-primary" to="/contact">
-            Ask about scene suitability
-          </NavLink>
+        <div className="container">
+          <article className="card">
+            <h2>Have a scene idea?</h2>
+            <p>
+              If you have a scene concept and want to know whether it can be added to your account,
+              contact us and we can review suitability.
+            </p>
+            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+              Ask about scene suitability
+            </NavLink>
+          </article>
         </div>
       </section>
+
+      {lightboxScene ? (
+        <div className="scene-lightbox" role="dialog" aria-modal="true" aria-label={lightboxScene.title} onClick={() => setLightboxScene(null)}>
+          <div className="scene-lightbox-content" onClick={event => event.stopPropagation()}>
+            <button className="btn-small scene-lightbox-close" type="button" onClick={() => setLightboxScene(null)}>
+              Close
+            </button>
+            <img src={lightboxScene.imageSrc} alt={lightboxScene.title} />
+            <p className="scene-lightbox-title">{lightboxScene.title}</p>
+          </div>
+        </div>
+      ) : null}
 
     </main>
   );
@@ -1259,7 +1489,6 @@ function Footer() {
           <a href="https://bricktextures.com" target="_blank" rel="noreferrer">
             Visit bricktextures.com
           </a>
-          {" "}for development and testing
         </p>
         <p className="footer-legal">
           <NavLink to="/privacy-policy">Privacy policy</NavLink>

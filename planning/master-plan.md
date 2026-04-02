@@ -8,6 +8,7 @@ Create and launch a mobile-friendly website strategy centered on `bricktextures.
 
 - Primary launch site: `bricktextures.com`
 - Supporting company/app site: `bloc-tec.com`
+- Integration implementation guidance/options live on `bloc-tec.com` (not on the initial `bricktextures.com` marketing experience).
 - Public brand: `Brick Textures`
 - Branded attribution: `Brick Textures by bloc-tec`
 - Launch account slug target: `bricktextures` (currently `demo` until launch switch)
@@ -65,6 +66,13 @@ Create and launch a mobile-friendly website strategy centered on `bricktextures.
 - Later add audience-role capture (for example Architect, Gamer, Hardscape Designer, Landscaper, Other) before vault access when tracking setup is ready.
 - Skip popup feedback collection for now.
 
+## Post-Launch Asset Todo
+
+- Keep existing scene `.webp` files for launch to avoid blocking release work.
+- Create a dedicated website display image tier for scene cards (lighter files for faster page load on `bloc-tec-site`).
+- Keep viewer main scene files as `webp` and thumbnail/swatch assets as `jpg`.
+- Standardize scene asset folder structure and naming so Photoshop Generate Assets can output directly to the target paths.
+
 ## Account Rename Note
 
 - Rename `demo` to `bricktextures` when launch-ready.
@@ -72,6 +80,5 @@ Create and launch a mobile-friendly website strategy centered on `bricktextures.
 
 ## Supporting Planning Docs
 
-- `planning/launch-decisions.md`
 - `planning/content-outline.md`
 - `planning/account-rename-checklist.md`
