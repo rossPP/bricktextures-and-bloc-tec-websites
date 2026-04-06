@@ -319,6 +319,20 @@ h2 {
   flex-direction: column;
 }
 
+.integration-step {
+  margin-top: 0.55rem !important;
+}
+
+.integration-subtitle {
+  font-weight: 600;
+}
+
+.integration-sublevel {
+  display: block;
+  margin-top: 0.42rem;
+  font-weight: 600;
+}
+
 .feature-list {
   grid-template-columns: 1fr;
 }
@@ -651,7 +665,7 @@ h2 {
 #why-bloc-tec,
 #how-implementation,
 #where-used,
-#what-onboarding,
+#what-offers,
 #manufacturer-contact {
   scroll-margin-top: 96px;
 }

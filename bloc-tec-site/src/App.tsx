@@ -315,8 +315,8 @@ function IntegrationPage() {
                 <div className="feature-content">
                   <h3>Flexible website embedding</h3>
                   <p>
-                    We can support standalone links or iframe embedding to match your website platform,
-                    page structure, and rollout priorities.
+                    Choose standalone links or iframe embedding to suit your website structure.
+                    Direct server links are also available for up-to-date product swatches.
                   </p>
                 </div>
               </article>
@@ -341,56 +341,123 @@ function IntegrationPage() {
             <div className="feature-list">
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>1) Access model: standalone link or iframe embed</h3>
-                  <p>
-                    From the outset, BLOC-TEC can be used as a standalone link or embedded in an iframe.
-                    In both cases, account access is route-based.
+                  <h3>1) Base account access</h3>
+                  <p className="integration-step">
+                    <span className="integration-subtitle">Start with the base account link:</span>
+                    <br />
+                    <code>app.bloc-tec.com/account/</code><strong><code>&lt;account-name&gt;</code></strong>
                   </p>
-                  <p>
-                    <code>your Account</code> is your assigned account route name.
-                    <br />
-                    <code>yourCategory</code> is the category path inside your account (for example,
-                    Clay Facing Bricks).
+                  <p className="integration-step">
+                    We provide your exact values during account set-up.
+                    This route is useful for giving access to your full product collection, either
+                    full-screen in a new tab or embedded in an iframe.
                   </p>
-                  <p>
-                    Breakdown:
-                    <br />
-                    Account root: <code>/account/your Account</code>
-                    <br />
-                    Account category: <code>/account/your Account/yourCategory</code>
-                    <br />
-                    Product by name: <code>/account/your Account/yourCategory?viewProduct=Product Name</code>
-                    <br />
-                    Individual product by SKU: <code>/account/your Account/yourCategory?c=productCode</code>
-                  </p>
-                  <p>
-                    Iframe sizing guidance: the app switches to mobile-style UI behavior around a 1024px
-                    viewport trigger. For desktop-style controls, use a wider iframe where possible.
-                    Recommended start point: <code>width: 100%</code> and <code>height: 900px</code>.
-                  </p>
-                  <p>
-                    Iframe display behavior for logo and back buttons:
-                    <br />
-                    - In product-embed mode (<code>viewProduct</code>), viewer logo and viewer back
-                    button are hidden automatically.
-                    <br />
-                    - You can explicitly hide viewer header controls with
-                    <code> ?logo=false&amp;viewerBack=false</code>.
-                    <br />
-                    - Product-page back control can also be managed with
-                    <code> ?prodBack=false</code> where needed.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Access route image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
                 </div>
               </article>
 
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>2) Blender module placement guidance</h3>
+                  <h3>2) Linking to sub levels: category</h3>
+                  <p className="integration-step">
+                    <span className="integration-sublevel">Category:</span>
+                    <code>app.bloc-tec.com/account/&lt;account-name&gt;/</code><strong><code>&lt;category-name&gt;</code></strong>
+                  </p>
+                  <p className="integration-step">
+                    This is the top level of your account product structure. Use a category name shown
+                    under the category images to load that category directly. If no categories appear at
+                    start-up, your products are usually grouped within a single category.
+                  </p>
+                </div>
+              </article>
+
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>3) Linking to sub levels: product</h3>
+                  <p className="integration-step">
+                    <span className="integration-sublevel">Product:</span>
+                    <code>app.bloc-tec.com/account/&lt;account-name&gt;/&lt;category-name&gt;?</code><strong><code>viewProduct=&lt;product-name&gt;</code></strong>
+                  </p>
+                  <p className="integration-step">
+                    This loads a specific product while still allowing access to all available colours and
+                    finishes for that product.
+                  </p>
+                </div>
+              </article>
+
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>4) Linking to sub levels: individual SKU</h3>
+                  <p className="integration-step">
+                    <span className="integration-sublevel">SKU:</span>
+                    <code>app.bloc-tec.com/account/&lt;account-name&gt;/&lt;category-name&gt;?c=</code><strong><code>&lt;product-code&gt;</code></strong>
+                  </p>
+                  <p className="integration-step">
+                    This is useful for embedding directly within a webpage dedicated to a specific
+                    product. The back button and logo are removed automatically.
+                  </p>
+                </div>
+              </article>
+
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <article className="card">
+            <h2>Embed behaviour and sizing</h2>
+            <div className="feature-list">
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>5) Iframe sizing guidance</h3>
+                  <p className="integration-step">
+                    The app switches to mobile-style UI behavior around a 1024px viewport trigger. For
+                    desktop-style controls, use a wider iframe where possible. Recommended start point:
+                    {" "}
+                    <code>width: 100%</code>
+                    {" "}
+                    and
+                    {" "}
+                    <code>height: 900px</code>.
+                  </p>
+                </div>
+              </article>
+
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>6) Embed control visibility</h3>
+                  <p className="integration-step">
+                    In product-embed mode (<code>viewProduct</code>), viewer logo and viewer back button
+                    are hidden automatically.
+                  </p>
+                  <p className="integration-step">
+                    You can explicitly hide viewer header controls with
+                    {" "}
+                    <code>?logo=false&amp;viewerBack=false</code>.
+                  </p>
+                  <p className="integration-step">
+                    Product-page back control can also be managed with
+                    {" "}
+                    <code>?prodBack=false</code>
+                    {" "}
+                    where needed.
+                  </p>
+                </div>
+              </article>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <article className="card">
+            <h2>Additional integration guidance</h2>
+            <div className="feature-list">
+              <article className="feature-row">
+                <div className="feature-content">
+                  <h3>Blender module placement guidance</h3>
                   <p>
                     If Blender is enabled, we recommend hosting it on a dedicated page rather than on a
                     single product page.
@@ -409,16 +476,11 @@ function IntegrationPage() {
                     </a>
                   </p>
                 </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Blender page image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
               </article>
 
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>3) Live swatches in your web pages</h3>
+                  <h3>Live swatches in your web pages</h3>
                   <p>
                     Swatches served from BLOC-TEC stay aligned with current blend definitions and
                     presentation rules. This keeps output consistent in scale, framing, and displayed
@@ -434,16 +496,11 @@ function IntegrationPage() {
                     </a>
                   </p>
                 </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Swatch integration image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
               </article>
 
               <article className="feature-row">
                 <div className="feature-content">
-                  <h3>4) Share button: embedded vs standalone</h3>
+                  <h3>Share button: embedded vs standalone</h3>
                   <p>
                     In standalone mode, Share creates direct app URLs. In iframe mode, Share requests a
                     host-page URL so users return to your website context instead of leaving to the app
@@ -468,11 +525,6 @@ function IntegrationPage() {
                       Placeholder: full share integration guide
                     </a>
                   </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Share behavior image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
                 </div>
               </article>
             </div>
@@ -515,7 +567,7 @@ function ManufacturersPage() {
           <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
             <a className="btn-small" href="#why-bloc-tec">WHY choose BLOC-TEC</a>
-            <a className="btn-small" href="#what-onboarding">What BLOC-TEC offers</a>
+            <a className="btn-small" href="#what-offers">What BLOC-TEC offers</a>
             <a className="btn-small" href="#where-used">WHERE BLOC-TEC is used</a>
           </p>
         </div>
@@ -587,7 +639,7 @@ function ManufacturersPage() {
         </div>
       </section>
 
-      <section className="section" id="what-onboarding">
+      <section className="section" id="what-offers">
         <div className="container">
           <article className="card">
             <h2>What BLOC-TEC offers</h2>
@@ -596,7 +648,7 @@ function ManufacturersPage() {
                 <div className="feature-content">
                   <h3>Base package</h3>
                   <p>
-                    Core setup includes account routing, product data onboarding, and recommended
+                    Base package includes account routing, product data set-up, and recommended
                     defaults so your team can launch with a clear and consistent baseline. Pattern naming
                     and mortar preferences are also configured at setup and can be refined later.
                   </p>
@@ -730,7 +782,7 @@ function ManufacturersPage() {
             <h2>Next step: discuss your setup</h2>
             <p>
               Tell us about your current product content, reseller needs, and website goals. We can
-              recommend the best starting route for onboarding and integration.
+              recommend the best starting route for account set-up and integration.
             </p>
             <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
               Contact BLOC-TEC
@@ -788,12 +840,12 @@ function FaqPage() {
               <details className="faq-item">
                 <summary>How is a new manufacturer account priced?</summary>
                 <p>
-                  Pricing is based on scope: product count, onboarding effort, image readiness, and any
+                  Pricing is based on scope: product count, account set-up effort, image readiness, and any
                   required integration modules.
                 </p>
               </details>
               <details className="faq-item">
-                <summary>How long does onboarding take?</summary>
+                <summary>How long does account set-up take?</summary>
                 <p>
                   Delivery time depends on product volume and preparation quality. We confirm realistic
                   timelines once scope is reviewed.
@@ -872,7 +924,7 @@ function FaqPage() {
                 <summary>How many product samples do we need to send?</summary>
                 <p>
                   Sample quantity depends on product type, blend complexity, and size variation. We advise
-                  practical quantities during onboarding to balance realism and delivery speed.
+                  practical quantities during account set-up to balance realism and delivery speed.
                 </p>
               </details>
             </div>
@@ -949,7 +1001,7 @@ function ProductSamplesPage() {
         <p className="eyebrow">Support</p>
         <h1>Product Samples</h1>
         <p className="lead">
-          Guidance for delivery and preparation of samples used in BLOC-TEC onboarding and photography
+          Guidance for delivery and preparation of samples used in BLOC-TEC account set-up and photography
           workflows.
         </p>
       </div>
