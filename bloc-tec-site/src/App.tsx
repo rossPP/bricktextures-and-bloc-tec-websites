@@ -7,7 +7,14 @@ import {
   CheckmarkCircle24Regular,
   Table24Regular,
 } from "@fluentui/react-icons";
-import { BrowserRouter, Link, NavLink, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Link,
+  NavLink,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
 
 const APP_ENTRY_URL = "https://app.bloc-tec.com/account/demo/";
@@ -143,28 +150,67 @@ const INTEGRATION_METHOD_OPTIONS: Record<
 };
 
 function Header() {
+  const location = useLocation();
+  const [supportOpen, setSupportOpen] = useState(false);
+  const supportLinks = [
+    { to: "/faq", label: "FAQ" },
+    { to: "/integration", label: "Integration" },
+    { to: "/scenes", label: "Scenes" },
+    { to: "/product-samples", label: "Product Samples" },
+  ] as const;
+  const isSupportActive = supportLinks.some((item) =>
+    location.pathname.startsWith(item.to),
+  );
+
   return (
     <header className="site-header">
       <div className="container header-content">
-        <Link className="brand" to="/">
-          BLOC-TEC
-          <span>by Paver Picker Ltd</span>
-        </Link>
-        <nav className="main-nav" aria-label="Main navigation">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/for-manufacturers">For Manufacturers</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-        </nav>
-      </div>
-      <div className="support-nav-wrap">
-        <div className="container">
-          <nav className="support-nav" aria-label="Support navigation">
-            <NavLink to="/faq">FAQ</NavLink>
-            <NavLink to="/integration">Integration</NavLink>
-            <NavLink to="/scenes">Scenes</NavLink>
-            <NavLink to="/product-samples">Product Samples</NavLink>
+        <div className="header-top-row">
+          <Link className="brand" to="/">
+            <img
+              src="/images/brand/bloc-tec-logo-black.svg"
+              alt="BLOC-TEC"
+              className="brand-logo"
+            />
+          </Link>
+          <nav className="main-nav" aria-label="Main navigation">
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/for-manufacturers">For Manufacturers</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+            <button
+              type="button"
+              className={`support-nav-trigger${supportOpen || isSupportActive ? " active" : ""}`}
+              aria-expanded={supportOpen}
+              aria-controls="support-nav-dropdown"
+              onClick={() => setSupportOpen((value) => !value)}
+            >
+              Support
+              <span aria-hidden="true" className="support-nav-trigger-caret">
+                {supportOpen ? "▲" : "▼"}
+              </span>
+            </button>
           </nav>
         </div>
+        {supportOpen ? (
+          <div className="support-nav-row">
+            <nav
+              className="support-nav-dropdown"
+              id="support-nav-dropdown"
+              aria-label="Support navigation"
+            >
+              {supportLinks.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="support-tab"
+                  onClick={() => setSupportOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        ) : null}
       </div>
     </header>
   );
@@ -274,11 +320,7 @@ function HomePage() {
 
       <section className="section quick-links-section">
         <div className="container">
-          <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
-            <a className="btn-small" href="#about">
-              What we do
-            </a>
             <a className="btn-small" href="#app">
               Who we work with
             </a>
@@ -551,11 +593,7 @@ function IntegrationPage() {
 
       <section className="section quick-links-section">
         <div className="container">
-          <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
-            <a className="btn-small" href="#integration-methods">
-              Integration methods
-            </a>
             <a className="btn-small" href="#embed-behaviour-and-sizing">
               Integration advice
             </a>
@@ -965,11 +1003,7 @@ function ManufacturersPage() {
 
       <section className="section quick-links-section">
         <div className="container">
-          <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
-            <a className="btn-small" href="#why-bloc-tec">
-              WHY choose BLOC-TEC
-            </a>
             <a className="btn-small" href="#what-offers">
               What BLOC-TEC offers
             </a>
@@ -1421,11 +1455,7 @@ function ProductSamplesPage() {
 
       <section className="section quick-links-section">
         <div className="container">
-          <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
-            <a className="btn-small" href="#delivery-address">
-              Delivery essentials
-            </a>
             <a className="btn-small" href="#preparation">
               Preparation for photography
             </a>
@@ -1896,7 +1926,6 @@ function ScenesPage() {
           options and add custom scenes that better match your products and
           local market.
         </p>
-        <p className="quick-links-title">Quick links</p>
         <p className="scene-jump-links">
           <a className="btn-small" href="#custom-scenes">
             Custom scenes
@@ -1961,7 +1990,8 @@ function ScenesPage() {
                         onClick={() => setSharedSubFilter(subFilter)}
                       >
                         <span>
-                          {subFilter} ({count})
+                          {subFilter}{" "}
+                          <span className="scene-count">({count})</span>
                         </span>
                       </button>
                     );
