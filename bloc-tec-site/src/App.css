@@ -32,6 +32,17 @@ body {
   cursor: default;
 }
 
+main a:not(.btn):not(.btn-small) {
+  color: #1d5a4f;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+main a:not(.btn):not(.btn-small):hover {
+  color: #0f4a3f;
+}
+
 input,
 textarea {
   cursor: text;
@@ -235,6 +246,10 @@ h2 {
   padding: 3rem 0;
 }
 
+.section-tight-top {
+  padding-top: 1.2rem;
+}
+
 .section-alt {
   background: var(--color-surface);
 }
@@ -253,6 +268,21 @@ h2 {
   border-radius: 0.9rem;
   padding: 1.1rem;
   background: #fff;
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.45rem;
+  font-size: 1.02rem;
+}
+
+.card-stack {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.integration-advice-group {
+  padding: 0;
 }
 
 .feature-list {
@@ -372,6 +402,173 @@ h2 {
   color: #456c63 !important;
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.integration-method-selector {
+  margin-bottom: 0.7rem;
+}
+
+.integration-method-panel {
+  display: block;
+  padding: 0.95rem;
+}
+
+.integration-method-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.7rem;
+}
+
+.integration-method-actions .btn-small {
+  background: #e6f4f0;
+  border-color: #7fbbae;
+  color: #184b42;
+  font-weight: var(--ui-btn-font-weight);
+  font-family: var(--ui-btn-font-family);
+}
+
+.integration-method-actions .btn-small:hover {
+  background: #d8efe8;
+  border-color: #4f9f8d;
+  color: #0f3f36;
+}
+
+.integration-preview-wrap {
+  margin-top: 0.9rem;
+  border: 1px solid #d5e4df;
+  border-radius: 0.7rem;
+  overflow: hidden;
+  background: #f8fbfa;
+}
+
+.integration-preview-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.45rem;
+  border-bottom: 1px solid #d5e4df;
+  background: #eef7f4;
+}
+
+.integration-preview-iframe {
+  display: block;
+  width: 100%;
+  min-height: 640px;
+  border: 0;
+  background: #fff;
+}
+
+.integration-recommendation {
+  color: #2b4d45 !important;
+}
+
+.integration-recommendation-intro {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
+.integration-recommendation-line {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+.integration-resource-links {
+  word-break: break-word;
+}
+
+.integration-details {
+  margin-top: 0.6rem;
+  border: 1px solid #d6e6e1;
+  border-radius: 0.6rem;
+  background: #f4faf8;
+  padding: 0.55rem 0.7rem;
+}
+
+.integration-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #1d453d;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.integration-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.integration-details summary::after {
+  content: "+";
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.integration-details[open] summary::after {
+  content: "\2212";
+}
+
+.integration-flow-card {
+  margin-top: 0.6rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid #d5e5df;
+  border-radius: 0.6rem;
+  background: #f6fbf9;
+}
+
+.integration-inline-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #1d5a4f;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-weight: 400;
+}
+
+.integration-inline-link:hover {
+  color: #0f4a3f;
+}
+
+.integration-iframe-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 1.2rem;
+  background: rgba(8, 26, 22, 0.48);
+  backdrop-filter: blur(8px);
+}
+
+.integration-iframe-modal-content {
+  width: min(1240px, 100%);
+  border-radius: 0.95rem;
+  border: 1px solid rgba(205, 229, 223, 0.85);
+  background: #f4f9f7;
+  box-shadow: 0 20px 56px rgba(3, 21, 18, 0.42), 0 6px 18px rgba(6, 35, 29, 0.28);
+  overflow: hidden;
+}
+
+.integration-iframe-modal-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid #d4e7e1;
+  background: linear-gradient(180deg, #f8fcfb 0%, #edf7f4 100%);
+}
+
+.integration-iframe-modal-frame {
+  display: block;
+  width: 100%;
+  height: min(78vh, 980px);
+  border: 0;
+  background: #fff;
 }
 
 .page-header {
@@ -663,7 +860,8 @@ h2 {
 }
 
 #why-bloc-tec,
-#how-implementation,
+#embed-behaviour-and-sizing,
+#integration-methods,
 #where-used,
 #what-offers,
 #manufacturer-contact {

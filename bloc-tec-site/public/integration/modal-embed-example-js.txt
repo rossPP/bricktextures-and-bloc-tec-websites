@@ -1,0 +1,19 @@
+const modal = document.getElementById("blocTecModal");
+const openBtn = document.getElementById("openBlocTecModal");
+const closeBtn = document.getElementById("closeBlocTecModal");
+
+const closeModal = () => {
+  modal?.classList.remove("is-open");
+  document.body.style.overflow = "";
+};
+
+openBtn?.addEventListener("click", () => {
+  modal?.classList.add("is-open");
+  document.body.style.overflow = "hidden";
+});
+
+closeBtn?.addEventListener("click", closeModal);
+
+modal?.addEventListener("click", (event) => {
+  if (event.target === modal) closeModal();
+});

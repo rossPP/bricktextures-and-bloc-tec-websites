@@ -1,0 +1,46 @@
+.bt-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 16px;
+  background: rgba(6, 16, 14, 0.65);
+  z-index: 9999;
+}
+
+.bt-modal.is-open {
+  display: grid;
+}
+
+.bt-modal__content {
+  width: min(1200px, 100%);
+  height: min(90vh, 920px);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.24);
+}
+
+.bt-modal__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+  border-bottom: 1px solid #d8ebe5;
+}
+
+.bt-modal__close {
+  padding: 6px 10px;
+  border-radius: 7px;
+  border: 1px solid #88b7ab;
+  background: #eef8f5;
+  color: #18483f;
+  cursor: pointer;
+}
+
+.bt-modal iframe {
+  display: block;
+  width: 100%;
+  height: calc(100% - 49px);
+  border: 0;
+  background: #fff;
+}

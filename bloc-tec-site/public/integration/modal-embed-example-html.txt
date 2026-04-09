@@ -1,0 +1,14 @@
+<button id="openBlocTecModal" type="button">Open product viewer</button>
+
+<div id="blocTecModal" class="bt-modal" role="dialog" aria-modal="true" aria-label="Product viewer">
+  <div class="bt-modal__content">
+    <div class="bt-modal__toolbar">
+      <button id="closeBlocTecModal" class="bt-modal__close" type="button">Close</button>
+    </div>
+    <iframe
+      title="BLOC-TEC viewer"
+      src="https://app.bloc-tec.com/account/demo/Clay%20Bricks?c=WO_LE_AN&viewerBack=false"
+      loading="lazy"
+    ></iframe>
+  </div>
+</div>
