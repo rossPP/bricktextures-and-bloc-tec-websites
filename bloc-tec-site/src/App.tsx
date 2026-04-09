@@ -272,6 +272,20 @@ function HomePage() {
         </div>
       </section>
 
+      <section className="section quick-links-section">
+        <div className="container">
+          <p className="quick-links-title">Quick links</p>
+          <p className="quick-links">
+            <a className="btn-small" href="#about">
+              What we do
+            </a>
+            <a className="btn-small" href="#app">
+              Who we work with
+            </a>
+          </p>
+        </div>
+      </section>
+
       <section id="about" className="section">
         <div className="container">
           <article className="card">
@@ -536,7 +550,7 @@ function IntegrationPage() {
       </div>
 
       <section className="section quick-links-section">
-        <div className="container card quick-links-card">
+        <div className="container">
           <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
             <a className="btn-small" href="#integration-methods">
@@ -683,14 +697,20 @@ function IntegrationPage() {
                   <button
                     className="btn-small"
                     type="button"
-                    onClick={() => setShowIframeModal(true)}
+                    onClick={() => {
+                      setShowIframeModal(true);
+                      setShowIframePreview(false);
+                    }}
                   >
                     Open in modal window
                   </button>
                   <button
-                    className="btn-small"
+                    className={`btn-small${showIframePreview ? " active" : ""}`}
                     type="button"
-                    onClick={() => setShowIframePreview(true)}
+                    onClick={() => {
+                      setShowIframePreview(true);
+                      setShowIframeModal(false);
+                    }}
                   >
                     Open embedded
                   </button>
@@ -722,10 +742,10 @@ function IntegrationPage() {
 
       <section className="section section-alt" id="embed-behaviour-and-sizing">
         <div className="container">
-          <div className="integration-advice-group">
+          <article className="card">
             <h2>Integration advice</h2>
-            <div className="card-stack">
-              <article className="card" id="sku-blender-guidance">
+            <div className="feature-list integration-list integration-advice-list">
+              <article className="feature-row" id="sku-blender-guidance">
                 <h3>Blender integration</h3>
                 <p className="integration-step">
                   When using the blender module, we recommend using a dedicated
@@ -744,7 +764,7 @@ function IntegrationPage() {
                 </p>
               </article>
 
-              <article className="card">
+              <article className="feature-row">
                 <h3>Iframe sizing</h3>
                 <p className="integration-step">
                   Avoid iframe widths at or below{" "}
@@ -753,7 +773,7 @@ function IntegrationPage() {
                 </p>
               </article>
 
-              <article className="card">
+              <article className="feature-row">
                 <h3>Hiding your logo</h3>
                 <p className="integration-step">
                   For browser-tab links, you can explicitly hide the viewer logo
@@ -761,7 +781,7 @@ function IntegrationPage() {
                 </p>
               </article>
 
-              <article className="card">
+              <article className="feature-row">
                 <h3>Creating a modal window</h3>
                 <p className="integration-step">
                   Use the steps below to wire a modal embed into your page.
@@ -797,7 +817,7 @@ function IntegrationPage() {
                 </p>
               </article>
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
@@ -944,7 +964,7 @@ function ManufacturersPage() {
       </div>
 
       <section className="section quick-links-section">
-        <div className="container card quick-links-card">
+        <div className="container">
           <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
             <a className="btn-small" href="#why-bloc-tec">
@@ -1206,17 +1226,6 @@ function FaqPage() {
             <h2>Account set-up and integration</h2>
             <div className="faq-accordion">
               <details className="faq-item">
-                <summary>
-                  How do we integrate BLOC-TEC into our website?
-                </summary>
-                <p>
-                  You can embed BLOC-TEC in your website via iframe, or use
-                  direct account links for full-page launch depending on your
-                  user journey.{" "}
-                  <NavLink to="/integration">Open Integration guidance</NavLink>
-                </p>
-              </details>
-              <details className="faq-item">
                 <summary>Can we host BLOC-TEC on our own servers?</summary>
                 <p>
                   No. Deployments are managed through BLOC-TEC infrastructure to
@@ -1225,11 +1234,30 @@ function FaqPage() {
                 </p>
               </details>
               <details className="faq-item">
-                <summary>Which infrastructure do you use?</summary>
+                <summary>Where is BLOC-TEC hosted and how is security managed?</summary>
                 <p>
                   We use managed cloud infrastructure (including AWS-backed
                   deployments) selected for stability, security, and scalable
-                  performance.
+                  performance. Core controls include secure HTTPS transport,
+                  controlled system access, and managed backup processes as part
+                  of normal platform operations.
+                </p>
+              </details>
+
+              <details className="faq-item">
+                <summary>How is a new manufacturer account priced?</summary>
+                <p>
+                  Pricing is based on project requirements, including product
+                  count, account set-up effort, image readiness, and required
+                  integration modules.
+                </p>
+              </details>
+              <details className="faq-item">
+                <summary>How long does account set-up take?</summary>
+                <p>
+                  Delivery time depends on product volume and preparation
+                  quality, as well as our current project pipeline. We confirm
+                  realistic timelines once requirements are reviewed.
                 </p>
               </details>
               <details className="faq-item">
@@ -1238,21 +1266,6 @@ function FaqPage() {
                   bricktextures.com is the BLOC-TEC development and testing
                   environment used to trial new software ideas before selected
                   features are rolled into manufacturer-linked accounts.
-                </p>
-              </details>
-              <details className="faq-item">
-                <summary>How is a new manufacturer account priced?</summary>
-                <p>
-                  Pricing is based on scope: product count, account set-up
-                  effort, image readiness, and any required integration modules.
-                </p>
-              </details>
-              <details className="faq-item">
-                <summary>How long does account set-up take?</summary>
-                <p>
-                  Delivery time depends on product volume and preparation
-                  quality. We confirm realistic timelines once scope is
-                  reviewed.
                 </p>
               </details>
             </div>
@@ -1266,14 +1279,6 @@ function FaqPage() {
                 <p>
                   We provide ongoing support for account updates, compatibility
                   maintenance, and operational guidance as your setup evolves.
-                </p>
-              </details>
-              <details className="faq-item">
-                <summary>How is security handled?</summary>
-                <p>
-                  Core controls include secure HTTPS transport, controlled
-                  system access, and managed backup processes as part of normal
-                  platform operations.
                 </p>
               </details>
               <details className="faq-item">
@@ -1314,28 +1319,22 @@ function FaqPage() {
           <article className="card">
             <h2>Product images</h2>
             <div className="faq-accordion">
+
+              <details className="faq-item">
+                <summary>How are product images created?</summary>
+               <p>
+                We photograph physical product samples under controlled lighting
+                conditions that mimic sunlight. All images are colour
+                calibrated. We also ensure only
+                the finished surface is shown so bonds and joint areas are presented accurately.
+              </p>
+              </details>
               <details className="faq-item">
                 <summary>Can we use our own images?</summary>
                 <p>
-                  Yes. Image quality is central to accurate output. We review
-                  supplied imagery against BLOC-TEC requirements before use so
-                  display quality remains consistent.
-                </p>
-              </details>
-              <details className="faq-item">
-                <summary>How are product images created?</summary>
-                <p>
-                  We work from product sample photography and structured
-                  processing workflows so products can be shown reliably across
-                  bonds, joints, and layout options.
-                </p>
-              </details>
-              <details className="faq-item">
-                <summary>How many product samples do we need to send?</summary>
-                <p>
-                  Sample quantity depends on product type, blend complexity, and
-                  size variation. We advise practical quantities during account
-                  set-up to balance realism and delivery speed.
+                  Yes. We review
+                  supplied imagery for suitability before use so
+                  display quality remains consistent. 
                 </p>
               </details>
             </div>
@@ -1348,8 +1347,8 @@ function FaqPage() {
           <article className="card">
             <h2>Didn&apos;t find what you need?</h2>
             <p>
-              For manufacturer-specific questions, talk to our team directly and
-              we will route your enquiry to the right people quickly.
+              If you have further questions, contact us directly and we&apos;ll
+              be happy to help.
             </p>
             <div className="faq-cta-actions">
               <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
@@ -1421,7 +1420,7 @@ function ProductSamplesPage() {
       </div>
 
       <section className="section quick-links-section">
-        <div className="container card quick-links-card">
+        <div className="container">
           <p className="quick-links-title">Quick links</p>
           <p className="quick-links">
             <a className="btn-small" href="#delivery-address">
@@ -1520,32 +1519,30 @@ function ProductSamplesPage() {
                   product and avoid visible repetition. Ensure you select
                   samples to represent the full colour range of your product.
                 </p>
-                <div className="samples-matrix-wrap">
-                  <table className="samples-matrix">
-                    <thead>
-                      <tr>
-                        <th>Product size</th>
-                        <th>Single colour</th>
-                        <th>Blended colour</th>
-                        <th>Recommended fallback</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Any edge under 300mm (e.g. bricks and blocks)</td>
-                        <td>10-20</td>
-                        <td>20-30</td>
-                        <td>Send 20</td>
-                      </tr>
-                      <tr>
-                        <td>All edges over 300mm (e.g. slabs)</td>
-                        <td>6-10</td>
-                        <td>10-16</td>
-                        <td>Send 10</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <table className="samples-matrix">
+                  <thead>
+                    <tr>
+                      <th>Product size</th>
+                      <th>Single colour</th>
+                      <th>Blended colour</th>
+                      <th>Recommended fallback</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Any edge under 300mm (e.g. bricks and blocks)</td>
+                      <td>10-20</td>
+                      <td>20-30</td>
+                      <td>Send 20</td>
+                    </tr>
+                    <tr>
+                      <td>All edges over 300mm (e.g. slabs)</td>
+                      <td>6-10</td>
+                      <td>10-16</td>
+                      <td>Send 10</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </article>
 
@@ -1899,9 +1896,10 @@ function ScenesPage() {
           options and add custom scenes that better match your products and
           local market.
         </p>
+        <p className="quick-links-title">Quick links</p>
         <p className="scene-jump-links">
           <a className="btn-small" href="#custom-scenes">
-            Jump to custom scenes
+            Custom scenes
           </a>
         </p>
       </div>
