@@ -1873,15 +1873,6 @@ function ScenesPage() {
   const realSubFilterCount = availableSubFilters.filter(
     (sub) => sub !== "All",
   ).length;
-  const subFilterCounts: Record<string, number> = sharedScenes
-    .filter((scene) => scene.category === sharedFilter)
-    .reduce(
-      (acc, scene) => {
-        acc[scene.subLevel] = (acc[scene.subLevel] ?? 0) + 1;
-        return acc;
-      },
-      {} as Record<string, number>,
-    );
 
   const activeSubFilter = availableSubFilters.includes(sharedSubFilter)
     ? sharedSubFilter
@@ -1911,7 +1902,7 @@ function ScenesPage() {
   }, [lightboxScene]);
 
   return (
-    <main className="section">
+    <main className="section scenes-page">
       <div className="container page-header">
         <p className="eyebrow">Scenes</p>
         <h1>Scene options for manufacturer accounts</h1>
@@ -1926,176 +1917,149 @@ function ScenesPage() {
           options and add custom scenes that better match your products and
           local market.
         </p>
-        <p className="scene-jump-links">
-          <a className="btn-small" href="#custom-scenes">
-            Custom scenes
-          </a>
-        </p>
       </div>
 
-      <section className="section">
-        <div className="container">
-          <article className="card">
-            <h2>Shared scenes</h2>
-            <p>
-              Shared scenes are grouped as Paving, Walling, and Flooring to
-              match your product categories.
-            </p>
-            <p>
-              These scenes have been used successfully by our clients, giving
-              you a reliable starting point while keeping your initial setup
-              straightforward.
-            </p>
-            <div
-              className="scene-filter-bar"
-              role="tablist"
-              aria-label="Shared scene category filters"
-            >
-              {sharedFilters.map((filter) => (
+      <section className="section scenes-panel">
+        <div className="container scenes-panel-inner">
+          <h2>Shared scenes</h2>
+          <p>
+            Shared scenes are grouped as Paving, Walling, and Flooring to match
+            your product categories.
+          </p>
+          <p>
+            These scenes have been used successfully by our clients, giving you
+            a reliable starting point while keeping your initial setup
+            straightforward.
+          </p>
+          <div
+            className="scene-filter-bar"
+            role="tablist"
+            aria-label="Shared scene category filters"
+          >
+            {sharedFilters.map((filter) => (
+              <button
+                key={filter}
+                className={`scene-filter-btn${sharedFilter === filter ? " active" : ""}`}
+                type="button"
+                onClick={() => {
+                  setSharedFilter(filter);
+                  setSharedSubFilter("All");
+                }}
+              >
+                <span>{filter}</span>
+              </button>
+            ))}
+          </div>
+          {realSubFilterCount > 1 ? (
+            <>
+              <p className="scene-subfilter-label">
+                Filter {sharedFilter} scenes
+              </p>
+              <div
+                className="scene-subfilter-bar"
+                role="tablist"
+                aria-label={`${sharedFilter} scene sub-category filters`}
+              >
+                {availableSubFilters.map((subFilter) => (
+                  <button
+                    key={subFilter}
+                    className={`scene-subfilter-btn${activeSubFilter === subFilter ? " active" : ""}`}
+                    type="button"
+                    onClick={() => setSharedSubFilter(subFilter)}
+                  >
+                    {subFilter}
+                  </button>
+                ))}
+              </div>
+            </>
+          ) : null}
+          <div className="scene-grid">
+            {filteredSharedScenes.map((scene) => (
+              <article
+                key={`${scene.category}-${scene.title}`}
+                className="scene-card"
+              >
                 <button
-                  key={filter}
-                  className={`scene-filter-btn${sharedFilter === filter ? " active" : ""}`}
+                  className="scene-card-trigger"
                   type="button"
-                  onClick={() => {
-                    setSharedFilter(filter);
-                    setSharedSubFilter("All");
-                  }}
+                  onClick={() =>
+                    setLightboxScene({
+                      title: scene.title,
+                      imageSrc: scene.imageSrc,
+                    })
+                  }
+                  aria-label={`View larger: ${scene.title}`}
                 >
-                  <span>{filter}</span>
+                  <div className="scene-thumb">
+                    <img
+                      src={scene.imageSrc}
+                      alt={scene.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <h3>{scene.title}</h3>
                 </button>
-              ))}
-            </div>
-            {realSubFilterCount > 1 ? (
-              <>
-                <p className="scene-subfilter-label">
-                  Filter {sharedFilter} scenes
-                </p>
-                <div
-                  className="scene-subfilter-bar"
-                  role="tablist"
-                  aria-label={`${sharedFilter} scene sub-category filters`}
-                >
-                  {availableSubFilters.map((subFilter) => {
-                    const count =
-                      subFilter === "All"
-                        ? sharedScenes.filter(
-                            (scene) => scene.category === sharedFilter,
-                          ).length
-                        : (subFilterCounts[subFilter] ?? 0);
-                    return (
-                      <button
-                        key={subFilter}
-                        className={`scene-subfilter-btn${activeSubFilter === subFilter ? " active" : ""}`}
-                        type="button"
-                        onClick={() => setSharedSubFilter(subFilter)}
-                      >
-                        <span>
-                          {subFilter}{" "}
-                          <span className="scene-count">({count})</span>
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </>
-            ) : null}
-            <div className="scene-grid">
-              {filteredSharedScenes.map((scene) => (
-                <article
-                  key={`${scene.category}-${scene.title}`}
-                  className="scene-card"
-                >
-                  <button
-                    className="scene-card-trigger"
-                    type="button"
-                    onClick={() =>
-                      setLightboxScene({
-                        title: scene.title,
-                        imageSrc: scene.imageSrc,
-                      })
-                    }
-                    aria-label={`View larger: ${scene.title}`}
-                  >
-                    <div className="scene-thumb">
-                      <img
-                        src={scene.imageSrc}
-                        alt={scene.title}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                    <h3>{scene.title}</h3>
-                    <p className="scene-meta">
-                      {scene.category} | {scene.subLevel}
-                    </p>
-                  </button>
-                </article>
-              ))}
-            </div>
-          </article>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section section-alt" id="custom-scenes">
-        <div className="container">
-          <article className="card">
-            <h2>Custom scenes</h2>
-            <p>
-              Custom scenes are the key option when you need local relevance or
-              a specific context for your market. This is often the strongest
-              reason clients choose custom scene work.
-            </p>
-            <p>
-              If you already have a hero scene or image that performs well, send
-              it to us and we will do our best to include it in the software. If
-              adjustments are needed, we will guide you on the required changes.
-            </p>
-            <div className="scene-grid scene-grid-custom">
-              {customScenes.map((scene) => (
-                <article key={scene.title} className="scene-card">
-                  <button
-                    className="scene-card-trigger"
-                    type="button"
-                    onClick={() =>
-                      setLightboxScene({
-                        title: scene.title,
-                        imageSrc: scene.imageSrc,
-                      })
-                    }
-                    aria-label={`View larger: ${scene.title}`}
-                  >
-                    <div className="scene-thumb">
-                      <img
-                        src={scene.imageSrc}
-                        alt={scene.title}
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    </div>
-                    <h3>{scene.title}</h3>
-                    <p className="scene-reason">
-                      <strong>Reason:</strong> {scene.reason}
-                    </p>
-                  </button>
-                </article>
-              ))}
-            </div>
-          </article>
+      <section className="section scenes-panel" id="custom-scenes">
+        <div className="container scenes-panel-inner">
+          <h2>Custom scenes</h2>
+          <p>
+            Custom scenes are the key option when you need local relevance or a
+            specific context for your market. This is often the strongest reason
+            clients choose custom scene work.
+          </p>
+          <p>
+            If you already have a hero scene or image that performs well, send it
+            to us and we will do our best to include it in the software. If
+            adjustments are needed, we will guide you on the required changes.
+          </p>
+          <div className="scene-grid">
+            {customScenes.map((scene) => (
+              <article key={scene.title} className="scene-card">
+                <button
+                  className="scene-card-trigger"
+                  type="button"
+                  onClick={() =>
+                    setLightboxScene({
+                      title: scene.title,
+                      imageSrc: scene.imageSrc,
+                    })
+                  }
+                  aria-label={`View larger: ${scene.title}`}
+                >
+                  <div className="scene-thumb">
+                    <img
+                      src={scene.imageSrc}
+                      alt={scene.title}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <h3>{scene.title}</h3>
+                  <p className="scene-reason">{scene.reason}</p>
+                </button>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="section section-alt">
-        <div className="container">
-          <article className="card">
-            <h2>Have a scene idea?</h2>
-            <p>
-              If you have a scene concept and want to know whether it can be
-              added to your account, contact us and we can review suitability.
-            </p>
-            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
-              Ask about scene suitability
-            </NavLink>
-          </article>
+      <section className="section scenes-panel scenes-panel-cta">
+        <div className="container scenes-panel-inner">
+          <h2>Have a scene idea?</h2>
+          <p>
+            If you have a scene concept and want to know whether it can be added
+            to your account, contact us and we can review suitability.
+          </p>
+          <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+            Ask about scene suitability
+          </NavLink>
         </div>
       </section>
 

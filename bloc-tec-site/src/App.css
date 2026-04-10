@@ -8,7 +8,7 @@
   --color-surface-muted: #fafafa;
   --color-border: #d6d6d6;
   --color-accent-soft: #e7f4f2;
-  --ui-btn-radius: 0.32rem;
+  --ui-btn-radius: 0.2rem;
   --ui-btn-font-size: 0.92rem;
   --ui-btn-font-weight: 500;
   --ui-btn-font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
@@ -1066,8 +1066,7 @@ h2 {
   font-weight: 600;
 }
 
-.quick-links .btn-small,
-.scene-jump-links .btn-small {
+.quick-links .btn-small {
   padding: 0.42rem 0.88rem;
   font-size: 0.86rem;
   min-width: 7.4rem;
@@ -1077,21 +1076,47 @@ h2 {
   gap: 0;
 }
 
-.scene-count {
-  font-weight: 400;
-}
-
-
-.scene-jump-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin: 0.7rem 0 0;
-}
-
 .scene-cta-btn {
   font-size: 0.88rem;
   padding: 0.62rem 0.9rem;
+}
+
+.scenes-page .scenes-panel-inner {
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+  padding: 0;
+}
+
+.scenes-page .scenes-panel-inner > h2 {
+  margin-top: 0;
+}
+
+.scenes-page .scenes-panel-cta .scene-cta-btn {
+  margin-top: 0.35rem;
+}
+
+.scenes-page .scene-grid {
+  margin-top: 1rem;
+  gap: 1.5rem;
+}
+
+.scenes-page .scene-grid .scene-card {
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.scenes-page .scene-thumb {
+  border: 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.14), 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: var(--ui-btn-radius);
+}
+
+.scenes-page .scene-card h3 {
+  margin-top: 0.5rem;
 }
 
 .scene-grid {
@@ -1120,7 +1145,7 @@ h2 {
   width: 100%;
   aspect-ratio: 3 / 2;
   border: var(--ui-btn-border);
-  border-radius: 0.65rem;
+  border-radius: var(--ui-btn-radius);
   background: #ffffff;
   box-shadow: 1px 3px 8px rgba(70, 25, 31, 0.1);
   overflow: hidden;
@@ -1135,14 +1160,11 @@ h2 {
 
 .scene-card h3 {
   margin: 0.65rem 0 0.25rem;
-}
-
-.scene-meta {
-  margin: 0;
-  color: var(--color-label);
-  font-size: 0.86rem;
-  font-family: var(--ui-btn-font-family);
-  font-weight: 400;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  color: var(--color-text);
 }
 
 .scene-reason {
@@ -1168,7 +1190,7 @@ h2 {
   overflow: auto;
   background: #ffffff;
   color: var(--color-label);
-  border-radius: 0.8rem;
+  border-radius: 0.45rem;
   padding: 0.9rem;
   box-shadow: 2px 12px 42px rgba(0, 0, 0, 0.3);
 }
@@ -1184,14 +1206,17 @@ h2 {
 .scene-lightbox-content img {
   width: 100%;
   height: auto;
-  border-radius: 0.55rem;
+  border-radius: 0.3rem;
   display: block;
   margin-top: 1.8rem;
 }
 
 .scene-lightbox-title {
   margin: 0.6rem 0 0;
+  font-family: inherit;
   font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.1;
   color: var(--color-label);
 }
 
