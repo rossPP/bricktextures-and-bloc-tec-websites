@@ -510,19 +510,17 @@ function HomePage() {
       </section>
 
       <section className="section cta-band home-next-step">
-        <div className="container home-next-step-inner">
-          <div>
+        <div className="container">
+          <article className="card page-cta-card">
             <h2>Ready to see what BLOC-TEC can do for manufacturers?</h2>
             <p>
               Explore how BLOC-TEC supports product presentation, specification,
               reseller channels, and digital sales journeys.
             </p>
-          </div>
-          <div className="home-next-step-actions">
-            <Link className="btn btn-primary" to="/for-manufacturers">
+            <Link className="btn btn-primary scene-cta-btn" to="/for-manufacturers">
               Find out more
             </Link>
-          </div>
+          </article>
         </div>
       </section>
     </main>
@@ -915,7 +913,7 @@ function IntegrationPage() {
 
       <section className="section section-alt">
         <div className="container">
-          <article className="card">
+          <article className="card page-cta-card">
             <h2>Need integration support now?</h2>
             <p>
               If your developer team runs into an integration issue, contact us
@@ -1069,7 +1067,7 @@ function ManufacturersPage() {
 
       <section className="section" id="manufacturer-contact">
         <div className="container">
-          <article className="card">
+          <article className="card page-cta-card">
             <h2>See how BLOC-TEC could work for you</h2>
             <p>
               If you want to explore how BLOC-TEC could present your products
@@ -1088,15 +1086,15 @@ function ManufacturersPage() {
 
 function FaqPage() {
   return (
-    <main className="section">
+    <main className="section faq-page">
       <div className="container page-header">
         <p className="eyebrow">FAQ</p>
         <h1>Frequently asked questions</h1>
       </div>
 
       <section className="section">
-        <div className="container grid two">
-          <article className="card">
+        <div className="container faq-layout">
+          <article className="faq-section-block">
             <h2>Account set-up and integration</h2>
             <div className="faq-accordion">
               <details className="faq-item">
@@ -1145,7 +1143,7 @@ function FaqPage() {
             </div>
           </article>
 
-          <article className="card">
+          <article className="faq-section-block">
             <h2>Account management and support</h2>
             <div className="faq-accordion">
               <details className="faq-item">
@@ -1190,7 +1188,7 @@ function FaqPage() {
             </div>
           </article>
 
-          <article className="card">
+          <article className="faq-section-block">
             <h2>Product images</h2>
             <div className="faq-accordion">
 
@@ -1217,24 +1215,16 @@ function FaqPage() {
       </section>
 
       <section className="section">
-        <div className="container">
-          <article className="card">
-            <h2>Didn&apos;t find what you need?</h2>
+        <div className="container faq-layout">
+          <article className="card page-cta-card faq-cta-block">
+            <h2>Can&apos;t find what you need?</h2>
             <p>
               If you have further questions, contact us directly and we&apos;ll
               be happy to help.
             </p>
-            <div className="faq-cta-actions">
-              <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
-                Contact BLOC-TEC
-              </NavLink>
-              <a
-                className="btn btn-secondary scene-cta-btn"
-                href="mailto:info@bloc-tec.com"
-              >
-                Email info@bloc-tec.com
-              </a>
-            </div>
+            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+              Contact us
+            </NavLink>
           </article>
         </div>
       </section>
@@ -1891,15 +1881,17 @@ function ScenesPage() {
       </section>
 
       <section className="section scenes-panel scenes-panel-cta">
-        <div className="container scenes-panel-inner">
-          <h2>Have a scene idea?</h2>
-          <p>
-            If you have a scene concept and want to know whether it can be added
-            to your account, contact us and we can review suitability.
-          </p>
-          <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
-            Ask about scene suitability
-          </NavLink>
+        <div className="container">
+          <article className="card page-cta-card scenes-cta-card">
+            <h2>Have a scene idea?</h2>
+            <p>
+              If you have a scene concept and want to know whether it can be added
+              to your account, contact us and we can review suitability.
+            </p>
+            <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
+              Ask about scene suitability
+            </NavLink>
+          </article>
         </div>
       </section>
 
@@ -1931,6 +1923,16 @@ function ScenesPage() {
   );
 }
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+
+  return null;
+}
+
 function Footer() {
   return (
     <footer className="site-footer">
@@ -1954,6 +1956,7 @@ function Footer() {
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="site-shell">
         <Header />
         <Routes>
