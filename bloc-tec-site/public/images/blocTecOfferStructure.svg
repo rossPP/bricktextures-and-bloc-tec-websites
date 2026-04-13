@@ -1,0 +1,90 @@
+<svg width="1200" height="400" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="400" rx="24" fill="#FBFAF8"/>
+
+  <text x="60" y="42" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700">
+    Simple app structure
+  </text>
+
+  <rect x="50" y="66" width="220" height="96" rx="18" fill="#FFFFFF" stroke="#D7D2CB" stroke-width="2"/>
+  <text x="160" y="105" text-anchor="middle" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">
+    Categories
+  </text>
+  <text x="160" y="131" text-anchor="middle" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="15">
+    <tspan x="160">Entry point by</tspan>
+    <tspan x="160" dy="18">product type</tspan>
+  </text>
+
+  <rect x="320" y="66" width="270" height="96" rx="18" fill="#FFFFFF" stroke="#D7D2CB" stroke-width="2"/>
+  <text x="455" y="105" text-anchor="middle" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">
+    <tspan x="455">Product list /</tspan>
+    <tspan x="455" dy="24">swatches</tspan>
+  </text>
+  <text x="455" y="147" text-anchor="middle" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="15">
+    Browse products, colours and finishes
+  </text>
+
+  <rect x="650" y="48" width="500" height="132" rx="18" fill="#FFFFFF" stroke="#8FB9B2" stroke-width="2.5"/>
+  <text x="685" y="84" fill="#008272" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700">
+    Base package
+  </text>
+  <text x="685" y="118" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="700">
+    Configure / Design
+  </text>
+  <text x="685" y="146" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="15">
+    <tspan x="685">Layouts, angles, joint colour and joint width</tspan>
+    <tspan x="685" dy="18">Main configured product view</tspan>
+  </text>
+
+  <path d="M270 114H304" stroke="#9B948B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M298 106L312 114L298 122" stroke="#9B948B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M590 114H624" stroke="#9B948B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M618 106L632 114L618 122" stroke="#9B948B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <text x="60" y="228" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="19" font-weight="700">
+    Optional tabs and outputs from the configured design
+  </text>
+
+  <path d="M900 180V214" stroke="#008272" stroke-width="4" stroke-linecap="round"/>
+  <path d="M900 214H175" stroke="#C8C1B8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M175 214V246" stroke="#C8C1B8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M440 214V246" stroke="#C8C1B8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M705 214V246" stroke="#C8C1B8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M970 214V246" stroke="#C8C1B8" stroke-width="3" stroke-linecap="round"/>
+
+  <rect x="50" y="246" width="250" height="104" rx="18" fill="#FFFFFF" stroke="#D7D2CB" stroke-width="2"/>
+  <text x="175" y="285" text-anchor="middle" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">
+    <tspan x="175">Blend /</tspan>
+    <tspan x="175" dy="22">Colours tab</tspan>
+  </text>
+  <text x="175" y="330" text-anchor="middle" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+    <tspan x="175">Optional add-on for</tspan>
+    <tspan x="175" dy="17">mixed selections</tspan>
+  </text>
+
+  <rect x="315" y="246" width="250" height="104" rx="18" fill="#FFFFFF" stroke="#D7D2CB" stroke-width="2"/>
+  <text x="440" y="296" text-anchor="middle" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">
+    Texture tab
+  </text>
+  <text x="440" y="330" text-anchor="middle" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+    <tspan x="440">Optional add-on for</tspan>
+    <tspan x="440" dy="17">texture output</tspan>
+  </text>
+
+  <rect x="580" y="246" width="250" height="104" rx="18" fill="#FFFFFF" stroke="#D7D2CB" stroke-width="2"/>
+  <text x="705" y="296" text-anchor="middle" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">
+    View in scenes
+  </text>
+  <text x="705" y="330" text-anchor="middle" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+    <tspan x="705">Place the design in</tspan>
+    <tspan x="705" dy="17">scene options</tspan>
+  </text>
+
+  <rect x="845" y="246" width="250" height="104" rx="18" fill="#FFFFFF" stroke="#D7D2CB" stroke-width="2"/>
+  <text x="970" y="296" text-anchor="middle" fill="#171717" font-family="Segoe UI, Arial, sans-serif" font-size="21" font-weight="700">
+    Share design
+  </text>
+  <text x="970" y="330" text-anchor="middle" fill="#4A4A4A" font-family="Segoe UI, Arial, sans-serif" font-size="14">
+    <tspan x="970">Send the configured</tspan>
+    <tspan x="970" dy="17">result onward</tspan>
+  </text>
+</svg>

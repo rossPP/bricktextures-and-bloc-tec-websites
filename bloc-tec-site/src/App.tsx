@@ -1,4 +1,11 @@
-import { FormEvent, useEffect, useState } from "react";
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type TouchEvent,
+} from "react";
 import {
   Call24Regular,
   Box24Regular,
@@ -303,248 +310,219 @@ function ContactForm() {
   );
 }
 
+type HomePartner = {
+  id: string;
+  name: string;
+  description: string;
+  logoUrl: string;
+  integrationUrl: string;
+  appUrl: string;
+};
+
+const HOME_PARTNERS: HomePartner[] = [
+  {
+    id: "ibstock",
+    name: "Ibstock Brick",
+    description:
+      "The UK's largest brick manufacturer. Integration focuses on presenting a broad clay brick range through clear, interactive product workflows.",
+    logoUrl: "https://app.bloc-tec.com/images/Clients/ibstock/ibstock_logo.png",
+    integrationUrl: IBSTOCK_INTEGRATION_URL,
+    appUrl: IBSTOCK_APP_URL,
+  },
+  {
+    id: "tobermore",
+    name: "Tobermore Concrete",
+    description:
+      "A leading Northern Ireland manufacturer of concrete paving and walling products. Integration supports practical specification and product selection workflows.",
+    logoUrl: "https://app.bloc-tec.com/images/Clients/tobermore/tobermore_logo.png",
+    integrationUrl: TOBERMORE_INTEGRATION_URL,
+    appUrl: TOBERMORE_APP_URL,
+  },
+  {
+    id: "kingscourt",
+    name: "Kingscourt Bricks",
+    description:
+      "A long-established Irish clay brick manufacturer. Integration demonstrates that the platform is effective for focused specialist ranges as well as large catalogues.",
+    logoUrl: "https://app.bloc-tec.com/images/Clients/kingscourt_brick/kingscourt_brick_logo.png",
+    integrationUrl: KINGSCOURT_INTEGRATION_URL,
+    appUrl: KINGSCOURT_APP_URL,
+  },
+  {
+    id: "achesonglover",
+    name: "Acheson & Glover",
+    description:
+      "A well-established hard landscaping manufacturer. Integration highlights how BLOC-TEC supports practical paving-focused product journeys and client-ready output.",
+    logoUrl: "https://app.bloc-tec.com/images/Clients/ag/ag_logo.png",
+    integrationUrl: ACHESON_GLOVER_INTEGRATION_URL,
+    appUrl: ACHESON_GLOVER_APP_URL,
+  },
+];
+
+const SWIPE_MIN_PX = 50;
+
+function WhoWeWorkWithSlider() {
+  const [index, setIndex] = useState(0);
+  const [slideDir, setSlideDir] = useState<"next" | "prev">("next");
+  const touchStartX = useRef<number | null>(null);
+  const partner = HOME_PARTNERS[index];
+  const count = HOME_PARTNERS.length;
+
+  const goPrev = useCallback(() => {
+    setSlideDir("prev");
+    setIndex((i) => (i - 1 + count) % count);
+  }, [count]);
+
+  const goNext = useCallback(() => {
+    setSlideDir("next");
+    setIndex((i) => (i + 1) % count);
+  }, [count]);
+
+  const onTouchStart = useCallback((event: TouchEvent) => {
+    touchStartX.current = event.targetTouches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback(
+    (event: TouchEvent) => {
+      if (touchStartX.current == null) return;
+      const delta = event.changedTouches[0].clientX - touchStartX.current;
+      touchStartX.current = null;
+      if (Math.abs(delta) < SWIPE_MIN_PX) return;
+      if (delta > 0) goPrev();
+      else goNext();
+    },
+    [goNext, goPrev],
+  );
+
+  const onTouchCancel = useCallback(() => {
+    touchStartX.current = null;
+  }, []);
+
+  return (
+    <div className="home-partner-slider-viewport">
+      <button
+        type="button"
+        className="home-partner-slider-btn"
+        aria-label="Previous manufacturer"
+        onClick={goPrev}
+      >
+        ‹
+      </button>
+      <div
+        className="home-partner-slider-track"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchCancel}
+        role="group"
+        aria-roledescription="carousel"
+        aria-label="Manufacturer highlights"
+      >
+        <div
+          className={`home-partner-slider-panel home-partner-slider-panel--${slideDir}`}
+          key={partner.id}
+          aria-live="polite"
+        >
+          <div className="home-partner-logo">
+            <img src={partner.logoUrl} alt={`${partner.name} logo`} loading="lazy" />
+          </div>
+          <div className="home-partner-slide-body">
+            <h3>{partner.name}</h3>
+            <p>{partner.description}</p>
+            <div className="integration-actions home-partner-actions">
+              <a
+                className="btn btn-primary"
+                href={partner.integrationUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View integration
+              </a>
+              <a
+                className="btn btn-primary"
+                href={partner.appUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View products in app
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button
+        type="button"
+        className="home-partner-slider-btn"
+        aria-label="Next manufacturer"
+        onClick={goNext}
+      >
+        ›
+      </button>
+    </div>
+  );
+}
+
 function HomePage() {
   return (
-    <main id="top">
+    <main id="top" className="home-page">
       <section className="hero">
         <div className="container">
           <p className="eyebrow">BLOC-TEC</p>
           <h1>Digital tools for brick and paving specification</h1>
           <p className="lead">
-            BLOC-TEC develops digital tools that help brick and paving
-            manufacturers present products with clarity for confident
-            specification decisions.
+            BLOC-TEC helps brick and paving manufacturers present products
+            clearly online, so customers can explore, compare, and specify
+            with confidence.
+          </p>
+        </div>
+        <div className="home-hero-image-breakout">
+          <img
+            className="home-hero-image"
+            src="/images/conceptToRealityHero.webp"
+            alt="From early concept sketches to finished paving and product presentation"
+            width={1200}
+            height={600}
+            decoding="async"
+          />
+        </div>
+      </section>
+
+      <section id="about" className="section scenes-panel">
+        <div className="container scenes-panel-inner">
+          <h2>Turn concepts into reality.</h2>
+          <p>
+            From early concepts through to finished digital tools, we support
+            configuration workflows, product blending, texture-ready outputs,
+            and clear sharing for teams, stakeholders, and clients.
           </p>
         </div>
       </section>
 
-      <section className="section quick-links-section">
-        <div className="container">
-          <p className="quick-links">
-            <a className="btn-small" href="#app">
-              Who we work with
-            </a>
+      <section id="app" className="section scenes-panel section-alt">
+        <div className="container scenes-panel-inner">
+          <h2>Who we work with</h2>
+          <p>
+            BLOC-TEC supports both leading manufacturers and specialist
+            producers with practical digital solutions for product presentation,
+            specification, and sharing. Explore each manufacturer to see how
+            their products are presented in the BLOC-TEC app.
           </p>
+          <WhoWeWorkWithSlider />
         </div>
       </section>
 
-      <section id="about" className="section">
-        <div className="container">
-          <article className="card">
-            <h2>What we do</h2>
-            <div className="feature-list">
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Configuration workflows</h3>
-                  <p>
-                    Bonds, joints, sizes, and layout logic built for real-world
-                    product use.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Workflow image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Product blending</h3>
-                  <p>
-                    Explore mixed product compositions and compare practical
-                    outcomes quickly.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Workflow image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Texture-ready outputs</h3>
-                  <p>
-                    Generate outputs for downstream design, rendering, and
-                    creative workflows.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Workflow image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Configuration sharing</h3>
-                  <p>
-                    Share product configurations clearly with colleagues,
-                    stakeholders, and clients.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Workflow image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section id="app" className="section section-alt">
-        <div className="container">
-          <article className="card">
-            <h2>Who We Work With</h2>
+      <section className="section cta-band home-next-step">
+        <div className="container home-next-step-inner">
+          <div>
+            <h2>Ready to see what BLOC-TEC can do for manufacturers?</h2>
             <p>
-              BLOC-TEC supports both leading manufacturers and specialist
-              producers with practical digital solutions for product
-              presentation, specification, and sharing.
+              Explore how BLOC-TEC supports product presentation, specification,
+              reseller channels, and digital sales journeys.
             </p>
-            <p>
-              Use the app links below to open each manufacturer&apos;s products
-              directly in the BLOC-TEC app.
-            </p>
-            <div className="feature-list integration-list">
-              <article className="feature-row">
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Client logo
-                  <br />
-                  Recommended: 900 x 300 (PNG/SVG)
-                </div>
-                <div className="feature-content">
-                  <h3>Ibstock Brick</h3>
-                  <p>
-                    The UK&apos;s largest brick manufacturer. Integration
-                    focuses on presenting a broad clay brick range through
-                    clear, interactive product workflows.
-                  </p>
-                  <div className="integration-actions">
-                    <a
-                      className="btn btn-secondary"
-                      href={IBSTOCK_INTEGRATION_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View integration
-                    </a>
-                    <a
-                      className="btn btn-secondary"
-                      href={IBSTOCK_APP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View products in app
-                    </a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="feature-row">
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Client logo
-                  <br />
-                  Recommended: 900 x 300 (PNG/SVG)
-                </div>
-                <div className="feature-content">
-                  <h3>Tobermore Concrete</h3>
-                  <p>
-                    A leading Northern Ireland manufacturer of concrete paving
-                    and walling products. Integration supports practical
-                    specification and product selection workflows.
-                  </p>
-                  <div className="integration-actions">
-                    <a
-                      className="btn btn-secondary"
-                      href={TOBERMORE_INTEGRATION_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View integration
-                    </a>
-                    <a
-                      className="btn btn-secondary"
-                      href={TOBERMORE_APP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View products in app
-                    </a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="feature-row">
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Client logo
-                  <br />
-                  Recommended: 900 x 300 (PNG/SVG)
-                </div>
-                <div className="feature-content">
-                  <h3>Kingscourt Bricks</h3>
-                  <p>
-                    A long-established Irish clay brick manufacturer.
-                    Integration demonstrates that the platform is effective for
-                    focused specialist ranges as well as large catalogues.
-                  </p>
-                  <div className="integration-actions">
-                    <a
-                      className="btn btn-secondary"
-                      href={KINGSCOURT_INTEGRATION_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View integration
-                    </a>
-                    <a
-                      className="btn btn-secondary"
-                      href={KINGSCOURT_APP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View products in app
-                    </a>
-                  </div>
-                </div>
-              </article>
-
-              <article className="feature-row">
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Client logo
-                  <br />
-                  Recommended: 900 x 300 (PNG/SVG)
-                </div>
-                <div className="feature-content">
-                  <h3>Acheson &amp; Glover</h3>
-                  <p>
-                    A well-established hard landscaping manufacturer.
-                    Integration highlights how BLOC-TEC supports practical
-                    paving-focused product journeys and client-ready output.
-                  </p>
-                  <div className="integration-actions">
-                    <a
-                      className="btn btn-secondary"
-                      href={ACHESON_GLOVER_INTEGRATION_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View integration
-                    </a>
-                    <a
-                      className="btn btn-secondary"
-                      href={ACHESON_GLOVER_APP_URL}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      View products in app
-                    </a>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </article>
+          </div>
+          <div className="home-next-step-actions">
+            <Link className="btn btn-primary" to="/for-manufacturers">
+              Find out more
+            </Link>
+          </div>
         </div>
       </section>
     </main>
@@ -993,92 +971,36 @@ function ManufacturersPage() {
     <main className="section">
       <div className="container page-header">
         <p className="eyebrow">For Manufacturers</p>
-        <h1>Digital product presentation for sales and specification teams.</h1>
+        <h1>Digital tools for sales and specification</h1>
         <p className="lead">
-          BLOC-TEC helps manufacturers present products consistently, support
-          reseller channels, and deliver stronger digital experiences across
-          web, showroom, and field sales touchpoints.
+          BLOC-TEC helps manufacturers present products clearly and consistently,
+          with stronger digital experiences across web, showroom, and field
+          sales.
         </p>
       </div>
 
-      <section className="section quick-links-section">
-        <div className="container">
-          <p className="quick-links">
-            <a className="btn-small" href="#what-offers">
-              What BLOC-TEC offers
-            </a>
-            <a className="btn-small" href="#where-used">
-              WHERE BLOC-TEC is used
-            </a>
-          </p>
-        </div>
-      </section>
-
       <section className="section" id="why-bloc-tec">
         <div className="container">
-          <article className="card">
-            <h2>WHY choose BLOC-TEC</h2>
-            <div className="feature-list">
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Consistent product presentation</h3>
-                  <p>
-                    Keep product imagery consistent across ranges, finishes, and
-                    marketing channels so every product is presented clearly and
-                    reliably.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Manufacturer workflow image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Aligned sales and technical messaging</h3>
-                  <p>
-                    Sales, technical, and marketing teams can work from the same
-                    product story, helping customer messaging stay consistent
-                    across channels.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Cross-team consistency image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Faster specification decisions</h3>
-                  <p>
-                    Help specifiers move from shortlists to confident product
-                    decisions faster with clearer, more realistic product
-                    comparisons.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Faster decision support image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Reduced sampling waste and cost</h3>
-                  <p>
-                    Improve pre-qualification before requesting physical
-                    samples, helping reduce avoidable sample waste and
-                    associated costs.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Sampling efficiency image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
+          <article className="manufacturer-section-block">
+            <h2>Why choose BLOC-TEC</h2>
+            <div className="manufacturer-section-layout">
+              <div className="manufacturer-section-media">
+                <img
+                  src="/images/factoryToDesign.webp"
+                  alt="From factory production to digital product presentation"
+                  width={1200}
+                  height={400}
+                  decoding="async"
+                />
+              </div>
+              <p className="manufacturer-section-paragraph">
+                BLOC-TEC helps sales, technical, and marketing teams work from
+                the same design and configuration approach, giving
+                designers clearer comparisons and more confidence earlier in the
+                decision process. That helps teams have more informed
+                conversations, present options more clearly, and move projects
+                forward with stronger product understanding.
+              </p>
             </div>
           </article>
         </div>
@@ -1086,73 +1008,35 @@ function ManufacturersPage() {
 
       <section className="section" id="what-offers">
         <div className="container">
-          <article className="card">
+          <article className="manufacturer-section-block">
             <h2>What BLOC-TEC offers</h2>
-            <div className="feature-list">
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Base package</h3>
-                  <p>
-                    Base package includes account routing, product data set-up,
-                    and recommended defaults so your team can launch with a
-                    clear and consistent baseline. Pattern naming and mortar
-                    preferences are also configured at setup and can be refined
-                    later.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Base package image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Blender add-on module</h3>
-                  <p>
-                    Blender is an optional add-on on top of the base package and
-                    can be enabled according to your rollout priorities.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Blender add-on image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Texture add-on module</h3>
-                  <p>
-                    Texture is an optional add-on on top of the base package and
-                    can be enabled according to your rollout priorities.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Texture add-on image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Scene options</h3>
-                  <p>
-                    Start with scenes from our existing paving, walling, and
-                    flooring libraries. Custom scenes are available as an add-on
-                    option aligned to your own products, settings, and brand
-                    context.
-                  </p>
-                  <p>
-                    <NavLink to="/scenes">View scene options</NavLink>
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Scenes image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
+            <div className="manufacturer-section-layout">
+              <div className="manufacturer-section-media">
+                <img
+                  src="/images/blendingForManufacturers.webp"
+                  alt="BLOC-TEC blending tools for manufacturers"
+                  width={1200}
+                  height={400}
+                  decoding="async"
+                />
+              </div>
+              <div className="manufacturer-section-copy-single">
+                <p className="manufacturer-section-paragraph">
+                  BLOC-TEC gives you a flexible way to present products through
+                  practical, design-led configuration. Products can be shown in
+                  any mortar and any layout, while the optional Blender add-on
+                  allows designers and architects to combine products into
+                  unique blends and explore a far wider range of design
+                  outcomes.
+                </p>
+                <p className="manufacturer-section-paragraph">
+                  Scene options can start from our existing libraries or be
+                  custom built to suit the environments and locations most
+                  relevant to you as a manufacturer, helping your account feel
+                  tailored, and highly specific to the products you
+                  want to present. <NavLink to="/scenes">View scene options</NavLink>
+                </p>
+              </div>
             </div>
           </article>
         </div>
@@ -1160,68 +1044,24 @@ function ManufacturersPage() {
 
       <section className="section section-alt" id="where-used">
         <div className="container">
-          <article className="card">
-            <h2>WHERE BLOC-TEC is used</h2>
-            <div className="feature-list">
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Website</h3>
-                  <p>
-                    Run BLOC-TEC on your website so customers can explore
-                    products in context and move from initial interest to more
-                    confident product choices.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Website integration image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Showrooms and design centers</h3>
-                  <p>
-                    Run BLOC-TEC in your showroom so visitors can compare
-                    products, bonds, and mortar options with your team in real
-                    time.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Showroom use image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Trade shows and event stands</h3>
-                  <p>
-                    Use BLOC-TEC on stand screens to create interactive product
-                    demonstrations and keep visitors engaged for longer.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Trade show use image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
-              <article className="feature-row">
-                <div className="feature-content">
-                  <h3>Sales teams in the field</h3>
-                  <p>
-                    Give sales teams a practical tool for iPads and laptops so
-                    product options can be presented clearly during meetings and
-                    site visits.
-                  </p>
-                </div>
-                <div className="highlight-image-placeholder" aria-hidden="true">
-                  Sales team use image
-                  <br />
-                  Recommended: 1200 x 400 (WebP)
-                </div>
-              </article>
+          <article className="manufacturer-section-block">
+            <h2>Where BLOC-TEC is used</h2>
+            <div className="manufacturer-section-layout">
+              <div className="manufacturer-section-media">
+                <img
+                  src="/images/showroom.webp"
+                  alt="BLOC-TEC in a showroom environment"
+                  width={1200}
+                  height={400}
+                  decoding="async"
+                />
+              </div>
+              <p className="manufacturer-section-paragraph">
+                BLOC-TEC supports product presentation across your website,
+                showrooms, exhibitions, and field sales activity, giving your
+                team one practical tool for presenting products clearly in every
+                setting.
+              </p>
             </div>
           </article>
         </div>
@@ -1230,14 +1070,14 @@ function ManufacturersPage() {
       <section className="section" id="manufacturer-contact">
         <div className="container">
           <article className="card">
-            <h2>Next step: discuss your setup</h2>
+            <h2>See how BLOC-TEC could work for you</h2>
             <p>
-              Tell us about your current product content, reseller needs, and
-              website goals. We are happy to advise on the best starting route
-              for account set-up and integration.
+              If you want to explore how BLOC-TEC could present your products
+              in a way that fits your business, get in touch. We&apos;re happy
+              to help.
             </p>
             <NavLink className="btn btn-primary scene-cta-btn" to="/contact">
-              Contact BLOC-TEC
+              Contact us
             </NavLink>
           </article>
         </div>
