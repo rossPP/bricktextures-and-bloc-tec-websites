@@ -1,5 +1,4 @@
 import {
-  FormEvent,
   useCallback,
   useEffect,
   useRef,
@@ -223,93 +222,6 @@ function Header() {
   );
 }
 
-function ContactForm() {
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [websiteField, setWebsiteField] = useState("");
-  const [error, setError] = useState("");
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (websiteField.trim()) return;
-
-    if (message.trim().length < 20) {
-      setError(
-        "Please provide a little more detail so we can route your enquiry correctly.",
-      );
-      return;
-    }
-
-    setError("");
-    const subject = "BLOC-TEC contact enquiry";
-    const body = [
-      `Name: ${name}`,
-      `Company: ${company}`,
-      `Email: ${email}`,
-      "",
-      "Message:",
-      message,
-    ].join("\n");
-
-    window.location.href = `mailto:info@bloc-tec.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  };
-
-  return (
-    <form className="contact-form" onSubmit={onSubmit}>
-      <label>
-        Name
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Company
-        <input
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Work email
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-      </label>
-      <label>
-        Message
-        <textarea
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          rows={5}
-          required
-        />
-      </label>
-      <label className="honeypot-field" aria-hidden="true" tabIndex={-1}>
-        Website
-        <input
-          value={websiteField}
-          onChange={(e) => setWebsiteField(e.target.value)}
-          autoComplete="off"
-          tabIndex={-1}
-        />
-      </label>
-      {error ? <p className="form-error">{error}</p> : null}
-      <button className="btn btn-primary" type="submit">
-        Send enquiry
-      </button>
-    </form>
-  );
-}
-
 type HomePartner = {
   id: string;
   name: string;
@@ -512,7 +424,7 @@ function HomePage() {
       <section className="section cta-band home-next-step">
         <div className="container">
           <article className="card page-cta-card">
-            <h2>Ready to see what BLOC-TEC can do for manufacturers?</h2>
+            <h2>Ready to see what BLOC-TEC can do for you?</h2>
             <p>
               Explore how BLOC-TEC supports product presentation, specification,
               reseller channels, and digital sales journeys.
@@ -556,7 +468,7 @@ function IntegrationPage() {
   };
 
   return (
-    <main className="section">
+    <main className="section contact-page">
       <div className="container page-header">
         <p className="eyebrow">Integration</p>
         <h1>Integration into your website</h1>
@@ -567,23 +479,7 @@ function IntegrationPage() {
         </p>
       </div>
 
-      <section className="section quick-links-section">
-        <div className="container">
-          <p className="quick-links">
-            <a className="btn-small" href="#embed-behaviour-and-sizing">
-              Integration advice
-            </a>
-            <a className="btn-small" href="#iframe-integration-guidance">
-              Up-to-date swatches
-            </a>
-            <a className="btn-small" href="#share-button-domain">
-              Share button
-            </a>
-          </p>
-        </div>
-      </section>
-
-      <section className="section section-tight-top" id="integration-methods">
+      <section className="section" id="integration-methods">
         <div className="container">
           <article className="card">
             <h2>Integration methods</h2>
@@ -683,11 +579,7 @@ function IntegrationPage() {
                       </span>
                     </p>
                     <p className="integration-step">
-                      See{" "}
-                      <a href="#sku-blender-guidance">
-                        Blender integration
-                      </a>
-                      {" "}below for further guidance.
+                      See the Blender integration guidance below.
                     </p>
                     <p className="integration-step">
                       <code>canBlend=false</code> disables blend controls for
@@ -838,11 +730,10 @@ function IntegrationPage() {
       <section className="section section-alt" id="iframe-integration-guidance">
         <div className="container">
           <article className="card">
-            <h2>Up-to-date swatches in your product lists</h2>
+            <h2>Up-to-date swatches embedded into your product lists</h2>
             <p>
-              Swatches served from our platform stay up to date automatically.
-              If a blend changes, the swatch output updates without manual
-              intervention. Because we create and host these swatches, they stay
+              Swatches served from our platform stay up-to-date automatically.
+              If a blend changes, the swatch updates automatically. Because we create and host these swatches, they stay
               consistent in scale, framing, and displayed physical area, so users
               can compare products with clear expectations.
             </p>
@@ -860,10 +751,6 @@ function IntegrationPage() {
           <article className="card">
             <h2>Share button</h2>
             <p className="integration-step">
-              When the app is not embedded in an iframe, Share creates direct app
-              URLs to our domain.
-            </p>
-            <p className="integration-step">
               When the app is embedded in an iframe, include{" "}
               <code>allow="clipboard-write"</code> on your embedded iframe for
               reliable copy-link support.
@@ -874,7 +761,8 @@ function IntegrationPage() {
               </span>
             </p>
             <p className="integration-step">
-              You can configure Share to generate URLs on your own website domain
+            When the app is not embedded in an iframe, Share creates direct app
+            URLs to our domain. You can configure Share to generate URLs on your own website domain
               (host page), so users stay on your domain and reopen the same
               configured view.
             </p>
@@ -1234,39 +1122,49 @@ function FaqPage() {
 
 function ContactPage() {
   return (
-    <main className="section">
+    <main className="section contact-page">
       <div className="container page-header">
         <p className="eyebrow">Contact</p>
         <h1>Contact BLOC-TEC</h1>
         <p className="lead">
-          For business, platform, and manufacturer enquiries, send us a message
-          and we will route it to the right team.
+          If you would like to ask about BLOC-TEC, email us directly and include
+          your company, product range, and what you would like to discuss.
         </p>
       </div>
 
-      <div className="container grid two">
-        <article className="card">
-          <h2>Send an enquiry</h2>
-          <ContactForm />
-        </article>
-        <article className="card">
-          <h2>Location</h2>
-          <address className="location-block">
-            Ballinamona
-            <br />
-            Glanworth
-            <br />
-            County Cork
-            <br />
-            P51 C9Y7
-            <br />
-            Ireland
-          </address>
-          <p>
-            Email: <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
-          </p>
-        </article>
-      </div>
+      <section className="contact-page-image">
+        <div className="container contact-page-image-shell">
+          <img
+            src="/images/contactUs.webp"
+            alt="Contact BLOC-TEC"
+            width={1600}
+            height={900}
+            decoding="async"
+          />
+          <div className="contact-page-overlay">
+            <article className="card">
+              <h2>Location</h2>
+              <address className="location-block">
+                Ballinamona
+                <br />
+                Glanworth
+                <br />
+                County Cork
+                <br />
+                P51 C9Y7
+                <br />
+                Ireland
+              </address>
+              <p>
+                Email: <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
+              </p>
+              <a className="btn btn-primary scene-cta-btn" href="mailto:info@bloc-tec.com">
+                Contact us
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
@@ -1282,19 +1180,6 @@ function ProductSamplesPage() {
           account set-up and photography workflows.
         </p>
       </div>
-
-      <section className="section quick-links-section">
-        <div className="container">
-          <p className="quick-links">
-            <a className="btn-small" href="#preparation">
-              Preparation for photography
-            </a>
-            <a className="btn-small" href="#customs-info">
-              Customs and compliance
-            </a>
-          </p>
-        </div>
-      </section>
 
       <section className="section section-alt" id="delivery-address">
         <div className="container card">
@@ -1528,30 +1413,692 @@ function ProductSamplesPage() {
 
 function PrivacyPolicyPage() {
   return (
-    <main className="section">
+    <main className="section legal-page">
       <div className="container page-header">
         <p className="eyebrow">Legal</p>
         <h1>Privacy policy</h1>
         <p className="lead">
-          This page will contain the official BLOC-TEC privacy policy in HTML
-          format.
+          This page explains, in plain language, what personal data BLOC-TEC
+          collects, why we collect it, and how that differs between our
+          marketing website, our app, and our customer operations.
         </p>
       </div>
+
+      <section className="section">
+        <div className="container legal-layout">
+          <div className="legal-copy">
+            <p>
+              Paver Picker Limited trading as Bloc-Tec (&quot;we&quot;,
+              &quot;us&quot;, &quot;our&quot;) is committed to handling personal
+              data responsibly and openly.
+            </p>
+            <p>
+              This policy covers three things: visits to{" "}
+              <code>www.bloc-tec.com</code>, use of the Bloc-Tec app and
+              embedded viewers, and the business information we need to manage
+              customer accounts, support, and billing.
+            </p>
+            <p>
+              This policy does not cover personal data that we process strictly
+              on behalf of a customer inside their own account or service setup,
+              where we act as a data processor rather than the data controller.
+            </p>
+
+            <h2>Data controller</h2>
+            <p>
+              The data controller is Paver Picker Limited, Ballinamona,
+              Glanworth, County Cork, P51 C9Y7, Ireland.
+            </p>
+
+            <h2>Legal basis for processing</h2>
+            <p>We only use personal data where we have a lawful basis to do so.</p>
+            <ul>
+              <li>To provide services you have asked us to provide.</li>
+              <li>
+                For our legitimate business interests, such as running,
+                securing, improving, and supporting the service.
+              </li>
+              <li>To comply with legal, tax, or regulatory obligations.</li>
+              <li>Where needed, with your consent.</li>
+            </ul>
+
+            <h2>What we collect on this website</h2>
+            <p>
+              Our marketing website is mainly informational. It does not
+              currently use on-site contact forms. When pages or images are
+              loaded, our servers or hosting providers may receive standard
+              technical request data such as IP address, browser details, and
+              basic server log information.
+            </p>
+            <p>
+              If you choose to contact us by email, we will also receive the
+              information you include in that message, such as your name, email
+              address, company, and the details of your enquiry.
+            </p>
+
+            <h2>What we collect in the app and embedded viewers</h2>
+            <p>
+              Bloc-Tec provides web-based visualisation tools that can run on
+              our own domains or inside a customer&apos;s website. When the app
+              or an embedded viewer is used, we may collect technical and usage
+              data needed to run, secure, and improve the service.
+            </p>
+            <ul>
+              <li>
+                Technical access data such as IP address, browser and device
+                information, page URL, referrer or origin information, and
+                authorised-domain checks.
+              </li>
+              <li>
+                Usage data such as page loads, product selections, filters,
+                scenes, share actions, and overall engagement timing.
+              </li>
+              <li>
+                Account context such as the customer account or app path being
+                viewed, where this is needed to understand how the service is
+                being used.
+              </li>
+            </ul>
+            <p>
+              This information is used for operational reporting, service
+              support, product improvement, and usage insight for us and, where
+              appropriate, for our customers.
+            </p>
+
+            <h2>Customer account, billing, and support data</h2>
+            <p>
+              If you become a customer or contact us about a commercial
+              relationship, we may collect business contact details, billing
+              details, invoicing information, service history, and records of
+              our communications with you.
+            </p>
+
+            <h2>How we collect information</h2>
+            <ul>
+              <li>Directly from you when you email us or work with us.</li>
+              <li>
+                Automatically when you load the website, app, embedded viewer,
+                or related hosted images and assets.
+              </li>
+              <li>
+                From service providers who help us with hosting, analytics,
+                communications, accounting, and customer operations.
+              </li>
+            </ul>
+
+            <h2>How we use personal data</h2>
+            <p>
+              We use personal data to operate the website and app, verify
+              authorised access, provide support, manage customer accounts and
+              billing, protect the service from misuse, and understand how the
+              service is being used so we can improve it.
+            </p>
+            <p>
+              We may also use personal data to send service-related updates,
+              respond to enquiries, keep internal records, and meet legal or
+              financial obligations.
+            </p>
+            <p>
+              We do not sell or rent your personal data.
+            </p>
+
+            <h2>Cookies and browser storage</h2>
+            <p>
+              Our marketing website does not currently rely on client-side
+              cookies or browser storage to run its main content.
+            </p>
+            <p>
+              The Bloc-Tec app does use browser <code>sessionStorage</code> for
+              short-lived analytics identifiers and session state. This helps us
+              understand sessions and engagement within a browser session, but it
+              is not the same as using marketing cookies for cross-site
+              advertising.
+            </p>
+            <p>
+              Analytics events from the app are sent to a Bloc-Tec service
+              endpoint and may then be forwarded to Google Analytics for
+              reporting. If our live setup changes to use additional cookies or
+              tracking technologies, we will update this page.
+            </p>
+
+            <h2>Who we share data with</h2>
+            <p>
+              We share personal data only where there is a genuine business or
+              legal need to do so. This may include hosting providers, analytics
+              providers, communications tools, accounting systems, professional
+              advisers, and public authorities where required by law.
+            </p>
+            <p>
+              We may also share operational or aggregated usage information with
+              customers where that reporting relates to their own embedded
+              service or account.
+            </p>
+
+            <h2>International transfers</h2>
+            <p>
+              Some of our providers may process data outside your country or
+              outside the EEA. Where that happens, we take reasonable steps to
+              ensure appropriate safeguards are in place.
+            </p>
+
+            <h2>Data security</h2>
+            <p>
+              We use reasonable technical and organisational measures to protect
+              personal data from loss, misuse, unauthorised access, or
+              disclosure.
+            </p>
+            <p>
+              No internet-based service can ever be guaranteed completely
+              secure, but we work to keep access controlled and our systems
+              appropriately protected.
+            </p>
+
+            <h2>Links to other websites</h2>
+            <p>
+              Our Site and Services may contain links to third-party websites.
+              Those websites have their own privacy policies and we do not
+              accept responsibility or liability for them. Please review those
+              policies before submitting personal data to third-party websites.
+            </p>
+
+            <h2>Your rights</h2>
+            <p>
+              Depending on where you are located, you may have rights to:
+            </p>
+            <ul>
+              <li>ask for access to the personal data we hold about you</li>
+              <li>ask us to correct or delete it</li>
+              <li>ask us to restrict or stop certain processing</li>
+              <li>ask for a copy in a portable format where that right applies</li>
+              <li>withdraw consent where we rely on consent</li>
+            </ul>
+            <p>
+              We may need to verify your identity before responding to a rights
+              request.
+            </p>
+
+            <h2>Data retention</h2>
+            <p>
+              We keep personal data only for as long as we need it for the
+              purposes described above, including support, security, legal,
+              accounting, and tax requirements.
+            </p>
+            <p>
+              Some technical or analytics data may be kept for shorter periods,
+              while customer account and billing records may need to be kept for
+              longer. We may keep anonymised or aggregated information for
+              longer where it no longer identifies individuals.
+            </p>
+
+            <h2>Complaints</h2>
+            <p>
+              If you have any complaints about our use of your personal data,
+              please contact us using the details below or contact your local
+              data protection supervisory authority. For EU individuals, this is
+              the Data Protection Commission (DPC), Dublin 2, D02 RD28,
+              Ireland.
+            </p>
+
+            <h2>UK representative</h2>
+            <p>
+              Leigh Walker, 31 Foxglove Drive, Highburton, Huddersfield, HD8
+              0ZH.
+            </p>
+
+            <h2>Children</h2>
+            <p>
+              This website and the Bloc-Tec services are not intended for use by
+              children under 16.
+            </p>
+
+            <h2>Changes to this Privacy Policy</h2>
+            <p>
+              We may update this page from time to time to reflect changes in
+              the service, the way data is used, or legal requirements.
+            </p>
+            <p>
+              This Privacy Policy was last updated on 21-05-25 and replaces any
+              other Privacy Policy previously applicable from that date.
+            </p>
+
+            <h2>Contact</h2>
+            <p>
+              If you have any questions, comments, or requests regarding our
+              privacy practices or this Privacy Policy, please contact us:
+            </p>
+            <ul>
+              <li>
+                By post: Paver Picker Limited, Ballinamona, Glanworth, County
+                Cork, P51 C9Y7, Ireland.
+              </li>
+              <li>
+                By email: <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
 
 function AppTermsPage() {
   return (
-    <main className="section">
+    <main className="section legal-page">
       <div className="container page-header">
         <p className="eyebrow">Legal</p>
-        <h1>App terms of use</h1>
+        <h1>Terms of service</h1>
         <p className="lead">
-          This page will contain the official BLOC-TEC app terms of use in HTML
-          format.
+          These terms govern the use of Bloc-Tec visualisation services,
+          including the platform, created materials, subscriptions, and related
+          service delivery.
         </p>
       </div>
+
+      <section className="section">
+        <div className="container legal-layout">
+          <div className="legal-copy">
+            <p>
+              By confirming in writing or making payment for our Services, you
+              agree to these Terms and our{" "}
+              <NavLink to="/privacy-policy">Privacy Policy</NavLink>. If you do
+              not agree, please do not use our Services.
+            </p>
+            <p>
+              Paver Picker Ltd trading as Bloc-Tec is a registered business in
+              Ireland and provides the Bloc-Tec visualisation services described
+              in your invoice or written confirmation.
+            </p>
+
+            <h2>Definitions</h2>
+            <ul>
+              <li>
+                <strong>You / Your:</strong> the customer business using our
+                Services under this agreement.
+              </li>
+              <li>
+                <strong>We / Us / Our:</strong> Bloc-Tec, being Paver Picker Ltd
+                trading as Bloc-Tec.
+              </li>
+              <li>
+                <strong>Services:</strong> the Bloc-Tec applications, tools, and
+                online platform accessed under this agreement.
+              </li>
+              <li>
+                <strong>Product Photography:</strong> high quality photographs of
+                individual products, whether taken by Bloc-Tec or supplied by
+                you, which may be processed for compatibility with our software.
+              </li>
+              <li>
+                <strong>Created Materials:</strong> digital assets produced by
+                Bloc-Tec using Product Photography and other data inputs,
+                including software-generated visuals, seamless textures, product
+                swatches, image downloads, and product information PDFs.
+              </li>
+              <li>
+                <strong>Confidential Information:</strong> any non-public
+                business, technical, or financial information shared between the
+                parties.
+              </li>
+              <li>
+                <strong>Billing Data:</strong> customer contact and payment
+                details used for invoicing.
+              </li>
+            </ul>
+
+            <h2>Services and licence</h2>
+            <p>
+              We provide the Services described in your invoice or written
+              confirmation. Created Materials, together with relevant data
+              inputs, form part of the Services provided under this agreement.
+            </p>
+            <ul>
+              <li>
+                You are permitted to use the Services during your subscription
+                term.
+              </li>
+              <li>
+                The licence is for your own business use only and cannot be
+                shared or transferred to a different domain.
+              </li>
+              <li>
+                You may not modify, reverse-engineer, or create derivative works
+                from the Services.
+              </li>
+              <li>
+                We may suspend access if security or integrity is at risk.
+              </li>
+              <li>
+                Updates and maintenance are included and we aim for high
+                availability.
+              </li>
+              <li>
+                Your licence begins when the Services are linked to your live
+                website, used in a showroom or exhibition, or two months after
+                setup, whichever happens first.
+              </li>
+              <li>
+                Add-ons and new features follow your existing subscription term.
+                Products or features may be added or removed during the term,
+                and refunds are not provided for removed items.
+              </li>
+            </ul>
+
+            <h2>Intellectual property</h2>
+            <ul>
+              <li>We own all rights to the Services and Created Materials.</li>
+              <li>
+                You retain ownership of original Product Photography or files you
+                supply before we process them.
+              </li>
+              <li>
+                You may not remove our copyright notices or branding from
+                Created Materials, nor claim ownership of them.
+              </li>
+            </ul>
+
+            <h2>Usage guidelines</h2>
+            <p>During the subscription term, you may:</p>
+            <ul>
+              <li>
+                Use Created Materials on your approved domain or domains, or in
+                printed materials.
+              </li>
+              <li>
+                Share Created Materials with your resellers for their online use
+                only.
+              </li>
+              <li>
+                Use seamless textures in architectural visualisations.
+              </li>
+            </ul>
+            <p>You may not:</p>
+            <ul>
+              <li>
+                Modify, resell, redistribute, or license our Created Materials
+                to others.
+              </li>
+              <li>
+                Use Created Materials in other software platforms,
+                configurators, visualisers, or interactive applications.
+              </li>
+              <li>
+                Use Created Materials to train AI or machine learning systems.
+              </li>
+              <li>
+                Claim ownership of Created Materials in a way that implies
+                Bloc-Tec endorses your products.
+              </li>
+              <li>
+                Use seamless textures outside their intended use in
+                architectural visualisations.
+              </li>
+              <li>Use Created Materials in any unlawful way.</li>
+            </ul>
+            <p>
+              All Created Materials are used at your own risk. You agree to
+              indemnify us against claims or damages arising from your use of
+              Created Materials, including unauthorised use.
+            </p>
+
+            <h2>Fees and payments</h2>
+            <ul>
+              <li>
+                We are not obliged to refund fees for cancelled work that is
+                already completed.
+              </li>
+              <li>
+                Delivery may be delayed if product samples or images supplied to
+                us are late, unsuitable, or require additional editing.
+              </li>
+              <li>
+                Services are provided as described in your invoice during the
+                subscription term.
+              </li>
+              <li>
+                Invoices are issued in the stated currency and based on the
+                Billing Data provided. VAT is added where applicable.
+              </li>
+              <li>
+                Payment is due within 30 days of invoice unless otherwise
+                agreed.
+              </li>
+              <li>
+                Costs may increase annually by up to 5% based on the Global
+                Inflation Index, with at least 7 days&apos; notice before changes
+                take effect.
+              </li>
+              <li>
+                If payment is overdue by more than 7 days, we may suspend your
+                account and statutory interest may apply.
+              </li>
+            </ul>
+
+            <h2>Product samples and product photography</h2>
+            <ul>
+              <li>
+                Samples must be clean, dry, and representative of product
+                variations.
+              </li>
+              <li>
+                Delivery costs are your responsibility. Uncollected samples
+                after 30 days may be disposed of.
+              </li>
+              <li>
+                We use standard colour calibration and exposure checks to ensure
+                Product Photography is accurate and will not alter it in a way
+                that misrepresents the product&apos;s appearance.
+              </li>
+            </ul>
+
+            <h2>Warranties</h2>
+            <ul>
+              <li>
+                Both parties confirm they have authority to enter this agreement
+                and will comply with applicable laws.
+              </li>
+              <li>
+                We warrant that we have the right to provide the Services and
+                will deliver them with reasonable care.
+              </li>
+              <li>
+                We do not guarantee uninterrupted service, specific results, or
+                fitness for a particular purpose.
+              </li>
+              <li>
+                We are not responsible for issues caused by third-party
+                components, services, connectivity, hosting, domain providers,
+                or external licences outside our control.
+              </li>
+              <li>
+                You warrant that you own the rights to any content you provide
+                and will take reasonable steps to protect access credentials,
+                devices, and networks used with the Services.
+              </li>
+              <li>
+                Third-party content or information provided by us is supplied
+                &quot;as is&quot;.
+              </li>
+              <li>
+                Except for the warranties stated above, all other warranties are
+                excluded.
+              </li>
+            </ul>
+
+            <h2>Liability</h2>
+            <ul>
+              <li>
+                Neither party limits liability for fraud, death, or personal
+                injury caused by negligence or misconduct.
+              </li>
+              <li>
+                Neither party is liable for indirect or consequential losses,
+                including lost profits, business interruption, or loss of
+                goodwill.
+              </li>
+              <li>
+                Our total liability is capped at the fees paid in the 12 months
+                before the claim, or the shorter agreement term if applicable.
+              </li>
+              <li>
+                You are responsible for breaches caused by your users.
+              </li>
+              <li>
+                Both parties confirm this agreement, together with information
+                on the invoice, is the entire basis of their relationship.
+              </li>
+            </ul>
+
+            <h2>Indemnities</h2>
+            <ul>
+              <li>
+                We will cover claims that the Services infringe intellectual
+                property rights, except where the claim relates to content you
+                provided, subject to prompt notice, control of the defence, and
+                your cooperation.
+              </li>
+              <li>
+                If infringement occurs, we may secure rights, replace, or modify
+                the Services.
+              </li>
+              <li>
+                We are not responsible for claims resulting from misuse of the
+                Services, combining them with other systems, or a failure to
+                take reasonable care.
+              </li>
+              <li>
+                You will cover claims and costs arising from your use of the
+                Services, including intellectual property breaches, data
+                protection issues, and user actions.
+              </li>
+              <li>
+                Both parties agree to indemnify each other for reasonable legal
+                costs related to claims under this agreement.
+              </li>
+            </ul>
+
+            <h2>Term and termination</h2>
+            <ul>
+              <li>
+                This agreement starts when your licence begins and renews
+                automatically unless ended in accordance with these terms.
+              </li>
+              <li>
+                Either party may terminate by giving 30 days&apos; notice before
+                the end of the current term.
+              </li>
+              <li>
+                We may terminate immediately if Services or Created Materials are
+                misused or if providing Services becomes unlawful.
+              </li>
+              <li>
+                Either party may terminate if the other becomes insolvent, fails
+                to remedy a material breach within 5 business days, or is
+                prevented by Force Majeure for more than 28 days.
+              </li>
+              <li>
+                On termination, Services stop, licences end, and all unpaid fees
+                for the term must be paid. No refunds are provided for early
+                termination.
+              </li>
+              <li>
+                You and your resellers may keep using Created Materials created
+                before termination, subject to the same usage rules.
+              </li>
+              <li>
+                Termination does not affect accrued rights and certain clauses
+                continue after termination.
+              </li>
+            </ul>
+
+            <h2>Confidential information</h2>
+            <ul>
+              <li>
+                Each party must keep the other party&apos;s Confidential
+                Information private and use it only for this agreement unless
+                disclosure is required by law.
+              </li>
+              <li>
+                Disclosure is permitted only to employees or agents who need the
+                information for this agreement and agree to keep it
+                confidential.
+              </li>
+              <li>
+                Confidential Information does not include information already
+                known, publicly available other than through breach, or required
+                by law to be disclosed.
+              </li>
+            </ul>
+
+            <h2>Data protection</h2>
+            <ul>
+              <li>Both parties will comply with applicable data protection laws.</li>
+              <li>
+                You are the data controller and we are the data processor for
+                personal data used in the Services.
+              </li>
+              <li>
+                We may take steps to prevent any data protection infringement.
+              </li>
+              <li>
+                Any personal data we collect as a controller is handled in
+                accordance with our <NavLink to="/privacy-policy">Privacy Policy</NavLink>.
+              </li>
+              <li>
+                We process Billing Data in accordance with applicable data
+                protection laws.
+              </li>
+            </ul>
+
+            <h2>Force majeure</h2>
+            <ul>
+              <li>
+                If something beyond a party&apos;s control prevents that party
+                from meeting its obligations, those obligations are paused.
+              </li>
+              <li>
+                The affected party must notify the other as soon as possible.
+              </li>
+              <li>
+                If the situation continues for more than 28 days, the other
+                party may end the agreement immediately without penalty.
+              </li>
+            </ul>
+
+            <h2>Miscellaneous</h2>
+            <ul>
+              <li>
+                If any part of this agreement is invalid, the rest remains in
+                force.
+              </li>
+              <li>
+                This agreement is the entire understanding between the parties.
+              </li>
+              <li>
+                Neither party may transfer its rights under this agreement
+                without written consent, except that we may transfer the
+                agreement if we sell our business.
+              </li>
+              <li>
+                Both parties act as independent contractors and nothing creates
+                an employment relationship.
+              </li>
+              <li>
+                Changes or notices must be in writing. We may update these terms
+                with 30 days&apos; notice, and you may terminate before the
+                changes take effect if you do not agree.
+              </li>
+              <li>
+                No third party has rights to enforce this agreement.
+              </li>
+              <li>
+                This agreement is governed by Irish law and disputes are subject
+                to the courts of Dublin.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
@@ -1946,7 +2493,7 @@ function Footer() {
         <p className="footer-legal">
           <NavLink to="/privacy-policy">Privacy policy</NavLink>
           <span>|</span>
-          <NavLink to="/app-terms">App terms of use</NavLink>
+          <NavLink to="/app-terms">Terms of service</NavLink>
         </p>
       </div>
     </footer>
