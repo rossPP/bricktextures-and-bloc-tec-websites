@@ -556,6 +556,18 @@ h2 {
   background: var(--color-bg);
 }
 
+main.section {
+  padding-bottom: 0;
+}
+
+main.contact-page {
+  padding-bottom: 3rem;
+}
+
+main.product-samples-page {
+  padding-top: 0;
+}
+
 .section-tight-top {
   padding-top: 1.2rem;
 }
@@ -984,6 +996,11 @@ h2 {
   margin: 0 auto;
 }
 
+.faq-page .page-header {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
 .faq-section-block {
   display: grid;
   gap: 0.9rem;
@@ -1097,6 +1114,15 @@ h2 {
   border-top: 0;
 }
 
+.page-end-cta {
+  padding-bottom: 3rem;
+}
+
+.page-end-cta .page-cta-card {
+  margin-bottom: 0;
+  padding-bottom: 1.25rem;
+}
+
 .page-cta-card {
   display: grid;
   gap: 0.8rem;
@@ -1197,8 +1223,9 @@ h2 {
 }
 
 .footer-brand-logo {
-  width: clamp(8.75rem, 18vw, 11rem);
-  height: auto;
+  height: 1.9rem;
+  width: auto;
+  max-width: min(48vw, 15rem);
 }
 
 .footer-brand-subline {
@@ -1222,7 +1249,7 @@ h2 {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
 }
 
 .footer-column {
@@ -1299,7 +1326,7 @@ h2 {
 }
 
 .product-samples-page #preparation {
-  background: var(--color-bg);
+  background: var(--color-surface-muted);
 }
 
 .product-samples-page #customs-info {
@@ -1459,6 +1486,16 @@ h2 {
 #what-offers,
 #manufacturer-contact {
   scroll-margin-top: 96px;
+}
+
+.home-page #app,
+#what-offers,
+#manufacturer-contact,
+#embed-behaviour-and-sizing,
+#share-button-domain,
+#integration-support,
+#custom-scenes {
+  background: var(--color-surface-muted);
 }
 
 .manufacturer-section-block {

@@ -750,7 +750,7 @@ function IntegrationPage() {
         </div>
       </section>
 
-      <section className="section section-alt" id="iframe-integration-guidance">
+      <section className="section" id="iframe-integration-guidance">
         <div className="container">
           <article className="card">
             <h2>Up-to-date swatches embedded into your product lists</h2>
@@ -855,7 +855,7 @@ function IntegrationPage() {
         </div>
       </section>
 
-      <section className="section section-alt" id="iframe-analytics-guidance">
+      <section className="section" id="iframe-analytics-guidance">
         <div className="container">
           <article className="card">
             <h2>Embedded analytics events</h2>
@@ -1038,7 +1038,7 @@ function IntegrationPage() {
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section section-alt page-end-cta" id="integration-support">
         <div className="container">
           <article className="card page-cta-card">
             <h2>Need integration support now?</h2>
@@ -1131,7 +1131,7 @@ function ManufacturersPage() {
         </div>
       </section>
 
-      <section className="section" id="what-offers">
+      <section className="section section-alt" id="what-offers">
         <div className="container">
           <article className="manufacturer-section-block">
             <h2>What BLOC-TEC offers</h2>
@@ -1167,7 +1167,7 @@ function ManufacturersPage() {
         </div>
       </section>
 
-      <section className="section section-alt" id="where-used">
+      <section className="section" id="where-used">
         <div className="container">
           <article className="manufacturer-section-block">
             <h2>Where BLOC-TEC is used</h2>
@@ -1192,7 +1192,7 @@ function ManufacturersPage() {
         </div>
       </section>
 
-      <section className="section" id="manufacturer-contact">
+      <section className="section section-alt page-end-cta" id="manufacturer-contact">
         <div className="container">
           <article className="card page-cta-card">
             <h2>See how BLOC-TEC could work for you</h2>
@@ -1219,7 +1219,7 @@ function FaqPage() {
         <h1>Frequently asked questions</h1>
       </div>
 
-      <section className="section">
+      <section className="section page-end-cta" id="faq-contact">
         <div className="container faq-layout">
           <article className="faq-section-block">
             <h2>Account set-up and integration</h2>
@@ -1409,16 +1409,15 @@ function ContactPage() {
 function ProductSamplesPage() {
   return (
     <main className="section product-samples-page">
-      <div className="container page-header">
-        <p className="eyebrow">Support</p>
-        <h1>Product samples</h1>
-        <p className="lead">
-          Guidance for delivery and preparation of samples used in BLOC-TEC
-          account set-up and photography workflows.
-        </p>
-      </div>
-
-      <section className="section section-alt" id="delivery-address">
+      <section className="section" id="delivery-address">
+        <div className="container page-header">
+          <p className="eyebrow">Support</p>
+          <h1>Product samples</h1>
+          <p className="lead">
+            Guidance for delivery and preparation of samples used in BLOC-TEC
+            account set-up and photography workflows.
+          </p>
+        </div>
         <div className="container card">
           <h2>Delivery of samples</h2>
           <div className="feature-list samples-delivery-list">
@@ -1545,7 +1544,7 @@ function ProductSamplesPage() {
         </div>
       </section>
 
-      <section className="section section-alt" id="customs-info">
+      <section className="section" id="customs-info">
         <div className="container card">
           <h2>
             <span className="samples-icon" aria-hidden="true">
@@ -2655,7 +2654,7 @@ function ScenesPage() {
         </div>
       </section>
 
-      <section className="section scenes-panel scenes-panel-cta">
+      <section className="section scenes-panel scenes-panel-cta page-end-cta">
         <div className="container">
           <article className="card page-cta-card scenes-cta-card">
             <h2>Have a scene idea?</h2>
