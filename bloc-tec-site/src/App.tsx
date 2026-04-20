@@ -6,12 +6,11 @@ import {
   type TouchEvent,
 } from "react";
 import {
-  Call24Regular,
   Box24Regular,
   Globe24Regular,
-  Link24Regular,
   CheckmarkCircle24Regular,
   Table24Regular,
+  VehicleTruckProfile24Regular,
 } from "@fluentui/react-icons";
 import {
   BrowserRouter,
@@ -23,15 +22,21 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
-const APP_ENTRY_URL = "https://app.bloc-tec.com/account/demo/";
-const IBSTOCK_INTEGRATION_URL = APP_ENTRY_URL;
-const TOBERMORE_INTEGRATION_URL = APP_ENTRY_URL;
-const KINGSCOURT_INTEGRATION_URL = APP_ENTRY_URL;
-const ACHESON_GLOVER_INTEGRATION_URL = APP_ENTRY_URL;
-const IBSTOCK_APP_URL = APP_ENTRY_URL;
-const TOBERMORE_APP_URL = APP_ENTRY_URL;
-const KINGSCOURT_APP_URL = APP_ENTRY_URL;
-const ACHESON_GLOVER_APP_URL = APP_ENTRY_URL;
+const IBSTOCK_INTEGRATION_URL = "https://www.ibstock.co.uk/products/bricks";
+const MARSHALLS_INTEGRATION_URL =
+  "https://www.marshalls.co.uk/bricks-and-masonry/facing-bricks";
+const TOBERMORE_INTEGRATION_URL =
+  "https://www.tobermore.co.uk/professional/paving-walling-creator/";
+const KINGSCOURT_INTEGRATION_URL = "https://kingscourtbrick.com/bricks/";
+const ACHESON_GLOVER_INTEGRATION_URL =
+  "https://ag.uk.com/professional/product-visualiser/";
+const CLAY_AND_CO_INTEGRATION_URL = "https://clayandco.com/product-visualiser";
+
+const getClientLogoUrl = (accountName: string) =>
+  `https://app.bloc-tec.com/images/Clients/${accountName}/${accountName}_logo.png`;
+
+const getAccountAppUrl = (accountName: string) =>
+  `https://app.bloc-tec.com/account/${accountName}`;
 
 type IntegrationMethodKey = "base" | "category" | "product" | "sku";
 
@@ -181,7 +186,7 @@ function Header() {
           </Link>
           <nav className="main-nav" aria-label="Main navigation">
             <NavLink to="/">Home</NavLink>
-            <NavLink to="/for-manufacturers">For Manufacturers</NavLink>
+            <NavLink to="/for-manufacturers">Manufacturers</NavLink>
             <NavLink to="/contact">Contact</NavLink>
             <button
               type="button"
@@ -237,36 +242,54 @@ const HOME_PARTNERS: HomePartner[] = [
     name: "Ibstock Brick",
     description:
       "The UK's largest brick manufacturer. Integration focuses on presenting a broad clay brick range through clear, interactive product workflows.",
-    logoUrl: "https://app.bloc-tec.com/images/Clients/ibstock/ibstock_logo.png",
+    logoUrl: getClientLogoUrl("ibstock"),
     integrationUrl: IBSTOCK_INTEGRATION_URL,
-    appUrl: IBSTOCK_APP_URL,
+    appUrl: getAccountAppUrl("ibstock"),
+  },
+  {
+    id: "marshalls",
+    name: "Marshalls Bricks & Masonry",
+    description:
+      "A leading UK supplier of concrete bricks and masonry products, with a strong focus on innovation, colour and finish choice, and practical walling performance.",
+    logoUrl: getClientLogoUrl("MARSHALLS"),
+    integrationUrl: MARSHALLS_INTEGRATION_URL,
+    appUrl: getAccountAppUrl("marshalls"),
+  },
+  {
+    id: "clayandco",
+    name: "Clay & Co",
+    description:
+      "A specialist brick and cladding supplier with a product visualiser-led customer journey. Integration supports faster product discovery, leading to confident choices.",
+    logoUrl: getClientLogoUrl("outhaus"),
+    integrationUrl: CLAY_AND_CO_INTEGRATION_URL,
+    appUrl: getAccountAppUrl("outhaus"),
   },
   {
     id: "tobermore",
     name: "Tobermore Concrete",
     description:
       "A leading Northern Ireland manufacturer of concrete paving and walling products. Integration supports practical specification and product selection workflows.",
-    logoUrl: "https://app.bloc-tec.com/images/Clients/tobermore/tobermore_logo.png",
+    logoUrl: getClientLogoUrl("tobermore"),
     integrationUrl: TOBERMORE_INTEGRATION_URL,
-    appUrl: TOBERMORE_APP_URL,
+    appUrl: getAccountAppUrl("tobermore"),
   },
   {
     id: "kingscourt",
     name: "Kingscourt Bricks",
     description:
       "A long-established Irish clay brick manufacturer. Integration demonstrates that the platform is effective for focused specialist ranges as well as large catalogues.",
-    logoUrl: "https://app.bloc-tec.com/images/Clients/kingscourt_brick/kingscourt_brick_logo.png",
+    logoUrl: getClientLogoUrl("kingscourt_brick"),
     integrationUrl: KINGSCOURT_INTEGRATION_URL,
-    appUrl: KINGSCOURT_APP_URL,
+    appUrl: getAccountAppUrl("kingscourt_brick"),
   },
   {
     id: "achesonglover",
     name: "Acheson & Glover",
     description:
       "A well-established hard landscaping manufacturer. Integration highlights how BLOC-TEC supports practical paving-focused product journeys and client-ready output.",
-    logoUrl: "https://app.bloc-tec.com/images/Clients/ag/ag_logo.png",
+    logoUrl: getClientLogoUrl("ag"),
     integrationUrl: ACHESON_GLOVER_INTEGRATION_URL,
-    appUrl: ACHESON_GLOVER_APP_URL,
+    appUrl: getAccountAppUrl("ag"),
   },
 ];
 
@@ -749,7 +772,7 @@ function IntegrationPage() {
       <section className="section section-alt" id="share-button-domain">
         <div className="container">
           <article className="card">
-            <h2>Share button</h2>
+            <h2>Quick start for share and analytics</h2>
             <p className="integration-step">
               When the app is embedded in an iframe, include{" "}
               <code>allow="clipboard-write"</code> on your embedded iframe for
@@ -757,21 +780,30 @@ function IntegrationPage() {
             </p>
             <p className="integration-step">
               <span className="integration-subtitle">
-                Option to keep users on your domain
+                Host helper for share and analytics
               </span>
             </p>
             <p className="integration-step">
-            When the app is not embedded in an iframe, Share creates direct app
-            URLs to our domain. You can configure Share to generate URLs on your own website domain
-              (host page), so users stay on your domain and reopen the same
-              configured view.
+              When the app is embedded in an iframe, the helper script can do two
+              jobs for your website: resolve share URLs on your own domain and
+              listen for approved analytics events from the app. For most
+              clients, this is the easiest setup.
             </p>
             <p className="integration-step">
-              <span className="integration-subtitle">Share host setup steps</span>
+              When the app is not embedded in an iframe, Share creates direct
+              app URLs to our domain. You can instead configure Share to create
+              URLs on your own website domain so users stay on your site and can
+              reopen the same configured view later.
             </p>
             <p className="integration-step">
-              1) Add the host integration script (<code>embed-host.js</code>) to
-              your website page (the page containing the iframe).
+              <span className="integration-subtitle">
+                Recommended setup steps
+              </span>
+            </p>
+            <p className="integration-step">
+              1) Add the host helper script{" "}
+              (<code>iframe-integration-helper.js</code>) to the page that
+              contains your iframe.
             </p>
             <p className="integration-step">
               2) Configure app base URL, default account/category, iframe
@@ -780,19 +812,226 @@ function IntegrationPage() {
               rules.
             </p>
             <p className="integration-step">
-              3) No manual storage code is needed in most cases: the host
-              integration script stores shared viewer state under a single{" "}
-              <code>bt</code> key in your website URL (recommended{" "}
-              <code>#bt=...</code>; use <code>?bt=...</code> if your site already
-              uses hash routing).
+              3) In most cases, no extra share-link storage code is needed. The
+              helper stores viewer state under a single <code>bt</code> key in
+              your website URL.
+            </p>
+            <p className="integration-step">
+              4) For analytics, the app emits a small approved event list to the
+              parent page via <code>postMessage</code>. Your website can decide
+              whether to forward those events into GA or GTM based on your own
+              consent rules.
+            </p>
+            <p className="integration-step">
+              5) If your site already uses <code>gtag()</code> or{" "}
+              <code>dataLayer</code>, the helper can push events there straight
+              away. If you need custom handling, define{" "}
+              <code>window.BT_ANALYTICS_HANDLER</code>.
+            </p>
+            <p className="integration-step">
+              In most cases, your developer only needs to attach the helper
+              script, configure the iframe origin and selector, and decide
+              whether events should forward into your existing analytics tools.
+              The rest is handled for you.
             </p>
             <p className="integration-step integration-resource-links">
               <a
-                href="https://app.bloc-tec.xyz/embed-test/embed-host.js"
+                href="/integration/iframe-integration-helper.js"
                 target="_blank"
                 rel="noreferrer"
               >
-                Host integration script (embed-host.js)
+                Open helper script
+              </a>
+              {" | "}
+              <a
+                href="/integration/iframe-integration-test.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open iframe integration test page
+              </a>
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section className="section section-alt" id="iframe-analytics-guidance">
+        <div className="container">
+          <article className="card">
+            <h2>Embedded analytics events</h2>
+            <p className="integration-step">
+              When the app is embedded in an iframe, it can send a small approved
+              event list to your website using <code>postMessage</code>. This
+              lets your website decide whether to send those events into GA4,
+              GTM, or another analytics platform.
+            </p>
+            <p className="integration-step">
+              <span className="integration-subtitle">
+                What your website receives
+              </span>
+            </p>
+            <p className="integration-step">
+              Host websites receive the event name plus a small payload. The
+              relevant fields are listed under each event category below so it
+              is clear what belongs to what.
+            </p>
+            <p className="integration-step">
+              Any BLOC-TEC-only internal reporting fields should be ignored by
+              host websites.
+            </p>
+            <p className="integration-step">
+              <span className="integration-subtitle">
+                Event categories
+              </span>
+            </p>
+            <p className="integration-step">
+              The approved event list is intentionally small and practical so it
+              is easy to adopt without a big custom setup.
+            </p>
+            <div className="feature-list integration-list integration-advice-list">
+              <article className="feature-row">
+                <h3>App lifecycle</h3>
+                <p className="integration-step">
+                  <code>app_loaded</code> fires when the embedded app has loaded
+                  and is ready for use.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, and <code>page_path</code>.
+                </p>
+                <p className="integration-step">
+                  This is the core event for measuring iframe launches on your
+                  website.
+                </p>
+              </article>
+              <article className="feature-row">
+                <h3>Product exploration</h3>
+                <p className="integration-step">
+                  <code>category_selected</code> fires when a user opens a
+                  product category.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, and <code>category_name</code>.
+                </p>
+                <p className="integration-step">
+                  <code>product_selected</code> fires when a user opens or
+                  selects a product.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, and <code>product_name</code>.
+                </p>
+                <p className="integration-step">
+                  <code>filter_changed</code> fires when a user changes product
+                  filters in the app.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, <code>filter_type</code>, and{" "}
+                  <code>filter_value</code>.
+                </p>
+                <p className="integration-step">
+                  <code>scene_selected</code> fires when a user switches scenes.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, <code>scene_name</code>, and{" "}
+                  <code>scene_category</code>.
+                </p>
+                <p className="integration-step">
+                  These events are the best starting point if you want to measure
+                  product interest and user exploration.
+                </p>
+              </article>
+              <article className="feature-row">
+                <h3>Sharing and enquiries</h3>
+                <p className="integration-step">
+                  <code>share_clicked</code> fires when a user uses the Share
+                  flow.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, and <code>share_channel</code>.
+                </p>
+                <p className="integration-step">
+                  <code>cta_clicked</code> fires when a user clicks the
+                  sample or enquiry-style CTA exposed through the iframe.
+                </p>
+                <p className="integration-step">
+                  Typical fields: <code>account_name</code>,{" "}
+                  <code>is_embedded</code>, and <code>cta_name</code>.
+                </p>
+                <p className="integration-step">
+                  These are useful higher-value events because they show stronger
+                  intent than general browsing.
+                </p>
+              </article>
+              <article className="feature-row">
+                <h3>Suggested client setup</h3>
+                <p className="integration-step">
+                  Start with <code>app_loaded</code>,{" "}
+                  <code>category_selected</code>, <code>product_selected</code>,{" "}
+                  <code>scene_selected</code>, <code>share_clicked</code>, and{" "}
+                  <code>cta_clicked</code>.
+                </p>
+                <p className="integration-step">
+                  Add <code>filter_changed</code> only if your team wants a more
+                  detailed view of how users narrow product choices.
+                </p>
+              </article>
+            </div>
+            <p className="integration-step">
+              <span className="integration-subtitle">
+                Who tracks what
+              </span>
+            </p>
+            <p className="integration-step">
+              For embedded iframes, your website should control whether these
+              analytics events are forwarded. That means your existing site
+              consent banner or preference system should decide whether GA4, GTM,
+              or another analytics tool receives the events.
+            </p>
+            <p className="integration-step">
+              Standalone BLOC-TEC experiences can collect consented analytics
+              directly for BLOC-TEC. Embedded experiences are designed so the
+              host website owns the main analytics flow.
+            </p>
+            <p className="integration-step">
+              BLOC-TEC may retain limited embedded service-level reporting, such
+              as app loads or key CTA activity, but clients should treat their
+              own host analytics setup as the main source for embedded usage
+              reporting.
+            </p>
+            <p className="integration-step">
+              <span className="integration-subtitle">
+                Testing
+              </span>
+            </p>
+            <p className="integration-step">
+              Use the iframe integration test page to confirm that share and
+              analytics messages are both being received by the parent page
+              before wiring them into your live website analytics.
+            </p>
+            <p className="integration-step">
+              On your live site, the quickest checks are your browser network
+              tab and your analytics platform&apos;s realtime reporting.
+            </p>
+            <p className="integration-step integration-resource-links">
+              <a
+                href="/integration/iframe-integration-helper.js"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open helper script
+              </a>
+              {" | "}
+              <a
+                href="/integration/iframe-integration-test.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open iframe integration test page
               </a>
             </p>
           </article>
@@ -883,7 +1122,7 @@ function ManufacturersPage() {
                 BLOC-TEC helps sales, technical, and marketing teams work from
                 the same design and configuration approach, giving
                 designers clearer comparisons and more confidence earlier in the
-                decision process. That helps teams have more informed
+                decision process. This helps teams have more informed
                 conversations, present options more clearly, and move projects
                 forward with stronger product understanding.
               </p>
@@ -1020,14 +1259,6 @@ function FaqPage() {
                   realistic timelines once requirements are reviewed.
                 </p>
               </details>
-              <details className="faq-item">
-                <summary>What is bricktextures.com?</summary>
-                <p>
-                  bricktextures.com is the BLOC-TEC development and testing
-                  environment used to trial new software ideas before selected
-                  features are rolled into manufacturer-linked accounts.
-                </p>
-              </details>
             </div>
           </article>
 
@@ -1143,8 +1374,9 @@ function ContactPage() {
           />
           <div className="contact-page-overlay">
             <article className="card">
-              <h2>Location</h2>
               <address className="location-block">
+                Paver Picker Ltd trading as BLOC-TEC
+                <br />
                 Ballinamona
                 <br />
                 Glanworth
@@ -1155,11 +1387,16 @@ function ContactPage() {
                 <br />
                 Ireland
               </address>
-              <p>
-                Email: <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
-              </p>
+              <div className="contact-details">
+                <p>
+                  Email: <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
+                </p>
+                <p>
+                  Phone: +353 25 46682
+                </p>
+              </div>
               <a className="btn btn-primary scene-cta-btn" href="mailto:info@bloc-tec.com">
-                Contact us
+                Email us
               </a>
             </article>
           </div>
@@ -1174,7 +1411,7 @@ function ProductSamplesPage() {
     <main className="section product-samples-page">
       <div className="container page-header">
         <p className="eyebrow">Support</p>
-        <h1>Product Samples</h1>
+        <h1>Product samples</h1>
         <p className="lead">
           Guidance for delivery and preparation of samples used in BLOC-TEC
           account set-up and photography workflows.
@@ -1209,30 +1446,11 @@ function ProductSamplesPage() {
               </div>
             </article>
 
-            <article className="feature-row" id="delivery-contact">
-              <div className="feature-content">
-                <h3>
-                  <span className="samples-icon" aria-hidden="true">
-                    <Call24Regular />
-                  </span>
-                  Delivery contact
-                </h3>
-                <p>
-                  <strong>Office:</strong> 025 46682
-                  <br />
-                  <strong>Mob:</strong> 087 989 7014
-                  <br />
-                  <strong>Email:</strong>{" "}
-                  <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
-                </p>
-              </div>
-            </article>
-
             <article className="feature-row" id="offloading">
               <div className="feature-content">
                 <h3>
                   <span className="samples-icon" aria-hidden="true">
-                    <Box24Regular />
+                    <VehicleTruckProfile24Regular />
                   </span>
                   Off-loading of pallets
                 </h3>
@@ -1340,8 +1558,7 @@ function ProductSamplesPage() {
               <div className="feature-content">
                 <h3>Customs information (samples sent from outside the EU)</h3>
                 <p>
-                  Samples must be sent DDP (Delivered Duty Paid). Due to customs
-                  complexity, many clients use an agent for smoother shipment
+                  Samples must be sent DDP (Delivered Duty Paid). Many of our clients use an agent for smoother shipment
                   handling.
                 </p>
               </div>
@@ -1352,8 +1569,7 @@ function ProductSamplesPage() {
                 <h3>Customs charges and registration</h3>
                 <p>
                   All costs associated with delivery or return of products are
-                  covered by the sender. An administration charge of 50 EUR
-                  applies where samples are not sent DDP.
+                  covered by the sender.
                 </p>
                 <p>
                   VAT number: IE3472538NH
@@ -1367,20 +1583,15 @@ function ProductSamplesPage() {
 
             <article className="feature-row">
               <div className="feature-content">
-                <h3 id="customs-links">
-                  <span className="samples-icon" aria-hidden="true">
-                    <Link24Regular />
-                  </span>
-                  Useful customs links
-                </h3>
+                <h3 id="customs-links">Useful customs links</h3>
                 <ul className="benefit-list">
                   <li>
                     <a
-                      href="https://www.revenue.ie/en/customs/businesses/relief-duty-vat/samples/index.aspx"
+                      href="https://ec.europa.eu/taxation_customs/dds2/taric/taric_consultation.jsp?Lang=en#"
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Tax relief on permanent importation of samples
+                      TARIC code lookup
                     </a>
                   </li>
                   <li>
@@ -1394,11 +1605,11 @@ function ProductSamplesPage() {
                   </li>
                   <li>
                     <a
-                      href="https://ec.europa.eu/taxation_customs/dds2/taric/taric_consultation.jsp?Lang=en#"
+                      href="https://www.revenue.ie/en/customs/businesses/relief-duty-vat/samples/index.aspx"
                       target="_blank"
                       rel="noreferrer"
                     >
-                      TARIC code lookup
+                      Tax relief on permanent importation of samples
                     </a>
                   </li>
                 </ul>
@@ -1500,9 +1711,22 @@ function PrivacyPolicyPage() {
               </li>
             </ul>
             <p>
-              This information is used for operational reporting, service
-              support, product improvement, and usage insight for us and, where
-              appropriate, for our customers.
+              When the app is embedded in a customer&apos;s website, we may also
+              emit a small approved event list to the parent page using{" "}
+              <code>postMessage</code>. This lets the host website handle its
+              own analytics and consent choices without needing separate client
+              tracking code inside the iframe.
+            </p>
+            <p>
+              For embedded client websites, the client or host website remains
+              responsible for deciding whether iframe events are forwarded into
+              its own analytics tools under its own consent setup.
+            </p>
+            <p>
+              When the app is used as a standalone Bloc-Tec page rather than in
+              an iframe, Bloc-Tec may collect richer analytics about sessions,
+              engagement, and usage events, but only after the user has given
+              consent where required.
             </p>
 
             <h2>Customer account, billing, and support data</h2>
@@ -1548,17 +1772,17 @@ function PrivacyPolicyPage() {
               cookies or browser storage to run its main content.
             </p>
             <p>
-              The Bloc-Tec app does use browser <code>sessionStorage</code> for
-              short-lived analytics identifiers and session state. This helps us
-              understand sessions and engagement within a browser session, but it
-              is not the same as using marketing cookies for cross-site
-              advertising.
+              In standalone app mode, Bloc-Tec may use browser storage such as{" "}
+              <code>sessionStorage</code> or related analytics state after
+              consent has been given. This helps us understand sessions and
+              engagement within that standalone experience. Embedded host-site
+              analytics are handled separately by the host website.
             </p>
             <p>
-              Analytics events from the app are sent to a Bloc-Tec service
-              endpoint and may then be forwarded to Google Analytics for
-              reporting. If our live setup changes to use additional cookies or
-              tracking technologies, we will update this page.
+              If analytics are enabled for a standalone Bloc-Tec experience,
+              events may be sent directly to Google Analytics 4 and related
+              Bloc-Tec reporting. If our live setup changes materially, we will
+              update this page.
             </p>
 
             <h2>Who we share data with</h2>
@@ -1657,7 +1881,7 @@ function PrivacyPolicyPage() {
               the service, the way data is used, or legal requirements.
             </p>
             <p>
-              This Privacy Policy was last updated on 21-05-25 and replaces any
+              This Privacy Policy was last updated on 10-04-26 and replaces any
               other Privacy Policy previously applicable from that date.
             </p>
 
@@ -2047,6 +2271,10 @@ function AppTermsPage() {
               <li>
                 We process Billing Data in accordance with applicable data
                 protection laws.
+              </li>
+              <li>
+                Client websites remain responsible for their own analytics and
+                consent handling when embedding the Services.
               </li>
             </ul>
 
@@ -2484,17 +2712,39 @@ function Footer() {
   return (
     <footer className="site-footer">
       <div className="container">
-        <p>BLOC-TEC by Paver Picker Ltd</p>
-        <p>
-          <a href="https://bricktextures.com" target="_blank" rel="noreferrer">
-            Visit bricktextures.com
-          </a>
-        </p>
-        <p className="footer-legal">
-          <NavLink to="/privacy-policy">Privacy policy</NavLink>
-          <span>|</span>
-          <NavLink to="/app-terms">Terms of service</NavLink>
-        </p>
+        <div className="footer-brand">
+          <Link className="footer-brand-link" to="/" aria-label="BLOC-TEC home">
+            <img
+              src="/images/brand/bloc-tec-logo-black.svg"
+              alt="BLOC-TEC"
+              className="footer-brand-logo"
+              loading="lazy"
+            />
+          </Link>
+          <p className="footer-brand-subline">
+            Digital tools for brick and paving specification
+          </p>
+        </div>
+        <div className="footer-grid">
+          <nav className="footer-column" aria-label="Main links">
+            <h4>Main</h4>
+            <NavLink to="/">Home</NavLink>
+            <NavLink to="/for-manufacturers">Manufacturers</NavLink>
+            <NavLink to="/contact">Contact</NavLink>
+          </nav>
+          <nav className="footer-column" aria-label="Support links">
+            <h4>Support</h4>
+            <NavLink to="/faq">FAQ</NavLink>
+            <NavLink to="/integration">Integration</NavLink>
+            <NavLink to="/scenes">Scenes</NavLink>
+            <NavLink to="/product-samples">Product samples</NavLink>
+          </nav>
+          <nav className="footer-column" aria-label="Legal links">
+            <h4>Legal</h4>
+            <NavLink to="/privacy-policy">Privacy policy</NavLink>
+            <NavLink to="/app-terms">Terms of service</NavLink>
+          </nav>
+        </div>
       </div>
     </footer>
   );
