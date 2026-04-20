@@ -1356,7 +1356,7 @@ function ContactPage() {
     <main className="section contact-page">
       <div className="container page-header">
         <p className="eyebrow">Contact</p>
-        <h1>Contact BLOC-TEC</h1>
+        <h1>Contact us</h1>
         <p className="lead">
           If you would like to ask about BLOC-TEC, email us directly and include
           your company, product range, and what you would like to discuss.
@@ -1481,30 +1481,32 @@ function ProductSamplesPage() {
                   product and avoid visible repetition. Ensure you select
                   samples to represent the full colour range of your product.
                 </p>
-                <table className="samples-matrix">
-                  <thead>
-                    <tr>
-                      <th>Product size</th>
-                      <th>Single colour</th>
-                      <th>Blended colour</th>
-                      <th>Recommended fallback</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Any edge under 300mm (e.g. bricks and blocks)</td>
-                      <td>10-20</td>
-                      <td>20-30</td>
-                      <td>Send 20</td>
-                    </tr>
-                    <tr>
-                      <td>All edges over 300mm (e.g. slabs)</td>
-                      <td>6-10</td>
-                      <td>10-16</td>
-                      <td>Send 10</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div className="samples-matrix-wrap">
+                  <table className="samples-matrix">
+                    <thead>
+                      <tr>
+                        <th>Product size</th>
+                        <th>Single colour</th>
+                        <th>Blended colour</th>
+                        <th>Recommended fallback</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Any edge under 300mm (e.g. bricks and blocks)</td>
+                        <td>10-20</td>
+                        <td>20-30</td>
+                        <td>Send 20</td>
+                      </tr>
+                      <tr>
+                        <td>All edges over 300mm (e.g. slabs)</td>
+                        <td>6-10</td>
+                        <td>10-16</td>
+                        <td>Send 10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </article>
 

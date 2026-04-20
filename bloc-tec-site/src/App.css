@@ -393,7 +393,16 @@ main {
   border-color: var(--color-primary-dark);
 }
 
-@media (max-width: 640px) {
+@media (max-width: 900px) {
+  .home-partner-slider-viewport {
+    gap: 0.65rem;
+  }
+
+  .home-partner-slider-btn {
+    min-width: 2.35rem;
+    padding: 0 0.35rem;
+  }
+
   .home-partner-slider-panel {
     flex-direction: column;
     align-items: center;
@@ -406,15 +415,25 @@ main {
 
   .home-partner-slide-body {
     text-align: center;
+    width: 100%;
+    max-width: 100%;
   }
 
   .home-partner-actions.integration-actions {
+    width: 100%;
+    grid-template-columns: 1fr;
     justify-items: center;
     margin-top: 1rem;
   }
 
   .home-partner-actions.integration-actions {
     justify-content: center;
+  }
+
+  .home-partner-actions.integration-actions .btn {
+    min-width: 11rem;
+    width: auto;
+    max-width: 100%;
   }
 
 }
@@ -1335,7 +1354,7 @@ main.product-samples-page {
 
 .samples-address-block {
   max-width: 30ch;
-  margin: 0 auto !important;
+  margin: 0 !important;
 }
 
 .samples-icon {
@@ -1400,6 +1419,11 @@ main.product-samples-page {
   border-radius: 0.55rem;
   overflow: hidden;
   background: #f7fbfa;
+}
+
+.samples-matrix-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .samples-matrix th,
@@ -1859,18 +1883,64 @@ main.product-samples-page {
 }
 
 @media (max-width: 767px) {
+  .footer-grid {
+    gap: 1.5rem;
+  }
+
+  .header-top-row {
+    display: grid;
+    justify-items: start;
+    gap: 0.45rem;
+    min-height: auto;
+  }
+
+  .brand {
+    position: static;
+    transform: none;
+  }
+
+  .main-nav {
+    justify-content: flex-start;
+    gap: 0.8rem;
+  }
+
+  .samples-matrix {
+    min-width: 34rem;
+  }
+}
+
+@media (max-width: 900px) {
   .contact-page-image {
-    padding-top: 1.6rem;
+    padding-top: 1.2rem;
   }
 
   .contact-page-image-shell {
     aspect-ratio: auto;
-    min-height: 22rem;
+    min-height: 0;
+    background: transparent;
+    border-radius: 0;
+  }
+
+  .contact-page-image-shell img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 
   .contact-page-overlay {
-    inset: 0 auto auto 0;
+    position: static;
+    inset: auto;
     width: 100%;
+    padding: 0.85rem 0 0;
+  }
+
+  .contact-page-overlay .card {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0;
   }
 }
 
