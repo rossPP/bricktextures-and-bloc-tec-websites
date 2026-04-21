@@ -22,6 +22,12 @@ import {
 } from "react-router-dom";
 import "./App.css";
 
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
+
 const IBSTOCK_INTEGRATION_URL = "https://www.ibstock.co.uk/products/bricks";
 const MARSHALLS_INTEGRATION_URL =
   "https://www.marshalls.co.uk/bricks-and-masonry/facing-bricks";
@@ -2768,6 +2774,22 @@ function ScrollToTop() {
   return null;
 }
 
+function AnalyticsPageTracker() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (!window.gtag) return;
+
+    window.gtag("event", "page_view", {
+      page_path: `${location.pathname}${location.search}${location.hash}`,
+      page_title: document.title,
+      page_location: window.location.href,
+    });
+  }, [location.pathname, location.search, location.hash]);
+
+  return null;
+}
+
 function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -2868,6 +2890,7 @@ function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <AnalyticsPageTracker />
       <div className="site-shell">
         <Header />
         <Routes>
