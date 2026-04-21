@@ -32,6 +32,27 @@ const ACHESON_GLOVER_INTEGRATION_URL =
   "https://ag.uk.com/professional/product-visualiser/";
 const CLAY_AND_CO_INTEGRATION_URL = "https://clayandco.com/product-visualiser";
 
+const SOCIAL_LINKS = [
+  {
+    id: "facebook",
+    label: "Facebook",
+    iconSrc: "/images/social/facebook.svg",
+    href: "https://www.facebook.com/paverpicker",
+  },
+  {
+    id: "x",
+    label: "X",
+    iconSrc: "/images/social/x.svg",
+    href: "https://x.com/bloc_tec",
+  },
+  {
+    id: "linkedin",
+    label: "LinkedIn",
+    iconSrc: "/images/social/linkedin.svg",
+    href: "https://www.linkedin.com/company/bloc-tec",
+  },
+] as const;
+
 const getClientLogoUrl = (accountName: string) =>
   `https://app.bloc-tec.com/images/Clients/${accountName}/${accountName}_logo.png`;
 
@@ -163,6 +184,8 @@ const INTEGRATION_METHOD_OPTIONS: Record<
 function Header() {
   const location = useLocation();
   const [supportOpen, setSupportOpen] = useState(false);
+  const supportTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const supportDropdownRef = useRef<HTMLElement | null>(null);
   const supportLinks = [
     { to: "/faq", label: "FAQ" },
     { to: "/integration", label: "Integration" },
@@ -172,6 +195,33 @@ function Header() {
   const isSupportActive = supportLinks.some((item) =>
     location.pathname.startsWith(item.to),
   );
+
+  useEffect(() => {
+    if (!supportOpen) return;
+
+    const onDocumentMouseDown = (event: MouseEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+
+      if (supportTriggerRef.current?.contains(target)) return;
+      if (supportDropdownRef.current?.contains(target)) return;
+
+      setSupportOpen(false);
+    };
+
+    const onDocumentKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSupportOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", onDocumentMouseDown);
+    document.addEventListener("keydown", onDocumentKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onDocumentMouseDown);
+      document.removeEventListener("keydown", onDocumentKeyDown);
+    };
+  }, [supportOpen]);
 
   return (
     <header className="site-header">
@@ -183,6 +233,9 @@ function Header() {
               alt="BLOC-TEC"
               className="brand-logo"
             />
+            <span className="brand-tagline">
+              Digital tools for brick and paving specification
+            </span>
           </Link>
           <nav className="main-nav" aria-label="Main navigation">
             <NavLink to="/">Home</NavLink>
@@ -190,6 +243,7 @@ function Header() {
             <NavLink to="/contact">Contact</NavLink>
             <button
               type="button"
+              ref={supportTriggerRef}
               className={`support-nav-trigger${supportOpen || isSupportActive ? " active" : ""}`}
               aria-expanded={supportOpen}
               aria-controls="support-nav-dropdown"
@@ -207,6 +261,7 @@ function Header() {
             <nav
               className="support-nav-dropdown"
               id="support-nav-dropdown"
+              ref={supportDropdownRef}
               aria-label="Support navigation"
             >
               {supportLinks.map((item) => (
@@ -855,6 +910,8 @@ function IntegrationPage() {
         </div>
       </section>
 
+      {/* Analytics section intentionally hidden for launch.
+          Re-enable this block when analytics guidance is ready to ship again.
       <section className="section" id="iframe-analytics-guidance">
         <div className="container">
           <article className="card">
@@ -1037,8 +1094,9 @@ function IntegrationPage() {
           </article>
         </div>
       </section>
+      */}
 
-      <section className="section section-alt page-end-cta" id="integration-support">
+      <section className="section integration-cta-section" id="integration-support">
         <div className="container">
           <article className="card page-cta-card">
             <h2>Need integration support now?</h2>
@@ -1333,7 +1391,7 @@ function FaqPage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section page-end-cta faq-cta-section">
         <div className="container faq-layout">
           <article className="card page-cta-card faq-cta-block">
             <h2>Can&apos;t find what you need?</h2>
@@ -1577,7 +1635,7 @@ function ProductSamplesPage() {
                   <br />
                   EORI number: IE3472538NH
                   <br />
-                  Business Registration Number: 04066
+                  Business Registration Number: 604066
                 </p>
               </div>
             </article>
@@ -1931,8 +1989,9 @@ function AppTermsPage() {
             </p>
             <p>
               Paver Picker Ltd trading as Bloc-Tec is a registered business in
-              Ireland and provides the Bloc-Tec visualisation services described
-              in your invoice or written confirmation.
+              Ireland (business registration number: 604066) and provides the
+              Bloc-Tec visualisation services described in your invoice or
+              written confirmation.
             </p>
 
             <h2>Definitions</h2>
@@ -2710,42 +2769,96 @@ function ScrollToTop() {
 }
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="site-footer">
       <div className="container">
-        <div className="footer-brand">
-          <Link className="footer-brand-link" to="/" aria-label="BLOC-TEC home">
-            <img
-              src="/images/brand/bloc-tec-logo-black.svg"
-              alt="BLOC-TEC"
-              className="footer-brand-logo"
-              loading="lazy"
-            />
-          </Link>
-          <p className="footer-brand-subline">
-            Digital tools for brick and paving specification
+        <div className="footer-main">
+          <div className="footer-links-wrap">
+            <div className="footer-grid">
+              <div className="footer-logo-block footer-logo-block--side">
+                <Link className="footer-brand-link" to="/" aria-label="BLOC-TEC home">
+                  <img
+                    src="/images/brand/bloc-tec-logo-black.svg"
+                    alt="BLOC-TEC"
+                    className="footer-brand-logo"
+                    loading="lazy"
+                  />
+                </Link>
+                <p className="footer-brand-subline">
+                  Digital tools for brick and paving specification
+                </p>
+              </div>
+              <nav className="footer-column footer-column--main" aria-label="Main links">
+                <h4>Main</h4>
+                <NavLink to="/">Home</NavLink>
+                <NavLink to="/for-manufacturers">Manufacturers</NavLink>
+                <NavLink to="/contact">Contact</NavLink>
+              </nav>
+              <nav className="footer-column" aria-label="Support links">
+                <h4>Support</h4>
+                <NavLink to="/faq">FAQ</NavLink>
+                <NavLink to="/integration">Integration</NavLink>
+                <NavLink to="/scenes">Scenes</NavLink>
+                <NavLink to="/product-samples">Product samples</NavLink>
+              </nav>
+              <nav className="footer-column" aria-label="Legal links">
+                <h4>Legal</h4>
+                <NavLink to="/privacy-policy">Privacy policy</NavLink>
+                <NavLink to="/app-terms">Terms of service</NavLink>
+              </nav>
+              <div
+                className="social-links social-links--footer social-links--footer-grid"
+                aria-label="Social media links"
+              >
+                {SOCIAL_LINKS.map((link) => (
+                  <a
+                    key={link.id}
+                    className={`social-link social-link--${link.id}`}
+                    href={link.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={link.label}
+                    title={link.label}
+                  >
+                    <span className="social-link-icon" aria-hidden="true">
+                      <img src={link.iconSrc} alt="" className="social-link-icon-image" />
+                    </span>
+                  </a>
+                ))}
+              </div>
+              <div className="footer-association footer-association--side">
+                <img
+                  src="/images/bmf-1-logo-svg-vector.svg"
+                  alt="Builders Merchants Federation Ltd"
+                  className="footer-association-logo"
+                  loading="lazy"
+                />
+                <p className="footer-association-text">
+                  We stay connected to your market
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p className="footer-company-meta">
+            © {currentYear} Paver Picker Ltd trading as BLOC-TEC | Registered in Ireland
+            | Company No. 604066
+            <br />
+            Ballinamona, Glanworth, County Cork, P51 C9Y7
           </p>
         </div>
-        <div className="footer-grid">
-          <nav className="footer-column" aria-label="Main links">
-            <h4>Main</h4>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/for-manufacturers">Manufacturers</NavLink>
-            <NavLink to="/contact">Contact</NavLink>
-          </nav>
-          <nav className="footer-column" aria-label="Support links">
-            <h4>Support</h4>
-            <NavLink to="/faq">FAQ</NavLink>
-            <NavLink to="/integration">Integration</NavLink>
-            <NavLink to="/scenes">Scenes</NavLink>
-            <NavLink to="/product-samples">Product samples</NavLink>
-          </nav>
-          <nav className="footer-column" aria-label="Legal links">
-            <h4>Legal</h4>
-            <NavLink to="/privacy-policy">Privacy policy</NavLink>
-            <NavLink to="/app-terms">Terms of service</NavLink>
-          </nav>
-        </div>
+        <button
+          type="button"
+          className="footer-top-btn"
+          aria-label="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <span className="footer-top-btn-icon" aria-hidden="true">⌃</span>
+          <span className="footer-top-btn-label">Top</span>
+        </button>
       </div>
     </footer>
   );
