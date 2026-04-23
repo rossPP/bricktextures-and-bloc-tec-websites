@@ -3,6 +3,7 @@
  *
  * Handles:
  * - iframe bootstrapping from a host `bt` config
+ * - fallback bootstrap from existing iframe src
  * - share URL resolution via postMessage
  * - analytics event forwarding via postMessage
  *
@@ -17,9 +18,9 @@
     APP_BASE_DEFAULT: "https://app.bloc-tec.com",
     DEFAULT_ACCOUNT: "demo",
     DEFAULT_CATEGORY: "",
-    ALLOWED_IFRAME_ORIGINS: ["https://app.bloc-tec.com", "https://app.bloc-tec.xyz"],
+    ALLOWED_IFRAME_ORIGINS: ["https://app.bloc-tec.com"],
     STORE_BT_IN_HASH: true,
-    ANALYTICS_ENABLED: true,
+    ANALYTICS_ENABLED: false,
     IFRAME_SELECTOR: "iframe[data-bt-viewer]",
     INPUT_APP_BASE_ID: "appBase",
     INPUT_ACCOUNT_ID: "account",
@@ -36,12 +37,21 @@
       ? window.BT_EMBED_CONFIG
       : {};
 
+  function hasOwn(config, key) {
+    return Object.prototype.hasOwnProperty.call(config, key);
+  }
+
   const CFG = {
     ...DEFAULTS,
     ...userConfig,
     ALLOWED_IFRAME_ORIGINS: Array.isArray(userConfig.ALLOWED_IFRAME_ORIGINS)
       ? userConfig.ALLOWED_IFRAME_ORIGINS
       : DEFAULTS.ALLOWED_IFRAME_ORIGINS
+  };
+
+  const USER_PROVIDED = {
+    APP_BASE_DEFAULT: hasOwn(userConfig, "APP_BASE_DEFAULT"),
+    DEFAULT_CATEGORY: hasOwn(userConfig, "DEFAULT_CATEGORY")
   };
 
   const ALLOWED = new Set(CFG.ALLOWED_IFRAME_ORIGINS.map(String));
@@ -98,6 +108,42 @@
       .filter(Boolean)
       .map(seg => encodeURIComponent(seg))
       .join("/");
+  }
+
+  function readIframeState(iframeEl) {
+    if (!iframeEl) return null;
+    const rawSrc =
+      (typeof iframeEl.getAttribute === "function" && iframeEl.getAttribute("src")) ||
+      iframeEl.src ||
+      "";
+    if (!rawSrc) return null;
+
+    let url;
+    try {
+      url = new URL(rawSrc, window.location.href);
+    } catch {
+      return null;
+    }
+
+    const pathMatch = url.pathname.match(/^\/account\/([^/]+)(?:\/(.+))?$/i);
+    if (!pathMatch) return null;
+
+    const account = safeDecode(pathMatch[1]) || "";
+    const category = pathMatch[2]
+      ? pathMatch[2]
+          .split("/")
+          .filter(Boolean)
+          .map(seg => safeDecode(seg) || seg)
+          .join("/")
+      : "";
+    const config = (url.search || "").replace(/^\?/, "");
+
+    return {
+      appBase: normalizeAppBase(url.origin),
+      account,
+      category,
+      config
+    };
   }
 
   function readBtFromHostUrl() {
@@ -165,6 +211,10 @@
   }
 
   function forwardAnalytics(msg) {
+    if (!shouldForwardAnalytics(msg)) {
+      return;
+    }
+
     const detail = {
       event: msg.event,
       payload: msg.payload || {},
@@ -175,11 +225,6 @@
       window.dispatchEvent(new CustomEvent("bt:analytics", {detail}));
     } catch (error) {
       log("[host] custom analytics dispatch failed", error);
-    }
-
-    if (!shouldForwardAnalytics(msg)) {
-      log("[host] analytics suppressed", detail);
-      return;
     }
 
     if (typeof window.gtag === "function") {
@@ -214,20 +259,48 @@
 
   function setDefaults() {
     const {appBaseEl, accountEl, categoryEl} = getInputs();
-    if (appBaseEl && !appBaseEl.value) appBaseEl.value = CFG.APP_BASE_DEFAULT;
-    if (accountEl && !accountEl.value) accountEl.value = CFG.DEFAULT_ACCOUNT;
-    if (categoryEl && !categoryEl.value) categoryEl.value = CFG.DEFAULT_CATEGORY;
+    const iframe = document.querySelector(CFG.IFRAME_SELECTOR);
+    const iframeState = readIframeState(iframe);
+
+    if (appBaseEl && !appBaseEl.value) {
+      appBaseEl.value = USER_PROVIDED.APP_BASE_DEFAULT
+        ? CFG.APP_BASE_DEFAULT
+        : (iframeState && iframeState.appBase) || CFG.APP_BASE_DEFAULT;
+    }
+    if (accountEl && !accountEl.value) {
+      accountEl.value = (iframeState && iframeState.account) || CFG.DEFAULT_ACCOUNT;
+    }
+    if (categoryEl && !categoryEl.value) {
+      categoryEl.value = USER_PROVIDED.DEFAULT_CATEGORY
+        ? CFG.DEFAULT_CATEGORY
+        : (iframeState && iframeState.category) || CFG.DEFAULT_CATEGORY;
+    }
   }
 
   function reloadIframeFromHostUrl() {
     const iframe = document.querySelector(CFG.IFRAME_SELECTOR);
     if (!iframe) return;
+    const iframeState = readIframeState(iframe);
 
     const {appBaseEl, accountEl, categoryEl} = getInputs();
-    const bt = readBtFromHostUrl() || "";
-    const appBase = normalizeAppBase((appBaseEl && appBaseEl.value) || CFG.APP_BASE_DEFAULT);
-    const account = ((accountEl && accountEl.value) || CFG.DEFAULT_ACCOUNT).trim();
-    const category = ((categoryEl && categoryEl.value) || CFG.DEFAULT_CATEGORY).trim();
+    const bt = readBtFromHostUrl() || (iframeState && iframeState.config) || "";
+    const appBase = normalizeAppBase(
+      (appBaseEl && appBaseEl.value) ||
+        (USER_PROVIDED.APP_BASE_DEFAULT
+          ? CFG.APP_BASE_DEFAULT
+          : (iframeState && iframeState.appBase) || CFG.APP_BASE_DEFAULT),
+    );
+    const account = (
+      (accountEl && accountEl.value) ||
+      (iframeState && iframeState.account) ||
+      CFG.DEFAULT_ACCOUNT
+    ).trim();
+    const category = (
+      (categoryEl && categoryEl.value) ||
+      (USER_PROVIDED.DEFAULT_CATEGORY
+        ? CFG.DEFAULT_CATEGORY
+        : (iframeState && iframeState.category) || CFG.DEFAULT_CATEGORY)
+    ).trim();
 
     const src = buildIframeSrc(appBase, account, category, bt);
     iframe.src = src;

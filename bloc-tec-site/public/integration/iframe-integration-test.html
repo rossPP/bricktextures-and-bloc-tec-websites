@@ -3,115 +3,96 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Iframe Integration Test</title>
+    <title>Simple Iframe Integration Test</title>
     <style>
       :root {
-        color-scheme: light;
-        font-family:
-          Segoe UI,
-          system-ui,
-          -apple-system,
-          Arial,
-          sans-serif;
+        font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
       }
       body {
         margin: 0;
-        padding: 16px;
-      }
-      .row {
-        display: flex;
-        gap: 12px;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-bottom: 12px;
+        padding: 20px;
+        line-height: 1.35;
+        color: #171717;
       }
       code {
         background: #f2f2f2;
         padding: 2px 6px;
         border-radius: 4px;
       }
-      .box {
-        border: 1px solid #ddd;
+      .card {
+        border: 1px solid #dcdcdc;
         border-radius: 8px;
-        padding: 12px;
+        padding: 14px;
+        margin-bottom: 12px;
       }
       iframe {
         width: 100%;
-        height: 900px;
-        border: 1px solid #ddd;
+        min-height: 760px;
+        border: 1px solid #dcdcdc;
         border-radius: 8px;
+        background: #fff;
       }
-      .muted {
+      .note {
         color: #666;
-        font-size: 12px;
+        font-size: 0.92rem;
       }
-      .log {
-        white-space: pre-wrap;
-        font-family:
-          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New",
-          monospace;
-        font-size: 12px;
-        max-height: 180px;
-        overflow: auto;
+      ol {
+        margin: 0.5rem 0 0;
+        padding-left: 1.2rem;
+      }
+      li + li {
+        margin-top: 0.35rem;
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+      }
+      input[type="text"] {
+        min-width: 220px;
+        padding: 6px 8px;
       }
       button {
         padding: 6px 10px;
       }
-      input[type="text"] {
-        width: min(720px, 100%);
-        padding: 6px 8px;
-      }
     </style>
-    <script>
-      window.BT_EMBED_CONFIG = {
-        APP_BASE_DEFAULT: "https://app.bloc-tec.com",
-        DEFAULT_ACCOUNT: "demo",
-        DEFAULT_CATEGORY: "",
-        ALLOWED_IFRAME_ORIGINS: ["https://app.bloc-tec.com", "https://app.bloc-tec.xyz"],
-        ANALYTICS_ENABLED: true
-      };
-    </script>
   </head>
   <body>
-    <h2 style="margin: 0 0 8px">Iframe Integration Test</h2>
-    <div class="muted" style="margin-bottom: 12px">
-      This page acts as the <b>host site</b>. It embeds the app in an iframe,
-      resolves share URLs using <code>bt:share_request</code> →
-      <code>bt:share_response</code>, and listens for
-      <code>bt:analytics_event</code> messages.
-    </div>
-
-    <div class="box" style="margin-bottom: 12px">
-      <div class="row">
-        <div><b>App base</b></div>
-        <input id="appBase" type="text" value="https://app.bloc-tec.com" />
-      </div>
-      <div class="row">
-        <div><b>Account</b></div>
-        <input id="account" type="text" value="demo" placeholder="e.g. demo" />
-      </div>
-      <div class="row">
-        <div><b>Category (optional)</b></div>
-        <input id="category" type="text" value="" placeholder="Optional (for browsing only)" />
-        <button id="reload">Reload iframe</button>
-      </div>
-      <div class="muted">
-        Use this page to test both host-domain share links and host-side
-        analytics forwarding. Add your own consent-aware analytics logic by
-        defining <code>window.BT_ANALYTICS_HANDLER</code> before the helper
-        script loads.
+    <h2 style="margin: 0 0 8px">Simple iframe integration test (share only)</h2>
+    <div class="card">
+      <p style="margin: 0 0 8px">
+        This is the simplest host-page setup for testing Share with the helper
+        script.
+      </p>
+      <div class="note">
+        Default iframe URL pattern:
+        <code>https://app.bloc-tec.com/account/demo</code>
       </div>
     </div>
 
-    <iframe id="viewer" data-bt-viewer title="Viewer" allow="clipboard-write"></iframe>
-
-    <div class="box" style="margin-top: 12px">
-      <div class="row" style="justify-content: space-between">
-        <b>Host log</b>
-        <button id="clearLog">Clear</button>
+    <div class="card">
+      <div style="margin-bottom: 8px">Quick test steps</div>
+      <ol>
+        <li>Interact with the viewer and click Share.</li>
+        <li>Open the copied link in a new tab.</li>
+        <li>Confirm the same product/view reopens on your host URL.</li>
+      </ol>
+      <div class="row">
+        <label for="account">Account:</label>
+        <input id="account" type="text" value="demo" />
+        <button id="reload" type="button">Load account</button>
       </div>
-      <div id="log" class="log"></div>
     </div>
+
+    <iframe
+      id="viewer"
+      data-bt-viewer
+      title="Viewer"
+      src="https://app.bloc-tec.com/account/demo?c=WO_LE_AN"
+      allow="clipboard-write"
+    ></iframe>
 
     <script src="./iframe-integration-helper.js" defer></script>
   </body>

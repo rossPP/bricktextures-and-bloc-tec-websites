@@ -1,0 +1,49 @@
+:root {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+}
+
+.coming-soon-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f7f6 100%);
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: #0b0b0b;
+}
+
+.coming-soon-card {
+  width: min(42rem, 100%);
+  background: #ffffff;
+  border: 1px solid #dce6e3;
+  border-radius: 0.9rem;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.coming-soon-eyebrow {
+  margin: 0 0 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #008272;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.coming-soon-card h1 {
+  margin: 0;
+  font-size: clamp(2rem, 6vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.coming-soon-card p {
+  margin: 0.9rem 0 0;
+  color: #2b3f3b;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}

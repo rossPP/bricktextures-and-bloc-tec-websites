@@ -85,7 +85,7 @@ type IntegrationMethodOption = {
 };
 
 function getSkuDemoUrl(productCode: string) {
-  return `https://app.bloc-tec.com/account/demo/Clay%20Bricks?c=${encodeURIComponent(productCode)}`;
+  return `https://app.bloc-tec.com/account/ag?c=${encodeURIComponent(productCode)}`;
 }
 
 const INTEGRATION_METHOD_OPTIONS: Record<
@@ -99,9 +99,9 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templateHighlight: "<account-name>",
     description:
       "This route gives access to your full product collection and works for both standalone links and iframe embeds. We provide your account name during account set-up.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/demo",
+    demoIframeUrl: "https://app.bloc-tec.com/account/ag",
     examplePrefix: "https://app.bloc-tec.com/account/",
-    exampleHighlight: "demo",
+    exampleHighlight: "ag",
     recommendedIntro:
       "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
     recommendedMethods: [
@@ -123,9 +123,9 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templateHighlight: "<category-name>",
     description:
       "This is the top level of your account product structure. Pass in the category name to load it directly.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/demo/Clay%20Bricks",
-    examplePrefix: "https://app.bloc-tec.com/account/demo/",
-    exampleHighlight: "Clay%20Bricks",
+    demoIframeUrl: "https://app.bloc-tec.com/account/ag/Bricks",
+    examplePrefix: "https://app.bloc-tec.com/account/ag/",
+    exampleHighlight: "Bricks",
     recommendedIntro:
       "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
     recommendedMethods: [
@@ -149,8 +149,8 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     description:
       "This loads a specific product, allowing users to browse all available colours and finishes for that product.",
     demoIframeUrl:
-      "https://app.bloc-tec.com/account/demo/Clay%20Bricks?viewProduct=Woodward",
-    examplePrefix: "https://app.bloc-tec.com/account/demo/Clay%20Bricks?",
+      "https://app.bloc-tec.com/account/ag/Bricks?viewProduct=Woodward",
+    examplePrefix: "https://app.bloc-tec.com/account/ag/Bricks?",
     exampleHighlight: "viewProduct=Woodward",
     recommendedMethods: [
       {
@@ -164,15 +164,14 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     ],
   },
   sku: {
-    buttonLabel: "SKU",
+    buttonLabel: "SKU / Colour",
     title: "Linking to individual SKU level",
-    templatePrefix:
-      "https://app.bloc-tec.com/account/<account-name>/<category-name>?",
+    templatePrefix: "https://app.bloc-tec.com/account/<account-name>?",
     templateHighlight: "c=<product-code>",
     description:
-      "This is useful for embedding in a webpage specific to one product.",
+      "This is useful for embedding in a webpage specific to one product, with a category-independent URL format.",
     demoIframeUrl: getSkuDemoUrl("WO_LE_AN"),
-    examplePrefix: "https://app.bloc-tec.com/account/demo/Clay%20Bricks?",
+    examplePrefix: "https://app.bloc-tec.com/account/ag?",
     exampleHighlight: "c=WO_LE_AN",
     recommendedMethods: [
       {
@@ -596,24 +595,41 @@ function IntegrationPage() {
             <article className="feature-row integration-method-panel">
               <div className="feature-content">
                 <h3>{activeMethod.title}</h3>
-                <p className="integration-step">
-                  <code>{activeMethod.templatePrefix}</code>
-                  <strong>
-                    <code>{activeMethod.templateHighlight}</code>
-                  </strong>
+                <div className="integration-code-card">
+                  <pre className="integration-code-block">
+                    <code>
+                      {activeMethod.templatePrefix}
+                      <strong>{activeMethod.templateHighlight}</strong>
+                    </code>
+                  </pre>
+                </div>
+                <p className="integration-step integration-link-note">
+                  Open Modal window or Embedded preview to see the live example
+                  URL in the top ribbon.
                 </p>
+                {showIframePreview ? (
+                  <div className="integration-preview-wrap">
+                    <div className="integration-preview-toolbar">
+                      <span className="integration-preview-url">
+                        URL: <code>{activeMethod.demoIframeUrl}</code>
+                      </span>
+                      <button
+                        className="btn-small"
+                        type="button"
+                        onClick={() => setShowIframePreview(false)}
+                      >
+                        Close preview
+                      </button>
+                    </div>
+                    <iframe
+                      className="integration-preview-iframe"
+                      title={`${activeMethod.buttonLabel} integration preview`}
+                      src={activeMethod.demoIframeUrl}
+                      loading="lazy"
+                    />
+                  </div>
+                ) : null}
                 <p className="integration-step">{activeMethod.description}</p>
-                <p className="integration-step">
-                  <span className="integration-subtitle">Example link:</span>
-                  <br />
-                  <code>{activeMethod.examplePrefix}</code>
-                  <strong>
-                    <code>{activeMethod.exampleHighlight}</code>
-                  </strong>
-                  {activeMethod.exampleSuffix ? (
-                    <code>{activeMethod.exampleSuffix}</code>
-                  ) : null}
-                </p>
                 <p className="integration-step integration-recommendation">
                   <span className="integration-subtitle">
                     Recommended method:
@@ -633,48 +649,6 @@ function IntegrationPage() {
                     </span>
                   ))}
                 </p>
-                {selectedMethod === "category" ? (
-                  <>
-                    <p className="integration-step">
-                      <span className="integration-subtitle">
-                        Additional Parameters:
-                      </span>
-                    </p>
-                    <p className="integration-step">
-                      <code>prodBack=false</code> hides the product-level back
-                      control so users stay in your category-page flow.
-                    </p>
-                  </>
-                ) : null}
-                {selectedMethod === "sku" ? (
-                  <>
-                    <p className="integration-step">
-                      <span className="integration-subtitle">
-                        Additional Parameters:
-                      </span>
-                    </p>
-                    <p className="integration-step">
-                      <code>viewerBack=false</code> hides the viewer-level back
-                      control so users stay in your product-page flow.
-                    </p>
-                    <p className="integration-step">
-                      <span className="integration-subtitle">
-                        If blender module is active:
-                      </span>
-                    </p>
-                    <p className="integration-step">
-                      See the Blender integration guidance below.
-                    </p>
-                    <p className="integration-step">
-                      <code>canBlend=false</code> disables blend controls for
-                      single-product pages.
-                    </p>
-                    <p className="integration-step">
-                      <code>tab=blend</code> opens the Blend tab instead of the
-                      default product configuration tab.
-                    </p>
-                  </>
-                ) : null}
                 <div className="integration-method-actions">
                   <a
                     className="btn-small"
@@ -705,24 +679,56 @@ function IntegrationPage() {
                     Open embedded
                   </button>
                 </div>
-                {showIframePreview ? (
-                  <div className="integration-preview-wrap">
-                    <div className="integration-preview-toolbar">
-                      <button
-                        className="btn-small"
-                        type="button"
-                        onClick={() => setShowIframePreview(false)}
-                      >
-                        Close preview
-                      </button>
-                    </div>
-                    <iframe
-                      className="integration-preview-iframe"
-                      title={`${activeMethod.buttonLabel} integration preview`}
-                      src={activeMethod.demoIframeUrl}
-                      loading="lazy"
-                    />
-                  </div>
+                {selectedMethod === "category" ? (
+                  <>
+                    <p className="integration-step">
+                      <span className="integration-subtitle">
+                        Additional Parameters:
+                      </span>
+                    </p>
+                    <p className="integration-step">
+                      <code>prodBack=false</code> hides the product-level back
+                      control so users stay in your category-page flow.
+                    </p>
+                  </>
+                ) : null}
+                {selectedMethod === "sku" ? (
+                  <>
+                    <p className="integration-step">
+                      <span className="integration-subtitle">
+                        Additional Parameters:
+                      </span>
+                    </p>
+                    <p className="integration-step">
+                      <code>viewerBack=false</code> hides the viewer-level back
+                      control so users stay in your product-page flow.
+                    </p>
+                    <p className="integration-step">
+                      <span className="integration-subtitle">
+                        Link stability note:
+                      </span>
+                    </p>
+                    <p className="integration-step">
+                      SKU links intentionally omit the category segment so you can
+                      reorganise categories later without breaking existing links.
+                    </p>
+                    <p className="integration-step">
+                      <span className="integration-subtitle">
+                        If blender module is active:
+                      </span>
+                    </p>
+                    <p className="integration-step">
+                      See the Blender integration guidance below.
+                    </p>
+                    <p className="integration-step">
+                      <code>canBlend=false</code> disables blend controls for
+                      single-product pages.
+                    </p>
+                    <p className="integration-step">
+                      <code>tab=blend</code> opens the Blend tab instead of the
+                      default product configuration tab.
+                    </p>
+                  </>
                 ) : null}
               </div>
             </article>
@@ -767,7 +773,7 @@ function IntegrationPage() {
                 <h3>Hiding your logo</h3>
                 <p className="integration-step">
                   For browser-tab links, you can explicitly hide the viewer logo
-                  by appending <code>logo=false</code> to your integration URL.
+                  by appending the query parameter <code>logo=false</code>.
                 </p>
               </article>
 
@@ -833,68 +839,55 @@ function IntegrationPage() {
       <section className="section section-alt" id="share-button-domain">
         <div className="container">
           <article className="card">
-            <h2>Quick start for share and analytics</h2>
+            <h2>Configure Share links to your website URL</h2>
+            <p className="integration-step">
+              In iframe mode, the helper keeps Share links on your own website
+              domain; without it, Share links open on the app domain.
+            </p>
             <p className="integration-step">
               When the app is embedded in an iframe, include{" "}
               <code>allow="clipboard-write"</code> on your embedded iframe for
               reliable copy-link support.
             </p>
             <p className="integration-step">
+              Demo iframe example:
+            </p>
+            <div className="integration-code-card">
+              <pre className="integration-code-block">
+                <code>{`<iframe
+  title="BLOC-TEC viewer"
+  src="https://app.bloc-tec.com/account/demo?c=WO_LE_AN"
+  allow="clipboard-write"
+></iframe>`}</code>
+              </pre>
+            </div>
+            <p className="integration-step">
               <span className="integration-subtitle">
-                Host helper for share and analytics
+                Share setup
               </span>
             </p>
             <p className="integration-step">
-              When the app is embedded in an iframe, the helper script can do two
-              jobs for your website: resolve share URLs on your own domain and
-              listen for approved analytics events from the app. For most
-              clients, this is the easiest setup.
+              In addition to your iframe, load the helper script on the same
+              page using{" "}
+              <code>https://app.bloc-tec.com/integration/iframe-integration-helper.js</code>.
             </p>
+            <div className="integration-code-card">
+              <pre className="integration-code-block">
+                <code>{`<script
+  src="https://app.bloc-tec.com/integration/iframe-integration-helper.js"
+></script>`}</code>
+              </pre>
+            </div>
             <p className="integration-step">
-              When the app is not embedded in an iframe, Share creates direct
-              app URLs to our domain. You can instead configure Share to create
-              URLs on your own website domain so users stay on your site and can
-              reopen the same configured view later.
+              For SKU pages, use a category-independent SKU URL next to your
+              iframe, for example{" "}
+              <code>https://app.bloc-tec.com/account/&lt;account-name&gt;?c=&lt;product-code&gt;</code>.
             </p>
-            <p className="integration-step">
-              <span className="integration-subtitle">
-                Recommended setup steps
-              </span>
-            </p>
-            <p className="integration-step">
-              1) Add the host helper script{" "}
-              (<code>iframe-integration-helper.js</code>) to the page that
-              contains your iframe.
-            </p>
-            <p className="integration-step">
-              2) Configure app base URL, default account/category, iframe
-              selector, and exact allowed iframe origins including{" "}
-              <code>https://app.bloc-tec.com</code>. Do not use wildcard origin
-              rules.
-            </p>
-            <p className="integration-step">
-              3) In most cases, no extra share-link storage code is needed. The
-              helper stores viewer state under a single <code>bt</code> key in
-              your website URL.
-            </p>
-            <p className="integration-step">
-              4) For analytics, the app emits a small approved event list to the
-              parent page via <code>postMessage</code>. Your website can decide
-              whether to forward those events into GA or GTM based on your own
-              consent rules.
-            </p>
-            <p className="integration-step">
-              5) If your site already uses <code>gtag()</code> or{" "}
-              <code>dataLayer</code>, the helper can push events there straight
-              away. If you need custom handling, define{" "}
-              <code>window.BT_ANALYTICS_HANDLER</code>.
-            </p>
-            <p className="integration-step">
-              In most cases, your developer only needs to attach the helper
-              script, configure the iframe origin and selector, and decide
-              whether events should forward into your existing analytics tools.
-              The rest is handled for you.
-            </p>
+            <div className="integration-code-card">
+              <pre className="integration-code-block">
+                <code>{`https://app.bloc-tec.com/account/<account-name>?c=<product-code>`}</code>
+              </pre>
+            </div>
             <p className="integration-step integration-resource-links">
               <a
                 href="/integration/iframe-integration-helper.js"
@@ -911,6 +904,10 @@ function IntegrationPage() {
               >
                 Open iframe integration test page
               </a>
+            </p>
+            <p className="integration-step integration-link-note">
+              Analytics support for iframe integrations is in progress and will
+              be documented in this section when ready.
             </p>
           </article>
         </div>
@@ -1107,9 +1104,9 @@ function IntegrationPage() {
           <article className="card page-cta-card">
             <h2>Need integration support now?</h2>
             <p>
-              If your developer team runs into an integration issue, contact us
-              with your account name and a short summary. We are happy to help
-              you resolve it quickly.
+              If you run into an integration issue, contact us
+              with your account name and a short summary. We will be happy to help
+              you resolve it.
             </p>
             <a
               className="btn btn-primary scene-cta-btn"
@@ -1134,6 +1131,9 @@ function IntegrationPage() {
             onClick={(event) => event.stopPropagation()}
           >
             <div className="integration-iframe-modal-toolbar">
+              <span className="integration-preview-url">
+                URL: <code>{activeMethod.demoIframeUrl}</code>
+              </span>
               <button
                 className="btn-small"
                 type="button"
@@ -1456,7 +1456,7 @@ function ContactPage() {
                   Email: <a href="mailto:info@bloc-tec.com">info@bloc-tec.com</a>
                 </p>
                 <p>
-                  Phone: +353 25 46682
+                  Phone: +353 (0)25 46682
                 </p>
               </div>
               <a className="btn btn-primary scene-cta-btn" href="mailto:info@bloc-tec.com">
@@ -2878,8 +2878,7 @@ function Footer() {
           aria-label="Back to top"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <span className="footer-top-btn-icon" aria-hidden="true">⌃</span>
-          <span className="footer-top-btn-label">Top</span>
+          <span className="footer-top-btn-icon" aria-hidden="true">›</span>
         </button>
       </div>
     </footer>
