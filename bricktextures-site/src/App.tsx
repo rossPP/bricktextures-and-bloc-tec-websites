@@ -1,10 +1,33 @@
 import { MouseEvent, useEffect, useState } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import conceptToRealityHero from "../../bloc-tec-site/public/images/conceptToRealityHero.webp";
+import { demoStats } from "./generated/demoStats";
 import './App.css'
 
 const VAULT_FACING_BRICKS_URL = "https://app.bloc-tec.com/account/demo/";
 const BLOC_TEC_CONTACT_URL = "https://bloc-tec.com/for-manufacturers";
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
+const COUNT_FORMATTER = new Intl.NumberFormat("en-GB");
+
+function ChevronIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      aria-hidden="true"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M4 2.25L7.75 6L4 9.75"
+        stroke="currentColor"
+        strokeWidth="1.75"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
 
 const VISITOR_ROLES = [
   "Architect",
@@ -82,7 +105,7 @@ function HomePage() {
     setIsRoleModalOpen(true);
   };
 
-  const onContinueToVault = () => {
+  const onContinue = () => {
     const roleValue = selectedRole === "Other" ? otherRole.trim() : selectedRole;
     if (!roleValue) return;
 
@@ -104,68 +127,89 @@ function HomePage() {
     setOtherRole("");
   };
 
+  const formatCount = (value: number) => COUNT_FORMATTER.format(value);
+
   return (
     <>
       <section className="hero">
         <div className="container hero-center">
           <p className="eyebrow">Brick Textures by BLOC-TEC</p>
-          <h1>Explore, configure, blend, and download textures in one Vault.</h1>
+          <h1>Find. Configure. Blend.</h1>
           <p className="lead">
-            Brick Textures is software for exploring real products, testing design configurations,
-            creating blends, and preparing texture-ready outputs. Enter
-            the Brick Textures Vault and explore real products for your project.
+            One source for architects and designers to find real UK and Ireland facing bricks, configure
+            them in different bonds and mortars, create blends, and use them in live projects.
           </p>
-          <p className="vault-subline">Start designing your own texture.</p>
-          <div className="category-grid hero-category-grid">
+          <div className="hero-proof-band">
+            <p className="hero-proof-line">
+              Every brick is professionally photographed under controlled lighting conditions to provide accurate comparisons.
+            </p>
+            <div className="hero-stats-grid" aria-label="Current demo account statistics">
+              <article className="hero-stat-pill">
+                <strong>{formatCount(demoStats.manufacturers)}</strong>
+                <span>manufacturers</span>
+              </article>
+              <article className="hero-stat-pill">
+                <strong>{formatCount(demoStats.colourOptions)}</strong>
+                <span>product colours</span>
+              </article>
+              <article className="hero-stat-pill">
+                <strong>{formatCount(demoStats.capturedImages)}</strong>
+                <span>captured images</span>
+              </article>
+            </div>
+          </div>
+          <p className="hero-subline">Real products. Flexible options. Ready for design work.</p>
+          <div className="hero-cta-wrap">
             <a
-              className="category-tile"
+              className="hero-cta"
               href={VAULT_FACING_BRICKS_URL}
               target="_blank"
               rel="noreferrer"
               onClick={event => onCategoryClick(event, VAULT_FACING_BRICKS_URL)}
             >
-              <span>Texture Vault</span>
+              <span>Explore Bricks</span>
+              <ChevronIcon className="hero-cta-arrow" />
             </a>
           </div>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container grid two">
-          <article className="card">
-            <h2>More than a product collection</h2>
-            <p>
-              Brick Textures combines real products with software tools that support design,
-              configuration, and specification workflows.
-            </p>
-          </article>
-          <article className="card">
-            <h2>Built for clarity and control</h2>
-            <p>
-              Compare options, try different bonds and mortars, blend products, and move from concept to confident
-              decisions faster.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <h2>What you can expect from the Vault</h2>
-          <ul className="benefit-list">
-            <li>A growing catalogue across major manufacturers</li>
-            <li>Consistent swatches and clearer product visuals</li>
-            <li>Flexible configuration that supports practical design workflows</li>
-            <li>Texture-ready outputs for downstream creative use</li>
-            <li>Mobile-friendly browsing with full-page Vault access</li>
-          </ul>
+      <section className="hero-visual-section" aria-label="Brick textures workflow preview">
+        <div className="container hero-workflow">
+          <div className="workflow-steps" aria-label="Configure blend and export workflow">
+            <div className="workflow-step">
+              <p className="workflow-step-title">Configure</p>
+              <p className="workflow-step-copy">Try different bonds and mortar colours.</p>
+            </div>
+            <ChevronIcon className="workflow-step-arrow" />
+            <div className="workflow-step">
+              <p className="workflow-step-title">Blend</p>
+              <p className="workflow-step-copy">Create blends to suit your colour scheme.</p>
+            </div>
+            <ChevronIcon className="workflow-step-arrow" />
+            <div className="workflow-step">
+              <p className="workflow-step-title">Export</p>
+              <p className="workflow-step-copy">Download textures ready for your project.</p>
+            </div>
+          </div>
+          <div className="hero-visual-frame">
+            <img
+              className="hero-visual-image"
+              src={conceptToRealityHero}
+              alt="Brick design and visualisation preview"
+            />
+          </div>
+          <p className="workflow-note">
+            Brick Textures is our development and testing environment for new software ideas before
+            features are rolled into manufacturer-linked accounts.
+          </p>
         </div>
       </section>
 
       {isRoleModalOpen ? (
         <div className="modal-overlay" role="presentation" onClick={onCloseRoleModal}>
           <div className="role-modal card" role="dialog" aria-modal="true" onClick={e => e.stopPropagation()}>
-            <h2>Help us improve your Vault experience</h2>
+            <h2>Help us improve your experience</h2>
             <p>Who are you?</p>
             <div className="role-options">
               {roleOptions.map(role => (
@@ -201,9 +245,9 @@ function HomePage() {
                 className="btn btn-primary"
                 type="button"
                 disabled={!selectedRole || (selectedRole === "Other" && !otherRole.trim())}
-                onClick={onContinueToVault}
+                onClick={onContinue}
               >
-                Continue to Vault
+                Continue
               </button>
             </div>
           </div>
@@ -226,14 +270,15 @@ function FaqPage() {
           <h2>Can I buy products directly from Brick Textures?</h2>
           <p>
             Brick Textures helps users discover and evaluate products, but does not directly sell
-            products. Please contact the relevant manufacturer or supplier for purchasing.
+            products. The platform features real UK and Ireland market products, and purchasing is handled by
+            the relevant manufacturer or supplier.
           </p>
         </article>
         <article className="card">
-          <h2>Who is this Vault for?</h2>
+          <h2>Who is this for?</h2>
           <p>
-            The Vault supports architects, designers, and other users who
-            need realistic product visuals, configurations, blends, and texture-ready outputs.
+            Brick Textures supports architects, designers, and other users who
+            need realistic product visuals, configuration and blending tools, and texture exports as the final output.
           </p>
         </article>
         <article className="card">
@@ -248,9 +293,9 @@ function FaqPage() {
           </p>
         </article>
         <article className="card">
-          <h2>How does manufacturer pricing work for the Vault?</h2>
+          <h2>How does manufacturer pricing work?</h2>
           <p>
-            Vault inclusion is based on onboarding and setup costs for the work required to add and
+            Inclusion is based on onboarding and setup costs for the work required to add and
             prepare your products. Dedicated website deployment, optional modules, and additional
             services are priced separately.
           </p>
@@ -266,18 +311,18 @@ function ManufacturersPage() {
       <section className="section">
         <div className="container page-header">
           <p className="eyebrow">Manufacturers</p>
-          <h1>Bring your products to the Vault</h1>
+          <h1>Bring your products to Brick Textures</h1>
           <p>
-            Start with inclusion in the public Brick Textures Vault, then scale to a dedicated
+            Start with inclusion in Brick Textures, then scale to a dedicated
             deployment on your own website when you are ready.
           </p>
         </div>
 
         <div className="container grid two">
           <article className="card">
-            <h2>Public Vault inclusion</h2>
+            <h2>Public inclusion</h2>
             <p>
-              Include suitable product ranges in the public Brick Textures Vault to help users
+              Include suitable product ranges in Brick Textures to help users
               discover and evaluate your products.
             </p>
             <p>
@@ -313,10 +358,13 @@ function ManufacturersPage() {
               <li>Onboarding and setup costs based on scope of work required</li>
               <li>Paid upgrades for dedicated deployment, modules, and extra services</li>
             </ul>
-            <p>See full onboarding and commercial details on bloc-tec.com.</p>
+            <p>
+              Manufacturers can find out more about adding products to Brick Textures on the
+              BLOC-TEC manufacturers page.
+            </p>
             <div className="actions">
               <a className="btn btn-primary" href={BLOC_TEC_CONTACT_URL} target="_blank" rel="noreferrer">
-                Continue to the bloc-tec.com manufacturers page
+                Find out more about adding your products
               </a>
             </div>
           </article>
@@ -327,19 +375,13 @@ function ManufacturersPage() {
 }
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="site-footer">
-      <div className="container">
-        <p>Brick Textures by BLOC-TEC</p>
-        <p>Paver Picker Ltd</p>
-        <p>
-          Brick Textures is our development and testing environment for new software ideas before
-          features are rolled into manufacturer-linked accounts.
-        </p>
-        <p>
-          <a href="https://bloc-tec.com" target="_blank" rel="noreferrer">
-            Visit bloc-tec.com
-          </a>
+      <div className="footer-bottom">
+        <p className="footer-company-meta">
+          © {currentYear} Paver Picker Ltd trading as BLOC-TEC | Registered in Ireland | Company No. 604066
         </p>
       </div>
     </footer>

@@ -2884,8 +2884,6 @@ function Footer() {
           <p className="footer-company-meta">
             © {currentYear} Paver Picker Ltd trading as BLOC-TEC | Registered in Ireland
             | Company No. 604066
-            <br />
-            Ballinamona, Glanworth, County Cork, P51 C9Y7
           </p>
         </div>
         <button
