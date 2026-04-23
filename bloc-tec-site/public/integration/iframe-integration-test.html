@@ -32,10 +32,6 @@
         border-radius: 8px;
         background: #fff;
       }
-      .note {
-        color: #666;
-        font-size: 0.92rem;
-      }
       ol {
         margin: 0.5rem 0 0;
         padding-left: 1.2rem;
@@ -61,23 +57,13 @@
   </head>
   <body>
     <h2 style="margin: 0 0 8px">Simple iframe integration test (share only)</h2>
-    <div class="card">
-      <p style="margin: 0 0 8px">
-        This is the simplest host-page setup for testing Share with the helper
-        script.
-      </p>
-      <div class="note">
-        Default iframe URL pattern:
-        <code>https://app.bloc-tec.com/account/demo</code>
-      </div>
-    </div>
 
     <div class="card">
       <div style="margin-bottom: 8px">Quick test steps</div>
       <ol>
-        <li>Interact with the viewer and click Share.</li>
+        <li>Select a product in the viewer, then test the Share button from your configuration page.</li>
         <li>Open the copied link in a new tab.</li>
-        <li>Confirm the same product/view reopens on your host URL.</li>
+        <li>Confirm the same product configuration reopens on your host URL.</li>
       </ol>
       <div class="row">
         <label for="account">Account:</label>
@@ -85,15 +71,31 @@
         <button id="reload" type="button">Load account</button>
       </div>
     </div>
+    <p style="margin: 0 0 10px; color: #666; font-size: 0.92rem">
+      Note: If you do not see a Share button on your account, please contact us
+      and we will activate it for you.
+    </p>
 
     <iframe
       id="viewer"
       data-bt-viewer
       title="Viewer"
-      src="https://app.bloc-tec.com/account/demo?c=WO_LE_AN"
+      src="https://app.bloc-tec.com/account/demo"
       allow="clipboard-write"
     ></iframe>
 
+    <script>
+      const accountInput = document.getElementById("account");
+      const reloadButton = document.getElementById("reload");
+      const iframe = document.querySelector("iframe[data-bt-viewer]");
+
+      if (accountInput && reloadButton && iframe) {
+        reloadButton.addEventListener("click", () => {
+          const account = accountInput.value.trim() || "demo";
+          iframe.src = `https://app.bloc-tec.com/account/${encodeURIComponent(account)}`;
+        });
+      }
+    </script>
     <script src="./iframe-integration-helper.js" defer></script>
   </body>
 </html>

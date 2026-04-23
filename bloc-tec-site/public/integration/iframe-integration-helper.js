@@ -2,80 +2,21 @@
  * Bloc-Tec iframe integration helper.
  *
  * Handles:
- * - iframe bootstrapping from a host `bt` config
- * - fallback bootstrap from existing iframe src
+ * - iframe bootstrapping from existing iframe src
  * - share URL resolution via postMessage
  * - analytics event forwarding via postMessage
- *
- * Optional overrides:
- * - define `window.BT_EMBED_CONFIG = { ... }` before loading this script
- * - define `window.BT_ANALYTICS_HANDLER = ({ event, payload }) => { ... }`
  */
 (function () {
   "use strict";
 
-  const DEFAULTS = {
-    APP_BASE_DEFAULT: "https://app.bloc-tec.com",
-    DEFAULT_ACCOUNT: "demo",
-    DEFAULT_CATEGORY: "",
+  const CFG = {
     ALLOWED_IFRAME_ORIGINS: ["https://app.bloc-tec.com"],
     STORE_BT_IN_HASH: true,
     ANALYTICS_ENABLED: false,
-    IFRAME_SELECTOR: "iframe[data-bt-viewer]",
-    INPUT_APP_BASE_ID: "appBase",
-    INPUT_ACCOUNT_ID: "account",
-    INPUT_CATEGORY_ID: "category",
-    BTN_RELOAD_ID: "reload",
-    LOG_ID: "log",
-    BTN_CLEAR_LOG_ID: "clearLog"
-  };
-
-  const userConfig =
-    typeof window !== "undefined" &&
-    window.BT_EMBED_CONFIG &&
-    typeof window.BT_EMBED_CONFIG === "object"
-      ? window.BT_EMBED_CONFIG
-      : {};
-
-  function hasOwn(config, key) {
-    return Object.prototype.hasOwnProperty.call(config, key);
-  }
-
-  const CFG = {
-    ...DEFAULTS,
-    ...userConfig,
-    ALLOWED_IFRAME_ORIGINS: Array.isArray(userConfig.ALLOWED_IFRAME_ORIGINS)
-      ? userConfig.ALLOWED_IFRAME_ORIGINS
-      : DEFAULTS.ALLOWED_IFRAME_ORIGINS
-  };
-
-  const USER_PROVIDED = {
-    APP_BASE_DEFAULT: hasOwn(userConfig, "APP_BASE_DEFAULT"),
-    DEFAULT_CATEGORY: hasOwn(userConfig, "DEFAULT_CATEGORY")
+    IFRAME_SELECTOR: "iframe[data-bt-viewer]"
   };
 
   const ALLOWED = new Set(CFG.ALLOWED_IFRAME_ORIGINS.map(String));
-
-  function $(id) {
-    return document.getElementById(id);
-  }
-
-  function log(...args) {
-    const el = CFG.LOG_ID ? $(CFG.LOG_ID) : null;
-    if (!el) return;
-    const line = args
-      .map(a => {
-        if (typeof a === "string") return a;
-        try {
-          return JSON.stringify(a);
-        } catch {
-          return String(a);
-        }
-      })
-      .join(" ");
-    el.textContent = (el.textContent ? el.textContent + "\n" : "") + line;
-    el.scrollTop = el.scrollHeight;
-  }
 
   function safeDecode(value) {
     if (typeof value !== "string") return null;
@@ -91,17 +32,6 @@
     return config.startsWith("?") ? config.slice(1) : config;
   }
 
-  function normalizeAppBase(appBase) {
-    const base = String(appBase || "")
-      .trim()
-      .replace(/\/+$/, "");
-    if (!base) return "";
-    if (window.location.protocol === "https:" && base.startsWith("http://")) {
-      return "https://" + base.slice("http://".length);
-    }
-    return base;
-  }
-
   function encodePathSegments(value) {
     return String(value || "")
       .split("/")
@@ -111,22 +41,34 @@
   }
 
   function readIframeState(iframeEl) {
-    if (!iframeEl) return null;
+    if (!iframeEl) {
+      console.error("[bt-iframe-helper] No iframe matched selector:", CFG.IFRAME_SELECTOR);
+      return null;
+    }
     const rawSrc =
       (typeof iframeEl.getAttribute === "function" && iframeEl.getAttribute("src")) ||
       iframeEl.src ||
       "";
-    if (!rawSrc) return null;
+    if (!rawSrc) {
+      console.error("[bt-iframe-helper] Iframe has no src. Set src to /account/<account> URL.");
+      return null;
+    }
 
     let url;
     try {
       url = new URL(rawSrc, window.location.href);
     } catch {
+      console.error("[bt-iframe-helper] Iframe src is not a valid URL:", rawSrc);
       return null;
     }
 
     const pathMatch = url.pathname.match(/^\/account\/([^/]+)(?:\/(.+))?$/i);
-    if (!pathMatch) return null;
+    if (!pathMatch) {
+      console.error(
+        "[bt-iframe-helper] Iframe src must use /account/<account> or /account/<account>/<category> path.",
+      );
+      return null;
+    }
 
     const account = safeDecode(pathMatch[1]) || "";
     const category = pathMatch[2]
@@ -139,7 +81,7 @@
     const config = (url.search || "").replace(/^\?/, "");
 
     return {
-      appBase: normalizeAppBase(url.origin),
+      appBase: url.origin,
       account,
       category,
       config
@@ -170,10 +112,15 @@
   }
 
   function buildIframeSrc(appBase, account, category, config) {
-    const base = normalizeAppBase(appBase);
     const accountSeg = encodeURIComponent(String(account || "").trim());
     const categorySegs = encodePathSegments(String(category || "").trim());
     const configStr = normalizeConfigString(config);
+    const base = String(appBase || "").replace(/\/+$/, "");
+
+    if (!base || !accountSeg) {
+      console.error("[bt-iframe-helper] Missing app base or account while rebuilding iframe src.");
+      return null;
+    }
 
     const path =
       hasSku(configStr) || !categorySegs
@@ -187,8 +134,13 @@
   function buildHostShareUrl(config) {
     const normalized = normalizeConfigString(config);
     const url = new URL(window.location.href);
+    const hashValue = window.location.hash || "";
+    const hasExistingHash = hashValue && hashValue !== "#";
+    const hashParams = hasExistingHash ? new URLSearchParams(hashValue.slice(1)) : null;
+    const hasNonBtHashState = hasExistingHash && (!hashParams || !hashParams.has("bt"));
+    const useHash = CFG.STORE_BT_IN_HASH && !hasNonBtHashState;
 
-    if (CFG.STORE_BT_IN_HASH) {
+    if (useHash) {
       url.hash = `bt=${encodeURIComponent(normalized)}`;
       url.searchParams.delete("bt");
     } else {
@@ -203,7 +155,7 @@
       try {
         return !!CFG.ANALYTICS_ENABLED(msg);
       } catch (error) {
-        log("[host] analytics gate failed", error);
+        console.warn("[bt-iframe-helper] Analytics gate failed:", error);
         return false;
       }
     }
@@ -224,7 +176,7 @@
     try {
       window.dispatchEvent(new CustomEvent("bt:analytics", {detail}));
     } catch (error) {
-      log("[host] custom analytics dispatch failed", error);
+      console.warn("[bt-iframe-helper] Custom analytics event dispatch failed:", error);
     }
 
     if (typeof window.gtag === "function") {
@@ -243,83 +195,21 @@
       try {
         window.BT_ANALYTICS_HANDLER(detail);
       } catch (error) {
-        log("[host] custom analytics handler failed", error);
+        console.warn("[bt-iframe-helper] Custom analytics handler failed:", error);
       }
-    }
-
-    log("[host] analytics_event", detail);
-  }
-
-  function getInputs() {
-    const appBaseEl = CFG.INPUT_APP_BASE_ID ? $(CFG.INPUT_APP_BASE_ID) : null;
-    const accountEl = CFG.INPUT_ACCOUNT_ID ? $(CFG.INPUT_ACCOUNT_ID) : null;
-    const categoryEl = CFG.INPUT_CATEGORY_ID ? $(CFG.INPUT_CATEGORY_ID) : null;
-    return {appBaseEl, accountEl, categoryEl};
-  }
-
-  function setDefaults() {
-    const {appBaseEl, accountEl, categoryEl} = getInputs();
-    const iframe = document.querySelector(CFG.IFRAME_SELECTOR);
-    const iframeState = readIframeState(iframe);
-
-    if (appBaseEl && !appBaseEl.value) {
-      appBaseEl.value = USER_PROVIDED.APP_BASE_DEFAULT
-        ? CFG.APP_BASE_DEFAULT
-        : (iframeState && iframeState.appBase) || CFG.APP_BASE_DEFAULT;
-    }
-    if (accountEl && !accountEl.value) {
-      accountEl.value = (iframeState && iframeState.account) || CFG.DEFAULT_ACCOUNT;
-    }
-    if (categoryEl && !categoryEl.value) {
-      categoryEl.value = USER_PROVIDED.DEFAULT_CATEGORY
-        ? CFG.DEFAULT_CATEGORY
-        : (iframeState && iframeState.category) || CFG.DEFAULT_CATEGORY;
     }
   }
 
   function reloadIframeFromHostUrl() {
     const iframe = document.querySelector(CFG.IFRAME_SELECTOR);
-    if (!iframe) return;
     const iframeState = readIframeState(iframe);
+    if (!iframeState) return;
 
-    const {appBaseEl, accountEl, categoryEl} = getInputs();
     const bt = readBtFromHostUrl() || (iframeState && iframeState.config) || "";
-    const appBase = normalizeAppBase(
-      (appBaseEl && appBaseEl.value) ||
-        (USER_PROVIDED.APP_BASE_DEFAULT
-          ? CFG.APP_BASE_DEFAULT
-          : (iframeState && iframeState.appBase) || CFG.APP_BASE_DEFAULT),
-    );
-    const account = (
-      (accountEl && accountEl.value) ||
-      (iframeState && iframeState.account) ||
-      CFG.DEFAULT_ACCOUNT
-    ).trim();
-    const category = (
-      (categoryEl && categoryEl.value) ||
-      (USER_PROVIDED.DEFAULT_CATEGORY
-        ? CFG.DEFAULT_CATEGORY
-        : (iframeState && iframeState.category) || CFG.DEFAULT_CATEGORY)
-    ).trim();
-
-    const src = buildIframeSrc(appBase, account, category, bt);
+    const src = buildIframeSrc(iframeState.appBase, iframeState.account, iframeState.category, bt);
+    if (!src) return;
     iframe.src = src;
-    log("[host] iframe src =", src);
-  }
-
-  function wireUi() {
-    const reloadBtn = CFG.BTN_RELOAD_ID ? $(CFG.BTN_RELOAD_ID) : null;
-    if (reloadBtn) {
-      reloadBtn.addEventListener("click", () => reloadIframeFromHostUrl());
-    }
-
-    const clearBtn = CFG.BTN_CLEAR_LOG_ID ? $(CFG.BTN_CLEAR_LOG_ID) : null;
-    if (clearBtn && CFG.LOG_ID) {
-      clearBtn.addEventListener("click", () => {
-        const el = $(CFG.LOG_ID);
-        if (el) el.textContent = "";
-      });
-    }
+    console.info("[bt-iframe-helper] iframe src set:", src);
   }
 
   function wireHostMessages() {
@@ -338,21 +228,16 @@
       if (msg.type !== "bt:share_request") return;
       if (typeof msg.config !== "string") return;
 
-      log("[host] share_request from", event.origin, msg);
-
       const hostUrl = buildHostShareUrl(msg.config);
       const response = {type: "bt:share_response", ok: true, url: hostUrl};
 
       if (event.source && typeof event.source.postMessage === "function") {
         event.source.postMessage(response, event.origin);
-        log("[host] share_response ->", response);
       }
     });
   }
 
   try {
-    setDefaults();
-    wireUi();
     wireHostMessages();
     reloadIframeFromHostUrl();
   } catch (error) {

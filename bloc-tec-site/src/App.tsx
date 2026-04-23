@@ -167,7 +167,7 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     buttonLabel: "SKU / Colour",
     title: "Linking to individual SKU level",
     templatePrefix: "https://app.bloc-tec.com/account/<account-name>?",
-    templateHighlight: "c=<product-code>",
+    templateHighlight: "c=<product-sku>",
     description:
       "This is useful for embedding in a webpage specific to one product, with a category-independent URL format.",
     demoIframeUrl: getSkuDemoUrl("WO_LE_AN"),
@@ -845,47 +845,59 @@ function IntegrationPage() {
               domain; without it, Share links open on the app domain.
             </p>
             <p className="integration-step">
-              When the app is embedded in an iframe, include{" "}
-              <code>allow="clipboard-write"</code> on your embedded iframe for
-              reliable copy-link support.
-            </p>
-            <p className="integration-step">
-              Demo iframe example:
-            </p>
-            <div className="integration-code-card">
-              <pre className="integration-code-block">
-                <code>{`<iframe
-  title="BLOC-TEC viewer"
-  src="https://app.bloc-tec.com/account/demo?c=WO_LE_AN"
-  allow="clipboard-write"
-></iframe>`}</code>
-              </pre>
-            </div>
-            <p className="integration-step">
               <span className="integration-subtitle">
-                Share setup
+                Iframe and helper script setup
               </span>
             </p>
-            <p className="integration-step">
-              In addition to your iframe, load the helper script on the same
-              page using{" "}
-              <code>https://app.bloc-tec.com/integration/iframe-integration-helper.js</code>.
-            </p>
+            <ol className="integration-step">
+              <li>
+                Add <code>data-bt-viewer</code> to your embedded iframe. The
+                helper script uses this attribute to find the correct iframe and
+                keep Share links mapped to your website URL.
+              </li>
+              <li>
+                Replace <code>&lt;account-name&gt;</code> with your own
+                BLOC-TEC account name.
+              </li>
+              <li>
+                Include <code>allow="clipboard-write"</code> on your embedded
+                iframe for reliable copy-link support.
+              </li>
+              <li>
+                In addition to your iframe, load the helper script.
+              </li>
+            </ol>
             <div className="integration-code-card">
               <pre className="integration-code-block">
-                <code>{`<script
+                <code>
+                  {`<iframe
+  data-bt-viewer
+  src="https://app.bloc-tec.com/account/`}
+                  <strong>{`<account-name>`}</strong>
+                  {`"
+  allow="clipboard-write"
+></iframe>
+
+<script
   src="https://app.bloc-tec.com/integration/iframe-integration-helper.js"
-></script>`}</code>
+  defer
+></script>`}
+                </code>
               </pre>
             </div>
             <p className="integration-step">
               For SKU pages, use a category-independent SKU URL next to your
-              iframe, for example{" "}
-              <code>https://app.bloc-tec.com/account/&lt;account-name&gt;?c=&lt;product-code&gt;</code>.
+              iframe.
             </p>
             <div className="integration-code-card">
               <pre className="integration-code-block">
-                <code>{`https://app.bloc-tec.com/account/<account-name>?c=<product-code>`}</code>
+                <code>
+                  {`src="https://app.bloc-tec.com/account/`}
+                  <strong>{`<account-name>`}</strong>
+                  {`?c=`}
+                  <strong>{`<product-sku>`}</strong>
+                  {`"`}
+                </code>
               </pre>
             </div>
             <p className="integration-step integration-resource-links">
@@ -905,9 +917,13 @@ function IntegrationPage() {
                 Open iframe integration test page
               </a>
             </p>
+            <p className="integration-step">
+              <span className="integration-subtitle">Future Development</span>
+            </p>
             <p className="integration-step integration-link-note">
-              Analytics support for iframe integrations is in progress and will
-              be documented in this section when ready.
+              Analytics support for iframe integrations is in progress. By
+              integrating this script, you will be able to use it when this
+              feature is released.
             </p>
           </article>
         </div>
