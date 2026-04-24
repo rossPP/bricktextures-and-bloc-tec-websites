@@ -74,6 +74,21 @@ function getIncludedSizeIndexes(finish, excludeSkus, renameMap) {
   return includedIndexes;
 }
 
+function getIncludedSkus(finish, excludeSkus, renameMap) {
+  const sizeGroups = Array.isArray(finish?.sizeGroups) ? finish.sizeGroups : [];
+  const includedSkus = new Set();
+
+  for (const sizeGroup of sizeGroups) {
+    const renamedSku = renameMap.get(normaliseSku(sizeGroup?.productSku)) ?? normaliseSku(sizeGroup?.productSku);
+    if (!renamedSku || excludeSkus.has(renamedSku)) {
+      continue;
+    }
+    includedSkus.add(renamedSku);
+  }
+
+  return includedSkus;
+}
+
 function countImagesForSize(size) {
   if (!size) {
     return 0;
@@ -95,7 +110,7 @@ function buildDemoStats() {
 
   const manufacturers = new Set();
   let products = 0;
-  let colourOptions = 0;
+  const skuOptions = new Set();
   let capturedImages = 0;
 
   for (const source of sources) {
@@ -121,30 +136,21 @@ function buildDemoStats() {
       let productHasVisibleColour = false;
 
       for (const colour of product.colours ?? []) {
-        if (colour?.inheritsFrom) {
-          colourOptions += 1;
-          productHasVisibleColour = true;
-          continue;
-        }
-
-        let colourHasVisibleFinish = false;
-
         for (const finish of colour.finishes ?? []) {
           const includedSizeIndexes = getIncludedSizeIndexes(finish, excludeSkus, renameMap);
           if (includedSizeIndexes.size === 0) {
             continue;
           }
 
-          colourHasVisibleFinish = true;
+          for (const sku of getIncludedSkus(finish, excludeSkus, renameMap)) {
+            skuOptions.add(sku);
+          }
+
+          productHasVisibleColour = true;
 
           for (const sizeIndex of includedSizeIndexes) {
             capturedImages += countImagesForSize(finish.sizes?.[sizeIndex]);
           }
-        }
-
-        if (colourHasVisibleFinish) {
-          colourOptions += 1;
-          productHasVisibleColour = true;
         }
       }
 
@@ -158,7 +164,7 @@ function buildDemoStats() {
     generatedAt: new Date().toISOString(),
     manufacturers: manufacturers.size,
     products,
-    colourOptions,
+    skuOptions: skuOptions.size,
     capturedImages,
   };
 }
@@ -171,4 +177,4 @@ function writeStatsModule(stats) {
 
 const stats = buildDemoStats();
 writeStatsModule(stats);
-console.log(`Generated demo stats: ${stats.manufacturers} manufacturers, ${stats.colourOptions} colours, ${stats.capturedImages} images.`);
+console.log(`Generated demo stats: ${stats.manufacturers} manufacturers, ${stats.skuOptions} SKUs, ${stats.capturedImages} images.`);

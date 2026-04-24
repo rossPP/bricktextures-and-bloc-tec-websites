@@ -159,8 +159,8 @@ function HomePage() {
                 <span>manufacturers</span>
               </article>
               <article className="hero-stat-pill">
-                <strong>{formatCount(demoStats.colourOptions)}</strong>
-                <span>product colours</span>
+                <strong>{formatCount(demoStats.skuOptions)}</strong>
+                <span>brick products</span>
               </article>
               <article className="hero-stat-pill">
                 <strong>{formatCount(demoStats.capturedImages)}</strong>
