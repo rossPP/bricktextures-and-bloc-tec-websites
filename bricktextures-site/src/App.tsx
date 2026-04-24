@@ -136,13 +136,23 @@ function HomePage() {
           <p className="eyebrow">Brick Textures by BLOC-TEC</p>
           <h1>Find. Configure. Blend.</h1>
           <p className="lead">
-            One source for architects and designers to find real UK and Ireland facing bricks, configure
-            them in different bonds and mortars, create blends, and use them in live projects.
+            Explore real UK and Ireland facing bricks, configure bonds and mortars, create blends,
+            and download textures for your project.
           </p>
+          <div className="hero-cta-wrap">
+            <a
+              className="hero-cta"
+              href={VAULT_FACING_BRICKS_URL}
+              target="_blank"
+              rel="noreferrer"
+              onClick={event => onCategoryClick(event, VAULT_FACING_BRICKS_URL)}
+            >
+              <span>Explore Bricks</span>
+              <ChevronIcon className="hero-cta-arrow" />
+            </a>
+          </div>
+          <p className="hero-subline">Real products. Flexible options. Ready for design work.</p>
           <div className="hero-proof-band">
-            <p className="hero-proof-line">
-              Every brick is professionally photographed under controlled lighting conditions to provide accurate comparisons.
-            </p>
             <div className="hero-stats-grid" aria-label="Current demo account statistics">
               <article className="hero-stat-pill">
                 <strong>{formatCount(demoStats.manufacturers)}</strong>
@@ -157,19 +167,9 @@ function HomePage() {
                 <span>captured images</span>
               </article>
             </div>
-          </div>
-          <p className="hero-subline">Real products. Flexible options. Ready for design work.</p>
-          <div className="hero-cta-wrap">
-            <a
-              className="hero-cta"
-              href={VAULT_FACING_BRICKS_URL}
-              target="_blank"
-              rel="noreferrer"
-              onClick={event => onCategoryClick(event, VAULT_FACING_BRICKS_URL)}
-            >
-              <span>Explore Bricks</span>
-              <ChevronIcon className="hero-cta-arrow" />
-            </a>
+            <p className="hero-proof-line">
+              Every brick is professionally photographed under controlled lighting conditions to provide accurate comparisons.
+            </p>
           </div>
         </div>
       </section>
@@ -181,12 +181,10 @@ function HomePage() {
               <p className="workflow-step-title">Configure</p>
               <p className="workflow-step-copy">Try different bonds and mortar colours.</p>
             </div>
-            <ChevronIcon className="workflow-step-arrow" />
             <div className="workflow-step">
               <p className="workflow-step-title">Blend</p>
               <p className="workflow-step-copy">Create blends to suit your colour scheme.</p>
             </div>
-            <ChevronIcon className="workflow-step-arrow" />
             <div className="workflow-step">
               <p className="workflow-step-title">Export</p>
               <p className="workflow-step-copy">Download textures ready for your project.</p>
@@ -200,8 +198,8 @@ function HomePage() {
             />
           </div>
           <p className="workflow-note">
-            Brick Textures is our development and testing environment for new software ideas before
-            features are rolled into manufacturer-linked accounts.
+            Brick Textures is the bloc-tec.com development and testing environment for new software ideas
+            before features are rolled into manufacturer-linked accounts.
           </p>
         </div>
       </section>
@@ -267,25 +265,22 @@ function FaqPage() {
 
       <div className="container grid">
         <article className="card">
-          <h2>Can I buy products directly from Brick Textures?</h2>
+          <h2>What is the purpose of Brick Textures, and who is it for?</h2>
           <p>
-            Brick Textures helps users discover and evaluate products, but does not directly sell
-            products. The platform features real UK and Ireland market products, and purchasing is handled by
-            the relevant manufacturer or supplier.
-          </p>
-        </article>
-        <article className="card">
-          <h2>Who is this for?</h2>
-          <p>
-            Brick Textures supports architects, designers, and other users who
-            need realistic product visuals, configuration and blending tools, and texture exports as the final output.
+            Brick Textures is the bloc-tec.com development and testing environment for new software ideas
+            before features are rolled into manufacturer-linked accounts. It is also our showcase for
+            manufacturers, demonstrating what can be achieved on their own websites. It supports architects,
+            designers, and other users who
+            need realistic product visuals, configuration and blending tools, and texture exports.
           </p>
         </article>
         <article className="card">
           <h2>Can manufacturers have a private version on their own website?</h2>
           <p>
             Yes. Manufacturers can deploy a dedicated BLOC-TEC experience on their own website with
-            their own product catalogue only. See{" "}
+            their own product catalogue only.
+            <br />
+            See{" "}
             <a className="inline-link" href="https://bloc-tec.com/for-manufacturers" target="_blank" rel="noreferrer">
               bloc-tec.com/for-manufacturers
             </a>{" "}
@@ -293,11 +288,11 @@ function FaqPage() {
           </p>
         </article>
         <article className="card">
-          <h2>How does manufacturer pricing work?</h2>
+          <h2>Can I buy products directly from Brick Textures?</h2>
           <p>
-            Inclusion is based on onboarding and setup costs for the work required to add and
-            prepare your products. Dedicated website deployment, optional modules, and additional
-            services are priced separately.
+            No, Brick Textures helps users discover and evaluate products, but does not directly sell
+            products. The platform features real UK and Ireland market products, and purchasing is handled by
+            the relevant manufacturer or supplier.
           </p>
         </article>
       </div>

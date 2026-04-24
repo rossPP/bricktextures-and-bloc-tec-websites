@@ -1326,9 +1326,10 @@ function FaqPage() {
               <details className="faq-item">
                 <summary>How is a new manufacturer account priced?</summary>
                 <p>
-                  Pricing is based on project requirements, including product
-                  count, account set-up effort, image readiness, and required
-                  integration modules.
+                  Inclusion is based on onboarding and set-up costs for the work
+                  required to add and prepare your products. Dedicated website
+                  deployment, optional modules, and additional services are
+                  priced separately.
                 </p>
               </details>
               <details className="faq-item">
@@ -2874,7 +2875,7 @@ function Footer() {
                   loading="lazy"
                 />
                 <p className="footer-association-text">
-                  We stay connected to your market
+                  Proud members of the Builders Merchants Federation
                 </p>
               </div>
             </div>
