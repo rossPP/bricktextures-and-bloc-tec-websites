@@ -306,36 +306,34 @@ function ManufacturersPage() {
       <section className="section">
         <div className="container page-header">
           <p className="eyebrow">Manufacturers</p>
-          <h1>Bring your products to Brick Textures</h1>
-          <p>
-            Start with inclusion in Brick Textures, then scale to a dedicated
-            deployment on your own website when you are ready.
-          </p>
+          <h1>Make beautiful brick ranges stand out digitally.</h1>
         </div>
 
-        <div className="container grid two">
-          <article className="card">
-            <h2>Public inclusion</h2>
+        <div className="container manufacturer-value-stack">
+          <article className="card manufacturer-value-card">
+            <h2>Bring your products to Brick Textures</h2>
             <p>
-              Include suitable product ranges in Brick Textures to help users
-              discover and evaluate your products.
+              Manufacturers invest significant time, care, and energy in product development,
+              production, and quality control. Brick Textures helps make sure that effort is matched by a strong digital
+              presentation for architects and designers.
             </p>
-            <p>
-              Inclusion is charged based on onboarding and setup work required to add and prepare
-              your products.
-            </p>
+            <ul className="benefit-list">
+              <li>Clear product presentation</li>
+              <li>Give architects the configuration tools they expect</li>
+              <li>Give architects the confidence to specify your products</li>
+            </ul>
           </article>
 
-          <article className="card">
+          <article className="card manufacturer-value-card">
             <h2>Dedicated website deployment</h2>
             <p>
-              Run a dedicated BLOC-TEC experience on your own website with your own product
-              catalogue only.
+              Run a dedicated BLOC-TEC experience on your own website, shaped around your own
+              product catalogue, colour scheme, configuration preferences, and scenes that suit your
+              target market.
             </p>
             <ul className="benefit-list">
               <li>Your own website and domain experience</li>
-              <li>Your own product catalogue only</li>
-              <li>No competitor products shown in your deployment</li>
+              <li>Your own product catalogue only, with no competitor products shown</li>
               <li>Optional modules and onboarding support</li>
             </ul>
           </article>
@@ -353,13 +351,9 @@ function ManufacturersPage() {
               <li>Onboarding and setup costs based on scope of work required</li>
               <li>Paid upgrades for dedicated deployment, modules, and extra services</li>
             </ul>
-            <p>
-              Manufacturers can find out more about adding products to Brick Textures on the
-              BLOC-TEC manufacturers page.
-            </p>
             <div className="actions">
               <a className="btn btn-primary" href={BLOC_TEC_CONTACT_URL} target="_blank" rel="noreferrer">
-                Find out more about adding your products
+                Visit the BLOC-TEC manufacturers page for more information
               </a>
             </div>
           </article>

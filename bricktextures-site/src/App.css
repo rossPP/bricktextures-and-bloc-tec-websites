@@ -503,6 +503,17 @@ h2 {
   font-weight: 600;
 }
 
+.manufacturer-value-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.manufacturer-value-stack {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
 .honeypot-field {
   position: absolute;
   left: -9999px;
@@ -588,5 +599,10 @@ h2 {
   .workflow-steps {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.1rem;
+  }
+
+  .manufacturer-value-stack {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
   }
 }
