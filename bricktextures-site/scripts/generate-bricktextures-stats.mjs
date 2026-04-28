@@ -5,9 +5,9 @@ import { fileURLToPath } from "node:url";
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(scriptDir, "..");
 const appRoot = path.resolve(projectRoot, "../../App");
-const demoAccountPath = path.join(appRoot, "public", "data", "accounts", "demo.json");
+const brickTexturesAccountPath = path.join(appRoot, "public", "data", "accounts", "bricktextures.json");
 const manufacturersRoot = path.join(appRoot, "public", "data", "manufacturers");
-const outputPath = path.join(projectRoot, "src", "generated", "demoStats.ts");
+const outputPath = path.join(projectRoot, "src", "generated", "brickTexturesStats.ts");
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf8"));
@@ -104,9 +104,9 @@ function countImagesForSize(size) {
   return baseCount + faceCount;
 }
 
-function buildDemoStats() {
-  const demoAccount = readJson(demoAccountPath);
-  const sources = demoAccount.categories?.flatMap(category => category.sources ?? []) ?? [];
+function buildBrickTexturesStats() {
+  const brickTexturesAccount = readJson(brickTexturesAccountPath);
+  const sources = brickTexturesAccount.categories?.flatMap(category => category.sources ?? []) ?? [];
 
   const manufacturers = new Set();
   let products = 0;
@@ -170,11 +170,11 @@ function buildDemoStats() {
 }
 
 function writeStatsModule(stats) {
-  const moduleContents = `export const demoStats = ${JSON.stringify(stats, null, 2)} as const;\n`;
+  const moduleContents = `export const brickTexturesStats = ${JSON.stringify(stats, null, 2)} as const;\n`;
   ensureDir(path.dirname(outputPath));
   fs.writeFileSync(outputPath, moduleContents, "utf8");
 }
 
-const stats = buildDemoStats();
+const stats = buildBrickTexturesStats();
 writeStatsModule(stats);
-console.log(`Generated demo stats: ${stats.manufacturers} manufacturers, ${stats.skuOptions} SKUs, ${stats.capturedImages} images.`);
+console.log(`Generated Brick Textures stats: ${stats.manufacturers} manufacturers, ${stats.skuOptions} SKUs, ${stats.capturedImages} images.`);

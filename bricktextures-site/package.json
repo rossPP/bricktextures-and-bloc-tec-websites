@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "generate:demo-stats": "node scripts/generate-demo-stats.mjs",
-    "predev": "node scripts/generate-demo-stats.mjs",
-    "prebuild": "node scripts/generate-demo-stats.mjs",
+    "generate:bricktextures-stats": "node scripts/generate-bricktextures-stats.mjs",
+    "predev": "node scripts/generate-bricktextures-stats.mjs",
+    "prebuild": "node scripts/generate-bricktextures-stats.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",

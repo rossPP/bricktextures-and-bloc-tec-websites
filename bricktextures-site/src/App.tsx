@@ -1,13 +1,22 @@
-import { MouseEvent, useEffect, useState } from "react";
+import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import conceptToRealityHero from "../../bloc-tec-site/public/images/conceptToRealityHero.webp";
-import { demoStats } from "./generated/demoStats";
+import { brickTexturesStats } from "./generated/brickTexturesStats";
 import './App.css'
 
-const VAULT_FACING_BRICKS_URL = "https://app.bloc-tec.com/account/demo/";
+const VAULT_FACING_BRICKS_URL = "https://app.bloc-tec.com/account/bricktextures/";
 const BLOC_TEC_CONTACT_URL = "https://bloc-tec.com/for-manufacturers";
+const GENERAL_CONTACT_EMAIL = "info@bloc-tec.com";
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const COUNT_FORMATTER = new Intl.NumberFormat("en-GB");
+const CONTACT_REASONS = [
+  "Feature request",
+  "Existing feature improvement",
+  "Feedback on how the platform works",
+  "Manufacturer enquiry",
+  "Bug report",
+  "Other",
+] as const;
 
 function ChevronIcon({ className }: { className?: string }) {
   return (
@@ -52,6 +61,74 @@ function buildRoleOptions(): string[] {
   return [...shuffled, otherOption];
 }
 
+function getStoredRole() {
+  if (typeof window === "undefined") {
+    return { selectedRole: "", otherRole: "" };
+  }
+
+  const savedRole = localStorage.getItem(VISITOR_ROLE_STORAGE_KEY)?.trim() ?? "";
+  if (!savedRole) {
+    return { selectedRole: "", otherRole: "" };
+  }
+
+  if (VISITOR_ROLES.includes(savedRole as (typeof VISITOR_ROLES)[number])) {
+    return { selectedRole: savedRole, otherRole: "" };
+  }
+
+  return { selectedRole: "Other", otherRole: savedRole };
+}
+
+function buildMailtoHref({
+  name,
+  email,
+  role,
+  reason,
+  subject,
+  message,
+}: {
+  name: string;
+  email: string;
+  role: string;
+  reason: string;
+  subject: string;
+  message: string;
+}) {
+  const mailSubject = `Brick Textures enquiry: ${reason}${subject ? ` - ${subject}` : ""}`;
+  const bodyLines = [
+    "Brick Textures contact enquiry",
+    "",
+    `Name: ${name || "Not provided"}`,
+    `Email: ${email}`,
+    `Role: ${role}`,
+    `Reason: ${reason}`,
+    subject ? `Subject: ${subject}` : "",
+    "",
+    "Message:",
+    message,
+  ].filter(Boolean);
+
+  return `mailto:${GENERAL_CONTACT_EMAIL}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+}
+
+function getContactMessagePlaceholder(reason: string) {
+  switch (reason) {
+    case "Feature request":
+      return "Tell us what feature you would like to see and how it would help your work.";
+    case "Existing feature improvement":
+      return "Tell us which feature could be improved and what would make it work better for you.";
+    case "Feedback on how the platform works":
+      return "Tell us what feels clear, what feels awkward, and what would improve the experience.";
+    case "Bug report":
+      return "Describe the problem, what you were doing just before it happened, and what you expected to happen instead.";
+    case "Manufacturer enquiry":
+      return "Tell us about your products, your goals, and what you would like to discuss.";
+    case "Other":
+      return "Tell us what you would like to contact us about.";
+    default:
+      return "Tell us how we can help.";
+  }
+}
+
 function RouteTitleSync() {
   const location = useLocation();
 
@@ -73,6 +150,7 @@ function Header() {
         <nav className="main-nav" aria-label="Main navigation">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/manufacturers">Manufacturers</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/faq">FAQ</NavLink>
         </nav>
       </div>
@@ -153,17 +231,17 @@ function HomePage() {
           </div>
           <p className="hero-subline">Real products. Flexible options. Ready for design work.</p>
           <div className="hero-proof-band">
-            <div className="hero-stats-grid" aria-label="Current demo account statistics">
+            <div className="hero-stats-grid" aria-label="Current Brick Textures account statistics">
               <article className="hero-stat-pill">
-                <strong>{formatCount(demoStats.manufacturers)}</strong>
+                <strong>{formatCount(brickTexturesStats.manufacturers)}</strong>
                 <span>manufacturers</span>
               </article>
               <article className="hero-stat-pill">
-                <strong>{formatCount(demoStats.skuOptions)}</strong>
+                <strong>{formatCount(brickTexturesStats.skuOptions)}</strong>
                 <span>brick products</span>
               </article>
               <article className="hero-stat-pill">
-                <strong>{formatCount(demoStats.capturedImages)}</strong>
+                <strong>{formatCount(brickTexturesStats.capturedImages)}</strong>
                 <span>captured images</span>
               </article>
             </div>
@@ -198,8 +276,8 @@ function HomePage() {
             />
           </div>
           <p className="workflow-note">
-            Brick Textures is the bloc-tec.com development and testing environment for new software ideas
-            before features are rolled into manufacturer-linked accounts.
+            Brick Textures is a live product presentation environment used to gather UI feedback as we
+            continue refining the experience.
           </p>
         </div>
       </section>
@@ -267,11 +345,10 @@ function FaqPage() {
         <article className="card">
           <h2>What is the purpose of Brick Textures, and who is it for?</h2>
           <p>
-            Brick Textures is the bloc-tec.com development and testing environment for new software ideas
-            before features are rolled into manufacturer-linked accounts. It is also our showcase for
-            manufacturers, demonstrating what can be achieved on their own websites. It supports architects,
-            designers, and other users who
-            need realistic product visuals, configuration and blending tools, and texture exports.
+            Brick Textures is a live product presentation environment used to gather UI feedback as we
+            continue refining the experience. It is also our showcase for manufacturers, demonstrating
+            what can be achieved on their own websites. It supports architects, designers, and other users
+            who need realistic product visuals, configuration and blending tools, and texture exports.
           </p>
         </article>
         <article className="card">
@@ -300,6 +377,181 @@ function FaqPage() {
   );
 }
 
+function ContactPage() {
+  const storedRole = getStoredRole();
+  const [selectedRole, setSelectedRole] = useState("");
+  const [otherRole, setOtherRole] = useState(storedRole.selectedRole === "Other" ? storedRole.otherRole : "");
+  const [email, setEmail] = useState("");
+  const [reason, setReason] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+
+  const roleValue = selectedRole === "Other" ? otherRole.trim() : selectedRole;
+
+  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!roleValue || !email.trim() || !message.trim()) {
+      setError("Please tell us who you are, how to contact you, and what you need.");
+      return;
+    }
+
+    if (!reason) {
+      setError("Please select a reason for contacting us.");
+      return;
+    }
+
+    localStorage.setItem(VISITOR_ROLE_STORAGE_KEY, roleValue);
+    setError("");
+    window.location.href = buildMailtoHref({
+      name: "",
+      email: email.trim(),
+      role: roleValue,
+      reason,
+      subject: subject.trim(),
+      message: message.trim(),
+    });
+  };
+
+  return (
+    <>
+      <section className="section">
+        <div className="container page-header">
+          <p className="eyebrow">Contact</p>
+          <h1>Tell us who you are and how we can help.</h1>
+          <p className="lead contact-lead">
+            Brick Textures is an experimental environment for viewing, configuring, and testing real
+            products. Use this page to tell us who you are, what you need, and how we can improve it
+            for users and for the manufacturers we support.
+          </p>
+        </div>
+
+        <div className="container grid two">
+          <article className="card manufacturer-value-card">
+            <h2>Why your feedback matters</h2>
+            <p className="contact-supporting-copy">
+              Whether you are an architect, designer, manufacturer, game developer, or another user,
+              a little context helps us understand what matters most and where the platform should go next.
+            </p>
+            <p className="contact-supporting-copy">
+              We want people to look closely at the platform, test it properly, and tell us what works,
+              what feels missing, and what would make it more useful in real projects. When we see the
+              same feedback coming through from multiple users, we treat that as a strong signal for what
+              to improve and integrate next.
+            </p>
+          </article>
+
+          <article className="card manufacturer-value-card">
+            <h2>What we would love to hear about</h2>
+            <ul className="benefit-list">
+              <li>Suggesting features, exports, or configuration improvements</li>
+              <li>Highlighting product data, image, or presentation issues</li>
+              <li>Requesting tools for design, visualisation, or games workflows</li>
+              <li>Asking about manufacturer participation or dedicated deployments</li>
+              <li>Sharing any other feedback that would help shape the platform</li>
+              <li>Reporting bugs, errors, or workflow issues</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section className="section section-alt">
+        <div className="container">
+          <article className="card manufacturer-value-card">
+            <h2>How can we help?</h2>
+            <p className="manufacturer-note">
+              Use the form to contact us at{" "}
+              <a className="inline-link" href={`mailto:${GENERAL_CONTACT_EMAIL}`}>{GENERAL_CONTACT_EMAIL}</a>{" "}
+              and shape the future of our service.
+            </p>
+            <form className="contact-form" onSubmit={onSubmit}>
+              <label>
+                Who are you?
+                <select value={selectedRole} onChange={event => setSelectedRole(event.target.value)}>
+                  <option value="">Select your role</option>
+                  {VISITOR_ROLES.map(role => (
+                    <option key={role} value={role}>
+                      {role}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              {selectedRole === "Other" ? (
+                <label>
+                  Please tell us your role
+                  <input
+                    value={otherRole}
+                    onChange={event => setOtherRole(event.target.value)}
+                    placeholder="Your role"
+                  />
+                </label>
+              ) : null}
+
+              <label>
+                Your email
+                <input
+                  type="email"
+                  value={email}
+                  onChange={event => setEmail(event.target.value)}
+                  placeholder="you@example.com"
+                />
+              </label>
+
+              <label>
+                Why are you contacting us?
+                <select value={reason} onChange={event => setReason(event.target.value)}>
+                  <option value="">Select a reason</option>
+                  {CONTACT_REASONS.map(option => (
+                    <option key={option} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </select>
+              </label>
+
+              {reason === "Bug report" ? (
+                <p className="contact-supporting-copy">
+                  If you are reporting a problem, it helps to include the product, page, device, and
+                  what happened just before the issue appeared.
+                </p>
+              ) : null}
+
+              <label>
+                Subject
+                <input
+                  value={subject}
+                  onChange={event => setSubject(event.target.value)}
+                  placeholder="Short summary"
+                />
+              </label>
+
+              <label>
+                Message
+                <textarea
+                  rows={7}
+                  value={message}
+                  onChange={event => setMessage(event.target.value)}
+                  placeholder={getContactMessagePlaceholder(reason)}
+                />
+              </label>
+
+              {error ? <p className="form-error">{error}</p> : null}
+
+              <div className="actions">
+                <button className="btn btn-primary" type="submit">
+                  Draft email to BLOC-TEC
+                </button>
+              </div>
+            </form>
+          </article>
+        </div>
+      </section>
+    </>
+  );
+}
+
 function ManufacturersPage() {
   return (
     <>
@@ -313,9 +565,10 @@ function ManufacturersPage() {
           <article className="card manufacturer-value-card">
             <h2>Bring your products to Brick Textures</h2>
             <p>
-              Manufacturers invest significant time, care, and energy in product development,
-              production, and quality control. Brick Textures helps make sure that effort is matched by a strong digital
-              presentation for architects and designers.
+              You've invested significant time and energy in product
+              development and production. We can help you
+              make sure that effort is seen by creating a strong digital
+              presentation, ensuring your products are noticed and selected for use.
             </p>
             <ul className="benefit-list">
               <li>Clear product presentation</li>
@@ -334,7 +587,7 @@ function ManufacturersPage() {
             <ul className="benefit-list">
               <li>Your own website and domain experience</li>
               <li>Your own product catalogue only, with no competitor products shown</li>
-              <li>Optional modules and onboarding support</li>
+              <li>Optional modules to suit your needs</li>
             </ul>
           </article>
         </div>
@@ -343,17 +596,14 @@ function ManufacturersPage() {
       <section className="section section-alt">
         <div className="container">
           <article className="card">
-            <h2>Commercial and onboarding options</h2>
+            <h2>Learn more about our manufacturer service</h2>
             <p>
-              Our pricing model is simple and work-based.
+              For more information on how we work with manufacturers, visit the main BLOC-TEC website,
+              where we focus specifically on helping manufacturers present their products digitally.
             </p>
-            <ul className="benefit-list">
-              <li>Onboarding and setup costs based on scope of work required</li>
-              <li>Paid upgrades for dedicated deployment, modules, and extra services</li>
-            </ul>
             <div className="actions">
               <a className="btn btn-primary" href={BLOC_TEC_CONTACT_URL} target="_blank" rel="noreferrer">
-                Visit the BLOC-TEC manufacturers page for more information
+                Visit the BLOC-TEC manufacturers page
               </a>
             </div>
           </article>
@@ -387,6 +637,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/manufacturers" element={<ManufacturersPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/faq" element={<FaqPage />} />
           </Routes>
         </main>

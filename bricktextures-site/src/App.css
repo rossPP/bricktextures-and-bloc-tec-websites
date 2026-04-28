@@ -485,16 +485,34 @@ h2 {
 }
 
 .contact-form input,
+.contact-form select,
 .contact-form textarea {
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   padding: 0.65rem 0.7rem;
   font-size: 0.95rem;
   font-family: inherit;
+  background: #fff;
+  color: var(--color-text);
 }
 
 .contact-form textarea {
   resize: vertical;
+}
+
+.contact-lead {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.page-header .contact-lead {
+  margin-top: 0.9rem;
+}
+
+.contact-supporting-copy {
+  margin: 0;
+  color: #35524c;
+  line-height: 1.55;
 }
 
 .manufacturer-note {
