@@ -4,7 +4,7 @@ import conceptToRealityHero from "../../bloc-tec-site/public/images/conceptToRea
 import { brickTexturesStats } from "./generated/brickTexturesStats";
 import './App.css'
 
-const VAULT_FACING_BRICKS_URL = "https://app.bloc-tec.com/account/bricktextures/";
+const BRICKTEXTURES_APP_URL = "https://app.bricktextures.com/account/bricktextures/";
 const BLOC_TEC_CONTACT_URL = "https://bloc-tec.com/for-manufacturers";
 const GENERAL_CONTACT_EMAIL = "info@bloc-tec.com";
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
@@ -133,7 +133,59 @@ function RouteTitleSync() {
   const location = useLocation();
 
   useEffect(() => {
-    document.title = "Brick Textures by BLOC-TEC";
+    const pageMetaByPath: Record<string, { title: string; description: string }> = {
+      "/": {
+        title: "Brick Textures by BLOC-TEC | UK & Ireland Brick Texture Library",
+        description:
+          "Explore real UK and Ireland brick textures, configure bonds and mortars, and download texture assets for design and visualisation.",
+      },
+      "/manufacturers": {
+        title: "For Manufacturers | Brick Textures by BLOC-TEC",
+        description:
+          "See how manufacturers can deploy a dedicated Brick Textures experience with their own catalogue, branding, and configuration options.",
+      },
+      "/contact": {
+        title: "Contact | Brick Textures by BLOC-TEC",
+        description:
+          "Contact Brick Textures to share product feedback, report issues, request features, or discuss manufacturer deployment options.",
+      },
+      "/faq": {
+        title: "FAQ | Brick Textures by BLOC-TEC",
+        description:
+          "Read frequently asked questions about Brick Textures, who it is for, and how architects and manufacturers use the platform.",
+      },
+    };
+
+    const defaultMeta = pageMetaByPath["/"];
+    const pageMeta = pageMetaByPath[location.pathname] ?? defaultMeta;
+    const canonicalUrl = `https://bricktextures.com${location.pathname === "/" ? "/" : location.pathname}`;
+
+    document.title = pageMeta.title;
+
+    const setMetaTag = (selector: string, content: string, attributeName: "name" | "property", attributeValue: string) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.setAttribute("content", content);
+        return;
+      }
+
+      const meta = document.createElement("meta");
+      meta.setAttribute(attributeName, attributeValue);
+      meta.setAttribute("content", content);
+      document.head.appendChild(meta);
+    };
+
+    setMetaTag('meta[name="description"]', pageMeta.description, "name", "description");
+    setMetaTag('meta[property="og:title"]', pageMeta.title, "property", "og:title");
+    setMetaTag('meta[property="og:description"]', pageMeta.description, "property", "og:description");
+    setMetaTag('meta[property="og:url"]', canonicalUrl, "property", "og:url");
+    setMetaTag('meta[name="twitter:title"]', pageMeta.title, "name", "twitter:title");
+    setMetaTag('meta[name="twitter:description"]', pageMeta.description, "name", "twitter:description");
+
+    const canonicalLink = document.querySelector('link[rel="canonical"]');
+    if (canonicalLink) {
+      canonicalLink.setAttribute("href", canonicalUrl);
+    }
   }, [location.pathname]);
 
   return null;
@@ -220,10 +272,10 @@ function HomePage() {
           <div className="hero-cta-wrap">
             <a
               className="hero-cta"
-              href={VAULT_FACING_BRICKS_URL}
+              href={BRICKTEXTURES_APP_URL}
               target="_blank"
               rel="noreferrer"
-              onClick={event => onCategoryClick(event, VAULT_FACING_BRICKS_URL)}
+              onClick={event => onCategoryClick(event, BRICKTEXTURES_APP_URL)}
             >
               <span>Explore Bricks</span>
               <ChevronIcon className="hero-cta-arrow" />

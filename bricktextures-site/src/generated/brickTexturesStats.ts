@@ -1,5 +1,5 @@
 export const brickTexturesStats = {
-  "generatedAt": "2026-04-27T11:00:45.424Z",
+  "generatedAt": "2026-05-08T09:37:42.895Z",
   "manufacturers": 14,
   "products": 42,
   "skuOptions": 712,

@@ -85,7 +85,7 @@ type IntegrationMethodOption = {
 };
 
 function getSkuDemoUrl(productCode: string) {
-  return `https://app.bloc-tec.com/account/ag?c=${encodeURIComponent(productCode)}`;
+  return `https://app.bloc-tec.com/account/bricktextures/?c=${encodeURIComponent(productCode)}`;
 }
 
 const INTEGRATION_METHOD_OPTIONS: Record<
@@ -99,9 +99,9 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templateHighlight: "<account-name>",
     description:
       "This route gives access to your full product collection and works for both standalone links and iframe embeds. We provide your account name during account set-up.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/ag",
+    demoIframeUrl: "https://app.bloc-tec.com/account/bricktextures",
     examplePrefix: "https://app.bloc-tec.com/account/",
-    exampleHighlight: "ag",
+    exampleHighlight: "bricktextures",
     recommendedIntro:
       "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
     recommendedMethods: [
@@ -123,9 +123,9 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templateHighlight: "<category-name>",
     description:
       "This is the top level of your account product structure. Pass in the category name to load it directly.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/ag/Bricks",
-    examplePrefix: "https://app.bloc-tec.com/account/ag/",
-    exampleHighlight: "Bricks",
+    demoIframeUrl: "https://app.bloc-tec.com/account/bricktextures/Clay%20Bricks",
+    examplePrefix: "https://app.bloc-tec.com/account/bricktextures/",
+    exampleHighlight: "Clay Bricks",
     recommendedIntro:
       "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
     recommendedMethods: [
@@ -143,15 +143,15 @@ const INTEGRATION_METHOD_OPTIONS: Record<
   product: {
     buttonLabel: "Product",
     title: "Linking to product level",
-    templatePrefix:
-      "https://app.bloc-tec.com/account/<account-name>/<category-name>?",
-    templateHighlight: "viewProduct=<product-name>",
+    templatePrefix: "https://app.bloc-tec.com/account/<account-name>/?",
+    templateHighlight: "viewProduct=<product-name>&src=<source-file-name>",
     description:
-      "This loads a specific product, allowing users to browse all available colours and finishes for that product.",
+      "This loads a specific product, allowing users to browse all available colours and finishes for that product. The source file name keeps the product link independent from category names.",
     demoIframeUrl:
-      "https://app.bloc-tec.com/account/ag/Bricks?viewProduct=Woodward",
-    examplePrefix: "https://app.bloc-tec.com/account/ag/Bricks?",
+      "https://app.bloc-tec.com/account/bricktextures/?viewProduct=Woodward&src=Concrete%20Facing%20Bricks",
+    examplePrefix: "https://app.bloc-tec.com/account/bricktextures/?",
     exampleHighlight: "viewProduct=Woodward",
+    exampleSuffix: "&src=Concrete%20Facing%20Bricks",
     recommendedMethods: [
       {
         method: "Modal window",
@@ -166,12 +166,12 @@ const INTEGRATION_METHOD_OPTIONS: Record<
   sku: {
     buttonLabel: "SKU / Colour",
     title: "Linking to individual SKU level",
-    templatePrefix: "https://app.bloc-tec.com/account/<account-name>?",
+    templatePrefix: "https://app.bloc-tec.com/account/<account-name>/?",
     templateHighlight: "c=<product-sku>",
     description:
       "This is useful for embedding in a webpage specific to one product, with a category-independent URL format.",
     demoIframeUrl: getSkuDemoUrl("WO_LE_AN"),
-    examplePrefix: "https://app.bloc-tec.com/account/ag?",
+    examplePrefix: "https://app.bloc-tec.com/account/bricktextures/?",
     exampleHighlight: "c=WO_LE_AN",
     recommendedMethods: [
       {
@@ -692,6 +692,37 @@ function IntegrationPage() {
                     </p>
                   </>
                 ) : null}
+                {selectedMethod === "product" ? (
+                  <>
+                    <p className="integration-step">
+                      <span className="integration-subtitle">
+                        Admin URL copy helper:
+                      </span>
+                    </p>
+                    <p className="integration-step">
+                      Add <code>admin=true</code> to the account or category URL
+                      to reveal hidden copy controls beside each product. Use{" "}
+                      <code>Copy productView</code> to copy the recommended
+                      product-level URL, including <code>src</code> for the
+                      source file name. The admin flag is removed after loading
+                      and is not included in copied links. Include the trailing
+                      forward slash before the query string, as shown below.
+                    </p>
+                    <p className="integration-step">
+                      Product links intentionally omit the category segment so
+                      category names can be changed or reorganised without
+                      breaking existing product links.
+                    </p>
+                    <div className="integration-code-card">
+                      <pre className="integration-code-block">
+                        <code>
+                          {`https://app.bloc-tec.com/account/<account-name>/?`}
+                          <strong>admin=true</strong>
+                        </code>
+                      </pre>
+                    </div>
+                  </>
+                ) : null}
                 {selectedMethod === "sku" ? (
                   <>
                     <p className="integration-step">
@@ -705,13 +736,32 @@ function IntegrationPage() {
                     </p>
                     <p className="integration-step">
                       <span className="integration-subtitle">
-                        Link stability note:
+                        Admin URL copy helper:
                       </span>
+                    </p>
+                    <p className="integration-step">
+                      Add <code>admin=true</code> to the account or category URL
+                      to reveal hidden copy controls beside each colour
+                      option. Use <code>Copy c</code> to copy the minimum
+                      SKU-level URL for the selected colour/SKU. The admin flag
+                      is removed after loading and is not included in copied
+                      links. Include the trailing forward slash before the query
+                      string, as shown below.
                     </p>
                     <p className="integration-step">
                       SKU links intentionally omit the category segment so you can
                       reorganise categories later without breaking existing links.
+                      The copied <code>c</code> URL is the minimum colour/SKU
+                      reference needed to load that option.
                     </p>
+                    <div className="integration-code-card">
+                      <pre className="integration-code-block">
+                        <code>
+                          {`https://app.bloc-tec.com/account/<account-name>/?`}
+                          <strong>admin=true</strong>
+                        </code>
+                      </pre>
+                    </div>
                     <p className="integration-step">
                       <span className="integration-subtitle">
                         If blender module is active:
