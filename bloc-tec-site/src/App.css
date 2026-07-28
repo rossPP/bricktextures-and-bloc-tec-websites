@@ -1064,6 +1064,14 @@ main.product-samples-page {
   margin-bottom: 0.7rem;
 }
 
+.legal-copy h3 {
+  margin-top: 1.25rem;
+  margin-bottom: 0.45rem;
+  font-size: clamp(1.05rem, 2.2vw, 1.2rem);
+  font-weight: 600;
+  color: #0f172a;
+}
+
 .legal-copy p,
 .legal-copy ul {
   margin: 0 0 0.9rem;

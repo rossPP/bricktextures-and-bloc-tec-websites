@@ -28,7 +28,6 @@ declare global {
   }
 }
 
-const IBSTOCK_INTEGRATION_URL = "https://www.ibstock.co.uk/products/bricks";
 const MARSHALLS_INTEGRATION_URL =
   "https://www.marshalls.co.uk/bricks-and-masonry/facing-bricks";
 const TOBERMORE_INTEGRATION_URL =
@@ -123,9 +122,9 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templateHighlight: "<category-name>",
     description:
       "This is the top level of your account product structure. Pass in the category name to load it directly.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/bricktextures/Clay%20Bricks",
+    demoIframeUrl: "https://app.bloc-tec.com/account/bricktextures/Facing%20Bricks",
     examplePrefix: "https://app.bloc-tec.com/account/bricktextures/",
-    exampleHighlight: "Clay Bricks",
+    exampleHighlight: "Facing Bricks",
     recommendedIntro:
       "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
     recommendedMethods: [
@@ -298,13 +297,13 @@ type HomePartner = {
 
 const HOME_PARTNERS: HomePartner[] = [
   {
-    id: "ibstock",
-    name: "Ibstock Brick",
+    id: "clayandco",
+    name: "Clay & Co",
     description:
-      "The UK's largest brick manufacturer. Integration focuses on presenting a broad clay brick range through clear, interactive product workflows.",
-    logoUrl: getClientLogoUrl("ibstock"),
-    integrationUrl: IBSTOCK_INTEGRATION_URL,
-    appUrl: getAccountAppUrl("ibstock"),
+      "A specialist brick and cladding supplier with a product visualiser-led customer journey. Integration supports faster product discovery, leading to confident choices.",
+    logoUrl: getClientLogoUrl("outhaus"),
+    integrationUrl: CLAY_AND_CO_INTEGRATION_URL,
+    appUrl: getAccountAppUrl("outhaus"),
   },
   {
     id: "marshalls",
@@ -314,15 +313,6 @@ const HOME_PARTNERS: HomePartner[] = [
     logoUrl: getClientLogoUrl("MARSHALLS"),
     integrationUrl: MARSHALLS_INTEGRATION_URL,
     appUrl: getAccountAppUrl("marshalls"),
-  },
-  {
-    id: "clayandco",
-    name: "Clay & Co",
-    description:
-      "A specialist brick and cladding supplier with a product visualiser-led customer journey. Integration supports faster product discovery, leading to confident choices.",
-    logoUrl: getClientLogoUrl("outhaus"),
-    integrationUrl: CLAY_AND_CO_INTEGRATION_URL,
-    appUrl: getAccountAppUrl("outhaus"),
   },
   {
     id: "tobermore",
@@ -2054,406 +2044,424 @@ function AppTermsPage() {
       <section className="section">
         <div className="container legal-layout">
           <div className="legal-copy">
-            <p>
-              By confirming in writing or making payment for our Services, you
-              agree to these Terms and our{" "}
-              <NavLink to="/privacy-policy">Privacy Policy</NavLink>. If you do
-              not agree, please do not use our Services.
-            </p>
-            <p>
-              Paver Picker Ltd trading as Bloc-Tec is a registered business in
-              Ireland (business registration number: 604066) and provides the
-              Bloc-Tec visualisation services described in your invoice or
-              written confirmation.
-            </p>
-
-            <h2>Definitions</h2>
+            <h2 id="terms-1">1. Introduction and incorporation</h2>
             <ul>
               <li>
-                <strong>You / Your:</strong> the customer business using our
+                <strong>1.1</strong> By confirming in writing or making payment for our Services, you
+                agree to these Terms and our{" "}
+                <NavLink to="/privacy-policy">Privacy Policy</NavLink>. If you do
+                not agree, please do not use our Services.
+              </li>
+              <li>
+                <strong>1.2</strong> Paver Picker Ltd trading as Bloc-Tec is a registered business in
+                Ireland (business registration number: 604066) and provides the
+                Bloc-Tec visualisation services described in your invoice or
+                written confirmation.
+              </li>
+            </ul>
+
+            <h2 id="terms-2">2. Definitions</h2>
+            <p>In these Terms, the following expressions have the meanings set out below.</p>
+            <ul>
+              <li>
+                <strong>2.1 You / Your:</strong> the customer business using our
                 Services under this agreement.
               </li>
               <li>
-                <strong>We / Us / Our:</strong> Bloc-Tec, being Paver Picker Ltd
+                <strong>2.2 We / Us / Our:</strong> Bloc-Tec, being Paver Picker Ltd
                 trading as Bloc-Tec.
               </li>
               <li>
-                <strong>Services:</strong> the Bloc-Tec applications, tools, and
+                <strong>2.3 Services:</strong> the Bloc-Tec applications, tools, and
                 online platform accessed under this agreement.
               </li>
               <li>
-                <strong>Product Photography:</strong> high quality photographs of
+                <strong>2.4 Product Photography:</strong> high quality photographs of
                 individual products, whether taken by Bloc-Tec or supplied by
                 you, which may be processed for compatibility with our software.
               </li>
               <li>
-                <strong>Created Materials:</strong> digital assets produced by
+                <strong>2.5 Created Materials:</strong> digital assets produced by
                 Bloc-Tec using Product Photography and other data inputs,
                 including software-generated visuals, seamless textures, product
                 swatches, image downloads, and product information PDFs.
               </li>
               <li>
-                <strong>Confidential Information:</strong> any non-public
+                <strong>2.6 Confidential Information:</strong> any non-public
                 business, technical, or financial information shared between the
                 parties.
               </li>
               <li>
-                <strong>Billing Data:</strong> customer contact and payment
+                <strong>2.7 Billing Data:</strong> customer contact and payment
                 details used for invoicing.
               </li>
             </ul>
 
-            <h2>Services and licence</h2>
-            <p>
-              We provide the Services described in your invoice or written
-              confirmation. Created Materials, together with relevant data
-              inputs, form part of the Services provided under this agreement.
-            </p>
+            <h2 id="terms-3">3. Services and subscription</h2>
             <ul>
               <li>
-                You are permitted to use the Services during your subscription
+                <strong>3.1</strong> We provide the Services described in your invoice or written
+                confirmation. Created Materials, together with relevant data
+                inputs, form part of the Services provided under this agreement.
+              </li>
+              <li>
+                <strong>3.2</strong> Your subscription will
+                commence when the Services are linked to your production website,
+                used in a showroom or exhibition, or two calendar months after
+                completion of set-up, whichever occurs first.
+              </li>
+              <li>
+                <strong>3.3</strong> Subscription commencement for add-on modules and new products
+                will be co-termed with your existing subscription, unless
+                otherwise agreed in writing.
+              </li>
+              <li>
+                <strong>3.4</strong> Products or features may be added or removed during the term,
+                and refunds are not provided for removed items.
+              </li>
+              <li>
+                <strong>3.5</strong> You are permitted to use the Services during your subscription
                 term.
               </li>
               <li>
-                The licence is for your own business use only and cannot be
-                shared or transferred to a different domain.
+                <strong>3.6</strong> Your subscription is for your own business use only and cannot
+                be shared or transferred to a different domain.
               </li>
               <li>
-                You may not modify, reverse-engineer, or create derivative works
+                <strong>3.7</strong> You may not modify, reverse-engineer, or create derivative works
                 from the Services.
               </li>
               <li>
-                We may suspend access if security or integrity is at risk.
+                <strong>3.8</strong> We may suspend access if security or integrity is at risk.
               </li>
               <li>
-                Updates and maintenance are included and we aim for high
+                <strong>3.9</strong> Updates and maintenance are included and we aim for high
                 availability.
-              </li>
-              <li>
-                Your licence begins when the Services are linked to your live
-                website, used in a showroom or exhibition, or two months after
-                setup, whichever happens first.
-              </li>
-              <li>
-                Add-ons and new features follow your existing subscription term.
-                Products or features may be added or removed during the term,
-                and refunds are not provided for removed items.
               </li>
             </ul>
 
-            <h2>Intellectual property</h2>
+            <h2 id="terms-4">4. Intellectual property</h2>
             <ul>
-              <li>We own all rights to the Services and Created Materials.</li>
               <li>
-                You retain ownership of original Product Photography or files you
+                <strong>4.1</strong> We own all rights to the Services and Created Materials.
+              </li>
+              <li>
+                <strong>4.2</strong> You retain ownership of original Product Photography or files you
                 supply before we process them.
               </li>
               <li>
-                You may not remove our copyright notices or branding from
+                <strong>4.3</strong> You may not remove our copyright notices or branding from
                 Created Materials, nor claim ownership of them.
               </li>
             </ul>
 
-            <h2>Usage guidelines</h2>
+            <h2 id="terms-5">5. Usage guidelines</h2>
+            <h3 id="terms-5-1">5.1 Permitted use</h3>
             <p>During the subscription term, you may:</p>
             <ul>
               <li>
-                Use Created Materials on your approved domain or domains, or in
+                <strong>5.1.1</strong> Use Created Materials on your approved domain or domains, or in
                 printed materials.
               </li>
               <li>
-                Share Created Materials with your resellers for their online use
+                <strong>5.1.2</strong> Share Created Materials with your resellers for their online use
                 only.
               </li>
               <li>
-                Use seamless textures in architectural visualisations.
+                <strong>5.1.3</strong> Use seamless textures in architectural visualisations.
               </li>
             </ul>
+            <h3 id="terms-5-2">5.2 Prohibited use</h3>
             <p>You may not:</p>
             <ul>
               <li>
-                Modify, resell, redistribute, or license our Created Materials
+                <strong>5.2.1</strong> Modify, resell, redistribute, or license our Created Materials
                 to others.
               </li>
               <li>
-                Use Created Materials in other software platforms,
+                <strong>5.2.2</strong> Use Created Materials in other software platforms,
                 configurators, visualisers, or interactive applications.
               </li>
               <li>
-                Use Created Materials to train AI or machine learning systems.
+                <strong>5.2.3</strong> Use Created Materials to train AI or machine learning systems.
               </li>
               <li>
-                Claim ownership of Created Materials in a way that implies
+                <strong>5.2.4</strong> Claim ownership of Created Materials in a way that implies
                 Bloc-Tec endorses your products.
               </li>
               <li>
-                Use seamless textures outside their intended use in
+                <strong>5.2.5</strong> Use seamless textures outside their intended use in
                 architectural visualisations.
               </li>
-              <li>Use Created Materials in any unlawful way.</li>
+              <li>
+                <strong>5.2.6</strong> Use Created Materials in any unlawful way.
+              </li>
             </ul>
+            <h3 id="terms-5-3">5.3 Risk and indemnity</h3>
             <p>
-              All Created Materials are used at your own risk. You agree to
+              <strong>5.3.1</strong> All Created Materials are used at your own risk. You agree to
               indemnify us against claims or damages arising from your use of
               Created Materials, including unauthorised use.
             </p>
 
-            <h2>Fees and payments</h2>
+            <h2 id="terms-6">6. Fees and payments</h2>
             <ul>
               <li>
-                We are not obliged to refund fees for cancelled work that is
+                <strong>6.1</strong> We are not obliged to refund fees for cancelled work that is
                 already completed.
               </li>
               <li>
-                Delivery may be delayed if product samples or images supplied to
+                <strong>6.2</strong> Delivery may be delayed if product samples or images supplied to
                 us are late, unsuitable, or require additional editing.
               </li>
               <li>
-                Services are provided as described in your invoice during the
+                <strong>6.3</strong> Services are provided as described in your invoice during the
                 subscription term.
               </li>
               <li>
-                Invoices are issued in the stated currency and based on the
+                <strong>6.4</strong> Invoices are issued in the stated currency and based on the
                 Billing Data provided. VAT is added where applicable.
               </li>
               <li>
-                Payment is due within 30 days of invoice unless otherwise
+                <strong>6.5</strong> Payment is due within 30 days of invoice unless otherwise
                 agreed.
               </li>
               <li>
-                Costs may increase annually by up to 5% based on the Global
+                <strong>6.6</strong> Costs may increase annually by up to 5% based on the Global
                 Inflation Index, with at least 7 days&apos; notice before changes
                 take effect.
               </li>
               <li>
-                If payment is overdue by more than 7 days, we may suspend your
+                <strong>6.7</strong> If payment is overdue by more than 7 days, we may suspend your
                 account and statutory interest may apply.
               </li>
             </ul>
 
-            <h2>Product samples and product photography</h2>
+            <h2 id="terms-7">7. Product samples and product photography</h2>
             <ul>
               <li>
-                Samples must be clean, dry, and representative of product
+                <strong>7.1</strong> Samples must be clean, dry, and representative of product
                 variations.
               </li>
               <li>
-                Delivery costs are your responsibility. Uncollected samples
+                <strong>7.2</strong> Delivery costs are your responsibility. Uncollected samples
                 after 30 days may be disposed of.
               </li>
               <li>
-                We use standard colour calibration and exposure checks to ensure
+                <strong>7.3</strong> We use standard colour calibration and exposure checks to ensure
                 Product Photography is accurate and will not alter it in a way
                 that misrepresents the product&apos;s appearance.
               </li>
             </ul>
 
-            <h2>Warranties</h2>
+            <h2 id="terms-8">8. Warranties</h2>
             <ul>
               <li>
-                Both parties confirm they have authority to enter this agreement
+                <strong>8.1</strong> Both parties confirm they have authority to enter this agreement
                 and will comply with applicable laws.
               </li>
               <li>
-                We warrant that we have the right to provide the Services and
+                <strong>8.2</strong> We warrant that we have the right to provide the Services and
                 will deliver them with reasonable care.
               </li>
               <li>
-                We do not guarantee uninterrupted service, specific results, or
+                <strong>8.3</strong> We do not guarantee uninterrupted service, specific results, or
                 fitness for a particular purpose.
               </li>
               <li>
-                We are not responsible for issues caused by third-party
+                <strong>8.4</strong> We are not responsible for issues caused by third-party
                 components, services, connectivity, hosting, domain providers,
                 or external licences outside our control.
               </li>
               <li>
-                You warrant that you own the rights to any content you provide
+                <strong>8.5</strong> You warrant that you own the rights to any content you provide
                 and will take reasonable steps to protect access credentials,
                 devices, and networks used with the Services.
               </li>
               <li>
-                Third-party content or information provided by us is supplied
+                <strong>8.6</strong> Third-party content or information provided by us is supplied
                 &quot;as is&quot;.
               </li>
               <li>
-                Except for the warranties stated above, all other warranties are
+                <strong>8.7</strong> Except for the warranties stated above, all other warranties are
                 excluded.
               </li>
             </ul>
 
-            <h2>Liability</h2>
+            <h2 id="terms-9">9. Liability</h2>
             <ul>
               <li>
-                Neither party limits liability for fraud, death, or personal
+                <strong>9.1</strong> Neither party limits liability for fraud, death, or personal
                 injury caused by negligence or misconduct.
               </li>
               <li>
-                Neither party is liable for indirect or consequential losses,
+                <strong>9.2</strong> Neither party is liable for indirect or consequential losses,
                 including lost profits, business interruption, or loss of
                 goodwill.
               </li>
               <li>
-                Our total liability is capped at the fees paid in the 12 months
+                <strong>9.3</strong> Our total liability is capped at the fees paid in the 12 months
                 before the claim, or the shorter agreement term if applicable.
               </li>
               <li>
-                You are responsible for breaches caused by your users.
+                <strong>9.4</strong> You are responsible for breaches caused by your users.
               </li>
               <li>
-                Both parties confirm this agreement, together with information
+                <strong>9.5</strong> Both parties confirm this agreement, together with information
                 on the invoice, is the entire basis of their relationship.
               </li>
             </ul>
 
-            <h2>Indemnities</h2>
+            <h2 id="terms-10">10. Indemnities</h2>
             <ul>
               <li>
-                We will cover claims that the Services infringe intellectual
+                <strong>10.1</strong> We will cover claims that the Services infringe intellectual
                 property rights, except where the claim relates to content you
                 provided, subject to prompt notice, control of the defence, and
                 your cooperation.
               </li>
               <li>
-                If infringement occurs, we may secure rights, replace, or modify
+                <strong>10.2</strong> If infringement occurs, we may secure rights, replace, or modify
                 the Services.
               </li>
               <li>
-                We are not responsible for claims resulting from misuse of the
+                <strong>10.3</strong> We are not responsible for claims resulting from misuse of the
                 Services, combining them with other systems, or a failure to
                 take reasonable care.
               </li>
               <li>
-                You will cover claims and costs arising from your use of the
+                <strong>10.4</strong> You will cover claims and costs arising from your use of the
                 Services, including intellectual property breaches, data
                 protection issues, and user actions.
               </li>
               <li>
-                Both parties agree to indemnify each other for reasonable legal
+                <strong>10.5</strong> Both parties agree to indemnify each other for reasonable legal
                 costs related to claims under this agreement.
               </li>
             </ul>
 
-            <h2>Term and termination</h2>
+            <h2 id="terms-11">11. Term and termination</h2>
             <ul>
               <li>
-                This agreement starts when your licence begins and renews
+                <strong>11.1</strong> This agreement starts when your subscription begins and renews
                 automatically unless ended in accordance with these terms.
               </li>
               <li>
-                Either party may terminate by giving 30 days&apos; notice before
+                <strong>11.2</strong> Either party may terminate by giving 30 days&apos; notice before
                 the end of the current term.
               </li>
               <li>
-                We may terminate immediately if Services or Created Materials are
+                <strong>11.3</strong> We may terminate immediately if Services or Created Materials are
                 misused or if providing Services becomes unlawful.
               </li>
               <li>
-                Either party may terminate if the other becomes insolvent, fails
+                <strong>11.4</strong> Either party may terminate if the other becomes insolvent, fails
                 to remedy a material breach within 5 business days, or is
                 prevented by Force Majeure for more than 28 days.
               </li>
               <li>
-                On termination, Services stop, licences end, and all unpaid fees
-                for the term must be paid. No refunds are provided for early
-                termination.
+                <strong>11.5</strong> On termination, Services stop, your rights to use the Services
+                end, and all unpaid fees for the term must be paid. No refunds
+                are provided for early termination.
               </li>
               <li>
-                You and your resellers may keep using Created Materials created
+                <strong>11.6</strong> You and your resellers may keep using Created Materials created
                 before termination, subject to the same usage rules.
               </li>
               <li>
-                Termination does not affect accrued rights and certain clauses
+                <strong>11.7</strong> Termination does not affect accrued rights and certain clauses
                 continue after termination.
               </li>
             </ul>
 
-            <h2>Confidential information</h2>
+            <h2 id="terms-12">12. Confidential information</h2>
             <ul>
               <li>
-                Each party must keep the other party&apos;s Confidential
+                <strong>12.1</strong> Each party must keep the other party&apos;s Confidential
                 Information private and use it only for this agreement unless
                 disclosure is required by law.
               </li>
               <li>
-                Disclosure is permitted only to employees or agents who need the
+                <strong>12.2</strong> Disclosure is permitted only to employees or agents who need the
                 information for this agreement and agree to keep it
                 confidential.
               </li>
               <li>
-                Confidential Information does not include information already
+                <strong>12.3</strong> Confidential Information does not include information already
                 known, publicly available other than through breach, or required
                 by law to be disclosed.
               </li>
             </ul>
 
-            <h2>Data protection</h2>
+            <h2 id="terms-13">13. Data protection</h2>
             <ul>
-              <li>Both parties will comply with applicable data protection laws.</li>
               <li>
-                You are the data controller and we are the data processor for
+                <strong>13.1</strong> Both parties will comply with applicable data protection laws.
+              </li>
+              <li>
+                <strong>13.2</strong> You are the data controller and we are the data processor for
                 personal data used in the Services.
               </li>
               <li>
-                We may take steps to prevent any data protection infringement.
+                <strong>13.3</strong> We may take steps to prevent any data protection infringement.
               </li>
               <li>
-                Any personal data we collect as a controller is handled in
+                <strong>13.4</strong> Any personal data we collect as a controller is handled in
                 accordance with our <NavLink to="/privacy-policy">Privacy Policy</NavLink>.
               </li>
               <li>
-                We process Billing Data in accordance with applicable data
+                <strong>13.5</strong> We process Billing Data in accordance with applicable data
                 protection laws.
               </li>
               <li>
-                Client websites remain responsible for their own analytics and
+                <strong>13.6</strong> Client websites remain responsible for their own analytics and
                 consent handling when embedding the Services.
               </li>
             </ul>
 
-            <h2>Force majeure</h2>
+            <h2 id="terms-14">14. Force majeure</h2>
             <ul>
               <li>
-                If something beyond a party&apos;s control prevents that party
+                <strong>14.1</strong> If something beyond a party&apos;s control prevents that party
                 from meeting its obligations, those obligations are paused.
               </li>
               <li>
-                The affected party must notify the other as soon as possible.
+                <strong>14.2</strong> The affected party must notify the other as soon as possible.
               </li>
               <li>
-                If the situation continues for more than 28 days, the other
+                <strong>14.3</strong> If the situation continues for more than 28 days, the other
                 party may end the agreement immediately without penalty.
               </li>
             </ul>
 
-            <h2>Miscellaneous</h2>
+            <h2 id="terms-15">15. Miscellaneous</h2>
             <ul>
               <li>
-                If any part of this agreement is invalid, the rest remains in
+                <strong>15.1</strong> If any part of this agreement is invalid, the rest remains in
                 force.
               </li>
               <li>
-                This agreement is the entire understanding between the parties.
+                <strong>15.2</strong> This agreement is the entire understanding between the parties.
               </li>
               <li>
-                Neither party may transfer its rights under this agreement
+                <strong>15.3</strong> Neither party may transfer its rights under this agreement
                 without written consent, except that we may transfer the
                 agreement if we sell our business.
               </li>
               <li>
-                Both parties act as independent contractors and nothing creates
+                <strong>15.4</strong> Both parties act as independent contractors and nothing creates
                 an employment relationship.
               </li>
               <li>
-                Changes or notices must be in writing. We may update these terms
+                <strong>15.5</strong> Changes or notices must be in writing. We may update these terms
                 with 30 days&apos; notice, and you may terminate before the
                 changes take effect if you do not agree.
               </li>
               <li>
-                No third party has rights to enforce this agreement.
+                <strong>15.6</strong> No third party has rights to enforce this agreement.
               </li>
               <li>
-                This agreement is governed by Irish law and disputes are subject
+                <strong>15.7</strong> This agreement is governed by Irish law and disputes are subject
                 to the courts of Dublin.
               </li>
             </ul>
