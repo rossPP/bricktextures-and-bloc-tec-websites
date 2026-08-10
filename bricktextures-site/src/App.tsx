@@ -1,14 +1,38 @@
 import { FormEvent, MouseEvent, useEffect, useState } from "react";
 import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import conceptToRealityHero from "../../bloc-tec-site/public/images/conceptToRealityHero.webp";
-import { brickTexturesStats } from "./generated/brickTexturesStats";
 import './App.css'
 
-const BRICKTEXTURES_APP_URL = "https://app.bricktextures.com/account/bricktextures/";
+const BRICKTEXTURES_APP_URL = "/app/facing-bricks";
 const BLOC_TEC_CONTACT_URL = "https://bloc-tec.com/for-manufacturers";
 const GENERAL_CONTACT_EMAIL = "info@bloc-tec.com";
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
-const COUNT_FORMATTER = new Intl.NumberFormat("en-GB");
+const APPEARANCE_ROUTES = [
+  {
+    label: "Red and orange bricks",
+    description: "Explore warm reds, oranges and mixed tones.",
+    url: "/app/facing-bricks?filterColour=Red-Orange",
+    tone: "red-orange",
+  },
+  {
+    label: "Buff bricks",
+    description: "Browse cream, yellow and light buff options.",
+    url: "/app/facing-bricks?filterColour=Buff",
+    tone: "buff",
+  },
+  {
+    label: "Brown bricks",
+    description: "Compare earthy brown and deeper natural tones.",
+    url: "/app/facing-bricks?filterColour=Brown",
+    tone: "brown",
+  },
+  {
+    label: "Grey, black and white bricks",
+    description: "Find pale neutrals, greys and dark bricks.",
+    url: "/app/facing-bricks?filterColour=Black-White",
+    tone: "neutral",
+  },
+] as const;
 const CONTACT_REASONS = [
   "Feature request",
   "Existing feature improvement",
@@ -135,9 +159,9 @@ function RouteTitleSync() {
   useEffect(() => {
     const pageMetaByPath: Record<string, { title: string; description: string }> = {
       "/": {
-        title: "Brick Textures by BLOC-TEC | UK & Ireland Brick Texture Library",
+        title: "Find and Compare Facing Bricks | Bricktextures",
         description:
-          "Explore real UK and Ireland brick textures, configure bonds and mortars, and download texture assets for design and visualisation.",
+          "Explore and compare real UK and Ireland facing bricks using consistent seamless textures, mortar colours and bond layouts.",
       },
       "/manufacturers": {
         title: "For Manufacturers | Brick Textures by BLOC-TEC",
@@ -179,8 +203,10 @@ function RouteTitleSync() {
     setMetaTag('meta[property="og:title"]', pageMeta.title, "property", "og:title");
     setMetaTag('meta[property="og:description"]', pageMeta.description, "property", "og:description");
     setMetaTag('meta[property="og:url"]', canonicalUrl, "property", "og:url");
+    setMetaTag('meta[property="og:image"]', new URL(conceptToRealityHero, window.location.origin).href, "property", "og:image");
     setMetaTag('meta[name="twitter:title"]', pageMeta.title, "name", "twitter:title");
     setMetaTag('meta[name="twitter:description"]', pageMeta.description, "name", "twitter:description");
+    setMetaTag('meta[name="twitter:image"]', new URL(conceptToRealityHero, window.location.origin).href, "name", "twitter:image");
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
     if (canonicalLink) {
@@ -200,8 +226,7 @@ function Header() {
           <span>by BLOC-TEC</span>
         </Link>
         <nav className="main-nav" aria-label="Main navigation">
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/manufacturers">Manufacturers</NavLink>
+          <NavLink to="/" end>Home</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/faq">FAQ</NavLink>
         </nav>
@@ -218,7 +243,7 @@ function HomePage() {
   const [roleOptions, setRoleOptions] = useState<string[]>(buildRoleOptions());
 
   const launchCategory = (url: string) => {
-    window.open(url, "_blank", "noopener,noreferrer");
+    window.location.assign(url);
   };
 
   const onCategoryClick = (event: MouseEvent<HTMLAnchorElement>, url: string) => {
@@ -257,80 +282,88 @@ function HomePage() {
     setOtherRole("");
   };
 
-  const formatCount = (value: number) => COUNT_FORMATTER.format(value);
-
   return (
     <>
       <section className="hero">
         <div className="container hero-center">
-          <p className="eyebrow">Brick Textures by BLOC-TEC</p>
-          <h1>Find. Configure. Blend.</h1>
+          <p className="eyebrow">Facing brick selection for architects</p>
+          <h1>Find the right brick.</h1>
           <p className="lead">
-            Explore real UK and Ireland facing bricks, configure bonds and mortars, create blends,
-            and download textures for your project.
+            Explore and compare real facing bricks in one place, using consistent textures, mortar
+            colours and bond layouts before you specify.
           </p>
           <div className="hero-cta-wrap">
             <a
               className="hero-cta"
               href={BRICKTEXTURES_APP_URL}
-              target="_blank"
-              rel="noreferrer"
               onClick={event => onCategoryClick(event, BRICKTEXTURES_APP_URL)}
             >
-              <span>Explore Bricks</span>
+              <span>Explore bricks</span>
               <ChevronIcon className="hero-cta-arrow" />
             </a>
           </div>
-          <p className="hero-subline">Real products. Flexible options. Ready for design work.</p>
-          <div className="hero-proof-band">
-            <div className="hero-stats-grid" aria-label="Current Brick Textures account statistics">
-              <article className="hero-stat-pill">
-                <strong>{formatCount(brickTexturesStats.manufacturers)}</strong>
-                <span>manufacturers</span>
-              </article>
-              <article className="hero-stat-pill">
-                <strong>{formatCount(brickTexturesStats.skuOptions)}</strong>
-                <span>brick products</span>
-              </article>
-              <article className="hero-stat-pill">
-                <strong>{formatCount(brickTexturesStats.capturedImages)}</strong>
-                <span>captured images</span>
-              </article>
-            </div>
-            <p className="hero-proof-line">
-              Every brick is professionally photographed under controlled lighting conditions to provide accurate comparisons.
+          <p className="hero-subline">
+            Free for architects, designers, builders and homeowners.
+          </p>
+        </div>
+      </section>
+
+      <section className="section section-alt appearance-section">
+        <div className="container">
+          <div className="homepage-section-heading">
+            <p className="eyebrow">Start by appearance</p>
+            <h2>Explore facing bricks by colour</h2>
+            <p>
+              Begin with the look you have in mind, then narrow the results inside Bricktextures.
             </p>
+          </div>
+          <div className="appearance-grid">
+            {APPEARANCE_ROUTES.map(route => (
+              <a
+                className="appearance-card"
+                href={route.url}
+                key={route.label}
+                onClick={event => onCategoryClick(event, route.url)}
+              >
+                <span className={`appearance-swatch appearance-swatch-${route.tone}`} aria-hidden="true" />
+                <span className="appearance-card-copy">
+                  <strong>{route.label}</strong>
+                  <span>{route.description}</span>
+                </span>
+                <ChevronIcon className="appearance-card-arrow" />
+              </a>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="hero-visual-section" aria-label="Brick textures workflow preview">
-        <div className="container hero-workflow">
-          <div className="workflow-steps" aria-label="Configure blend and export workflow">
-            <div className="workflow-step">
-              <p className="workflow-step-title">Configure</p>
-              <p className="workflow-step-copy">Try different bonds and mortar colours.</p>
-            </div>
-            <div className="workflow-step">
-              <p className="workflow-step-title">Blend</p>
-              <p className="workflow-step-copy">Create blends to suit your colour scheme.</p>
-            </div>
-            <div className="workflow-step">
-              <p className="workflow-step-title">Export</p>
-              <p className="workflow-step-copy">Download textures ready for your project.</p>
-            </div>
+      <section className="section why-bricktextures-section">
+        <div className="container">
+          <div className="homepage-section-heading">
+            <p className="eyebrow">Why use Bricktextures?</p>
+            <h2>Compare bricks more fairly</h2>
+            <p>
+              Choosing bricks across different websites makes fair comparison difficult.
+              Bricktextures presents real products from multiple manufacturers in one consistent
+              visual environment, making their differences easier to judge.
+            </p>
           </div>
-          <div className="hero-visual-frame">
-            <img
-              className="hero-visual-image"
-              src={conceptToRealityHero}
-              alt="Brick design and visualisation preview"
-            />
+          <div className="why-bricktextures-grid">
+            <article>
+              <h3>Compare like for like</h3>
+              <p>Review bricks using consistent scale, lighting and presentation.</p>
+            </article>
+            <article>
+              <h3>Use the same visual context</h3>
+              <p>Apply consistent mortar colours and brick bonds while reviewing your options.</p>
+            </article>
+            <article>
+              <h3>Make an informed shortlist</h3>
+              <p>
+                Identify real products worth investigating before requesting physical samples.
+              </p>
+            </article>
           </div>
-          <p className="workflow-note">
-            Brick Textures is a live product presentation environment used to gather UI feedback as we
-            continue refining the experience.
-          </p>
         </div>
       </section>
 

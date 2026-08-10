@@ -547,8 +547,8 @@ function IntegrationPage() {
         <h1>Integration into your website</h1>
         <p className="lead">
           Integration is configured around your account name, with link options
-          across account, category, product, and SKU levels, plus server-hosted
-          swatches that stay current across your website.
+          across account, category, product, and SKU levels, plus images
+          you can download and host on your own pages.
         </p>
       </div>
 
@@ -857,20 +857,46 @@ function IntegrationPage() {
         </div>
       </section>
 
-      <section className="section" id="iframe-integration-guidance">
+      <section className="section" id="swatch-image-downloads">
         <div className="container">
           <article className="card">
-            <h2>Up-to-date swatches embedded into your product lists</h2>
+            <h2>Download images for your own product lists</h2>
             <p>
-              Swatches served from our platform stay up-to-date automatically.
-              If a blend changes, the swatch updates automatically. Because we create and host these swatches, they stay
-              consistent in scale, framing, and displayed physical area, so users
-              can compare products with clear expectations.
+              Every product in your account can be downloaded as a swatch image
+              and hosted on your own website, which suits product lists built in
+              WordPress or any other template platform where an embed or an API
+              is awkward. The images are drawn to the physical area you ask for,
+              so products keep a consistent scale and framing and your customers
+              can compare them fairly.
+            </p>
+            <p className="integration-step">
+              <span className="integration-subtitle">What you choose</span>
+            </p>
+            <ul className="integration-step">
+              <li>
+                Every product in a category, a single product, or one colour of
+                it.
+              </li>
+              <li>
+                The area each image covers, in millimetres, and the quality:
+                1, 2, or 4 pixels per millimetre.
+              </li>
+              <li>
+                What goes into the file names, from the product, colour, finish,
+                size, SKU, area, and quality. Names are lower case and
+                hyphenated so they sit in a URL without escaping.
+              </li>
+            </ul>
+            <p>
+              A preview shows how much of the product the chosen area covers
+              before anything is created. A single image downloads as a file of
+              its own, and a larger selection arrives as a ZIP with a folder per
+              product. Everything is WebP, sized for the web rather than print.
             </p>
             <p>
-              Swatch creation and hosting are provided as a custom service as
-              part of your integration setup. Contact us to discuss adding this
-              service to your product selection pages.
+              The images are created in your browser and downloaded straight to
+              your machine, so there is no key to manage and no upload step.
+              Contact us and we will show you where to find it in your account.
             </p>
           </article>
         </div>

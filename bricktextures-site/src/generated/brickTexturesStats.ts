@@ -1,7 +1,7 @@
 export const brickTexturesStats = {
-  "generatedAt": "2026-05-08T09:37:42.895Z",
-  "manufacturers": 14,
-  "products": 42,
-  "skuOptions": 712,
-  "capturedImages": 26765
+  "generatedAt": "2026-08-10T11:22:01.103Z",
+  "manufacturers": 13,
+  "products": 40,
+  "skuOptions": 650,
+  "capturedImages": 24965
 } as const;
