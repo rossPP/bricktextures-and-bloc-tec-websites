@@ -1,42 +1,46 @@
 import { FormEvent, MouseEvent, useEffect, useState } from "react";
-import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Link, Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import conceptToRealityHero from "../../bloc-tec-site/public/images/conceptToRealityHero.webp";
+import { BOND_GUIDES } from "./content/bondGuides";
+import { COLOUR_GUIDES } from "./content/colourGuides";
+import { FINISH_GUIDES } from "./content/finishGuides";
+import { BondGuidePage, BondHubPage } from "./pages/BondGuidePage";
+import { ColourGuidePage } from "./pages/ColourGuidePage";
+import { FinishGuidePage } from "./pages/FinishGuidePage";
+import { BrickBlendingPage } from "./pages/BrickBlendingPage";
+import { ExploreGroupPage } from "./pages/HubPage";
+import { SeamlessTexturesPage } from "./pages/SeamlessTexturesPage";
+import { ShareDesignPage } from "./pages/ShareDesignPage";
+import { ClayVsConcretePage } from "./pages/ClayVsConcretePage";
+import { FormatGuidePage } from "./pages/FormatGuidePage";
+import { MortarPage } from "./pages/MortarPage";
+import { JointSizePage } from "./pages/JointSizePage";
+import { FORMAT_GUIDES } from "./content/formatGuides";
+import {
+  COLOUR_BLEND_ROUTE,
+  COLOUR_ROUTES,
+  COLOUR_SECTION,
+  SIZE_ROUTES,
+  SIZE_SECTION,
+  TEXTURE_ROUTES,
+  TEXTURE_SECTION,
+} from "./content/exploreAppearance";
+import { AppearanceCardMedia } from "./components/AppearanceCardMedia";
+import { FOOTER_LINKS, PRIMARY_HUBS } from "./content/siteNav";
 import './App.css'
+
+const SEAMLESS_TEXTURES_APP_URL = "/app/facing-bricks?tab=texture&src=seamless-textures";
+const BRICK_BLENDING_APP_URL = "/app/facing-bricks?tab=blend&src=brick-blending";
 
 const BRICKTEXTURES_APP_URL = "/app/facing-bricks";
 const BLOC_TEC_CONTACT_URL = "https://bloc-tec.com/for-manufacturers";
 const GENERAL_CONTACT_EMAIL = "info@bloc-tec.com";
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
-const APPEARANCE_ROUTES = [
-  {
-    label: "Red and orange bricks",
-    description: "Explore warm reds, oranges and mixed tones.",
-    url: "/app/facing-bricks?filterColour=Red-Orange",
-    tone: "red-orange",
-  },
-  {
-    label: "Buff bricks",
-    description: "Browse cream, yellow and light buff options.",
-    url: "/app/facing-bricks?filterColour=Buff",
-    tone: "buff",
-  },
-  {
-    label: "Brown bricks",
-    description: "Compare earthy brown and deeper natural tones.",
-    url: "/app/facing-bricks?filterColour=Brown",
-    tone: "brown",
-  },
-  {
-    label: "Grey, black and white bricks",
-    description: "Find pale neutrals, greys and dark bricks.",
-    url: "/app/facing-bricks?filterColour=Black-White",
-    tone: "neutral",
-  },
-] as const;
+const HOME_COLOUR_ROUTES = [...COLOUR_ROUTES, COLOUR_BLEND_ROUTE];
 const CONTACT_REASONS = [
   "Feature request",
   "Existing feature improvement",
-  "Feedback on how the platform works",
+  "Feedback on Bricktextures tools",
   "Manufacturer enquiry",
   "Bug report",
   "Other",
@@ -117,9 +121,9 @@ function buildMailtoHref({
   subject: string;
   message: string;
 }) {
-  const mailSubject = `Brick Textures enquiry: ${reason}${subject ? ` - ${subject}` : ""}`;
+  const mailSubject = `Bricktextures enquiry: ${reason}${subject ? ` - ${subject}` : ""}`;
   const bodyLines = [
-    "Brick Textures contact enquiry",
+    "Bricktextures contact enquiry",
     "",
     `Name: ${name || "Not provided"}`,
     `Email: ${email}`,
@@ -140,12 +144,12 @@ function getContactMessagePlaceholder(reason: string) {
       return "Tell us what feature you would like to see and how it would help your work.";
     case "Existing feature improvement":
       return "Tell us which feature could be improved and what would make it work better for you.";
-    case "Feedback on how the platform works":
-      return "Tell us what feels clear, what feels awkward, and what would improve the experience.";
+    case "Feedback on Bricktextures tools":
+      return "Tell us which tool you used, what worked and what would improve your workflow.";
     case "Bug report":
       return "Describe the problem, what you were doing just before it happened, and what you expected to happen instead.";
     case "Manufacturer enquiry":
-      return "Tell us about your products, your goals, and what you would like to discuss.";
+      return "Tell us about your brick range, catalogue requirements and what you would like to discuss.";
     case "Other":
       return "Tell us what you would like to contact us about.";
     default:
@@ -161,24 +165,107 @@ function RouteTitleSync() {
       "/": {
         title: "Find and Compare Facing Bricks | Bricktextures",
         description:
-          "Explore and compare real UK and Ireland facing bricks using consistent seamless textures, mortar colours and bond layouts.",
+          "Explore and compare UK and Ireland facing bricks using consistent seamless textures, mortar colours and bond layouts.",
       },
       "/manufacturers": {
-        title: "For Manufacturers | Brick Textures by BLOC-TEC",
+        title: "For Manufacturers | Bricktextures by BLOC-TEC",
         description:
-          "See how manufacturers can deploy a dedicated Brick Textures experience with their own catalogue, branding, and configuration options.",
+          "Present a facing brick catalogue with consistent product textures, bond and mortar options, branded scenes and specification tools.",
       },
       "/contact": {
-        title: "Contact | Brick Textures by BLOC-TEC",
+        title: "Contact | Bricktextures by BLOC-TEC",
         description:
-          "Contact Brick Textures to share product feedback, report issues, request features, or discuss manufacturer deployment options.",
+          "Contact Bricktextures for help with brick selection tools, product data, technical issues or manufacturer catalogue deployments.",
       },
       "/faq": {
-        title: "FAQ | Brick Textures by BLOC-TEC",
+        title: "FAQ | Bricktextures by BLOC-TEC",
         description:
-          "Read frequently asked questions about Brick Textures, who it is for, and how architects and manufacturers use the platform.",
+          "Read frequently asked questions about Bricktextures, brick comparison, seamless textures, blending and manufacturer catalogues.",
       },
     };
+
+    for (const guide of COLOUR_GUIDES) {
+      pageMetaByPath[`/facing-bricks/colour/${guide.slug}`] = {
+        title: guide.metaTitle,
+        description: guide.metaDescription,
+      };
+    }
+
+    for (const guide of FINISH_GUIDES) {
+      pageMetaByPath[`/facing-bricks/finish/${guide.slug}`] = {
+        title: guide.metaTitle,
+        description: guide.metaDescription,
+      };
+    }
+
+    pageMetaByPath["/facing-bricks/bonds"] = {
+      title: "Brick Bonds for Facing Bricks | Bricktextures",
+      description:
+        "Choose classic, modern geometric or traditional brick bonds to suit the texture and dimensional tolerance of your facing bricks.",
+    };
+
+    pageMetaByPath["/tools/seamless-brick-textures"] = {
+      title: "Seamless Brick Textures from Facing Bricks | Bricktextures",
+      description:
+        "Design and download seamless textures from manufacturer facing bricks. Set the physical texture size, bond, mortar and blend for visualisation software.",
+    };
+
+    pageMetaByPath["/tools/brick-blending"] = {
+      title: "Brick Blending Tool | Mix Facing Bricks | Bricktextures",
+      description:
+        "Blend facing bricks from multiple manufacturers, lock proportions, get compatibility warnings, share the design and download a clear blend specification.",
+    };
+
+    pageMetaByPath["/tools/share-design"] = {
+      title: "Share Your Brick Design | Link and Specification | Bricktextures",
+      description:
+        "Share a Bricktextures design link with colleagues and clients, and download a clear design specification of the selected products and blend.",
+    };
+
+    pageMetaByPath["/facing-bricks/clay-vs-concrete"] = {
+      title: "Clay Bricks vs Concrete Bricks | Bricktextures",
+      description:
+        "Compare clay and concrete facing bricks. Concrete can offer a lower-cost alternative; clay offers a wider range of traditional finishes, colours and textures.",
+    };
+
+    pageMetaByPath["/facing-bricks/mortar"] = {
+      title: "Brick Mortar Colour | Bricktextures",
+      description:
+        "How mortar colour changes facing brickwork — natural sand colours, dyed mortars, and pairings for red, buff, brown and neutral bricks.",
+    };
+
+    pageMetaByPath["/facing-bricks/joint-size"] = {
+      title: "Brick Joint Size | Bricktextures",
+      description:
+        "How joint size changes facing brickwork — the 10 mm joint, tighter joints, wider traditional joints, and how to trial them in Bricktextures.",
+    };
+
+    for (const guide of FORMAT_GUIDES) {
+      pageMetaByPath[`/facing-bricks/format/${guide.slug}`] = {
+        title: guide.metaTitle,
+        description: guide.metaDescription,
+      };
+    }
+
+    pageMetaByPath["/explore/colour"] = {
+      title: COLOUR_SECTION.metaTitle,
+      description: COLOUR_SECTION.metaDescription,
+    };
+    pageMetaByPath["/explore/finish"] = {
+      title: TEXTURE_SECTION.metaTitle,
+      description: TEXTURE_SECTION.metaDescription,
+    };
+    pageMetaByPath["/explore/format"] = {
+      title: SIZE_SECTION.metaTitle,
+      description: SIZE_SECTION.metaDescription,
+    };
+
+    for (const guide of BOND_GUIDES) {
+      pageMetaByPath[`/facing-bricks/bonds/${guide.slug}`] = {
+        title: guide.metaTitle,
+        description: guide.metaDescription,
+      };
+    }
 
     const defaultMeta = pageMetaByPath["/"];
     const pageMeta = pageMetaByPath[location.pathname] ?? defaultMeta;
@@ -222,13 +309,28 @@ function Header() {
     <header className="site-header">
       <div className="container header-content">
         <Link className="brand" to="/">
-          Brick Textures
+          Bricktextures
           <span>by BLOC-TEC</span>
         </Link>
         <nav className="main-nav" aria-label="Main navigation">
-          <NavLink to="/" end>Home</NavLink>
-          <NavLink to="/contact">Contact</NavLink>
-          <NavLink to="/faq">FAQ</NavLink>
+          <NavLink to="/" end>
+            Home
+          </NavLink>
+          {PRIMARY_HUBS.map(hub => (
+            <div key={hub.label} className="nav-hub">
+              <span className="nav-hub-label">{hub.label}</span>
+              <div className="nav-hub-menu" role="group" aria-label={`${hub.label} pages`}>
+                {hub.navChildren.map(item => (
+                  <Link key={item.to} to={item.to}>
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+          <a className="nav-cta" href={BRICKTEXTURES_APP_URL}>
+            Explore bricks
+          </a>
         </nav>
       </div>
     </header>
@@ -289,8 +391,8 @@ function HomePage() {
           <p className="eyebrow">Facing brick selection for architects</p>
           <h1>Find the right brick.</h1>
           <p className="lead">
-            Explore and compare real facing bricks in one place, using consistent textures, mortar
-            colours and bond layouts before you specify.
+            Compare facing bricks from UK and Ireland manufacturers at a consistent scale, with
+            mortar colours and bond layouts you can adjust before specifying.
           </p>
           <div className="hero-cta-wrap">
             <a
@@ -308,22 +410,19 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="section section-alt appearance-section">
+      <section id="colour" className="section section-alt appearance-section">
         <div className="container">
           <div className="homepage-section-heading">
-            <p className="eyebrow">Start by appearance</p>
-            <h2>Explore facing bricks by colour</h2>
-            <p>
-              Begin with the look you have in mind, then narrow the results inside Bricktextures.
-            </p>
+            <p className="eyebrow">{COLOUR_SECTION.eyebrow}</p>
+            <h2>{COLOUR_SECTION.title}</h2>
+            <p>{COLOUR_SECTION.description}</p>
           </div>
           <div className="appearance-grid">
-            {APPEARANCE_ROUTES.map(route => (
-              <a
-                className="appearance-card"
-                href={route.url}
+            {HOME_COLOUR_ROUTES.map(route => (
+              <Link
+                className={`appearance-card${route.tone === "blend" ? " appearance-card-blend" : ""}`}
+                to={route.to}
                 key={route.label}
-                onClick={event => onCategoryClick(event, route.url)}
               >
                 <span className={`appearance-swatch appearance-swatch-${route.tone}`} aria-hidden="true" />
                 <span className="appearance-card-copy">
@@ -331,38 +430,148 @@ function HomePage() {
                   <span>{route.description}</span>
                 </span>
                 <ChevronIcon className="appearance-card-arrow" />
-              </a>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section why-bricktextures-section">
+      <section id="finish" className="section appearance-section">
         <div className="container">
           <div className="homepage-section-heading">
-            <p className="eyebrow">Why use Bricktextures?</p>
+            <p className="eyebrow">{TEXTURE_SECTION.eyebrow}</p>
+            <h2>{TEXTURE_SECTION.title}</h2>
+            <p>{TEXTURE_SECTION.description}</p>
+          </div>
+          <div className="appearance-grid">
+            {TEXTURE_ROUTES.map(route => (
+              <Link
+                className="appearance-card"
+                to={route.to}
+                key={route.label}
+              >
+                <AppearanceCardMedia tone={route.tone} image={route.image} />
+                <span className="appearance-card-copy">
+                  <strong>{route.label}</strong>
+                  <span>{route.description}</span>
+                </span>
+                <ChevronIcon className="appearance-card-arrow" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="format" className="section section-alt appearance-section">
+        <div className="container">
+          <div className="homepage-section-heading">
+            <p className="eyebrow">{SIZE_SECTION.eyebrow}</p>
+            <h2>{SIZE_SECTION.title}</h2>
+            <p>{SIZE_SECTION.description}</p>
+          </div>
+          <div className="appearance-grid appearance-grid-size">
+            {SIZE_ROUTES.map(route => (
+              <Link
+                className={`appearance-card${route.span === 2 ? " appearance-card-span-2" : ""}`}
+                to={route.to}
+                key={route.label}
+              >
+                <AppearanceCardMedia tone={route.tone} image={route.image} />
+                <span className="appearance-card-copy">
+                  <strong>{route.label}</strong>
+                  <span>{route.description}</span>
+                </span>
+                <ChevronIcon className="appearance-card-arrow" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="why-bricktextures" className="section why-bricktextures-section">
+        <div className="container">
+          <div className="homepage-section-heading">
+            <p className="eyebrow">Why Bricktextures</p>
             <h2>Compare bricks more fairly</h2>
             <p>
-              Choosing bricks across different websites makes fair comparison difficult.
-              Bricktextures presents real products from multiple manufacturers in one consistent
-              visual environment, making their differences easier to judge.
+              Compare colour, texture, size and manufacturing character without moving between
+              catalogues. Consistent scale and presentation make meaningful differences easier to read.
             </p>
           </div>
+
           <div className="why-bricktextures-grid">
             <article>
-              <h3>Compare like for like</h3>
-              <p>Review bricks using consistent scale, lighting and presentation.</p>
-            </article>
-            <article>
-              <h3>Use the same visual context</h3>
-              <p>Apply consistent mortar colours and brick bonds while reviewing your options.</p>
-            </article>
-            <article>
-              <h3>Make an informed shortlist</h3>
+              <p className="eyebrow">Explore</p>
+              <h3>Get the look you have in mind</h3>
               <p>
-                Identify real products worth investigating before requesting physical samples.
+                Begin with colour, texture or size, then review suitable facing bricks across
+                manufacturers in one catalogue.
               </p>
             </article>
+            <article>
+              <p className="eyebrow">Compare</p>
+              <h3>Compare like with like</h3>
+              <p>
+                Review brick colour, surface variation and proportions at a consistent scale and
+                presentation, with the same mortar and bond where required.
+              </p>
+            </article>
+            <article>
+              <p className="eyebrow">Shortlist</p>
+              <h3>Build a practical shortlist</h3>
+              <p>
+                Identify the products worth sampling, then confirm availability, technical
+                performance and specification details with the manufacturer or supplier.
+              </p>
+            </article>
+          </div>
+
+          <div className="why-bricktextures-develop">
+            <div className="homepage-section-heading">
+              <p className="eyebrow">Develop the appearance</p>
+              <h2>Refine mortar, bond, blend and texture</h2>
+            </div>
+            <div className="why-bricktextures-grid">
+              <article>
+                <p className="eyebrow">Visualise</p>
+                <h3>See mortar and bond change the result</h3>
+                <p>
+                  Mortar colour and brick bond can change a façade as much as the brick itself. Try
+                  those choices in real scenes while you compare products.{" "}
+                  <Link to="/facing-bricks/mortar">Mortar colour</Link>
+                  {" · "}
+                  <Link to="/facing-bricks/joint-size">Joint size</Link>
+                </p>
+              </article>
+              <article>
+                <p className="eyebrow">Blending</p>
+                <h3>Combine bricks into the mix you need</h3>
+                <p>
+                  Blend up to five products, lock proportions, check compatibility and review the
+                  distribution across the wall.{" "}
+                  <Link to="/tools/brick-blending">How brick blending works</Link>
+                </p>
+              </article>
+              <article>
+                <p className="eyebrow">Textures</p>
+                <h3>Take the brick into your own visuals</h3>
+                <p>
+                  Download a seamless texture derived from the selected product, set to a known
+                  physical size and ready for your visualisation software.{" "}
+                  <Link to="/tools/seamless-brick-textures">How seamless textures work</Link>
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <div className="why-bricktextures-cta">
+            <a
+              className="btn btn-primary"
+              href={BRICKTEXTURES_APP_URL}
+              onClick={event => onCategoryClick(event, BRICKTEXTURES_APP_URL)}
+            >
+              Explore bricks
+            </a>
           </div>
         </div>
       </section>
@@ -370,7 +579,7 @@ function HomePage() {
       {isRoleModalOpen ? (
         <div className="modal-overlay" role="presentation" onClick={onCloseRoleModal}>
           <div className="role-modal card" role="dialog" aria-modal="true" onClick={e => e.stopPropagation()}>
-            <h2>Help us improve your experience</h2>
+            <h2>Tell us about your work</h2>
             <p>Who are you?</p>
             <div className="role-options">
               {roleOptions.map(role => (
@@ -428,19 +637,19 @@ function FaqPage() {
 
       <div className="container grid">
         <article className="card">
-          <h2>What is the purpose of Brick Textures, and who is it for?</h2>
+          <h2>What is Bricktextures, and who is it for?</h2>
           <p>
-            Brick Textures is a live product presentation environment used to gather UI feedback as we
-            continue refining the experience. It is also our showcase for manufacturers, demonstrating
-            what can be achieved on their own websites. It supports architects, designers, and other users
-            who need realistic product visuals, configuration and blending tools, and texture exports.
+            Bricktextures is a professional brick selection and visualisation tool for architects,
+            designers and others working with facing brick. It brings manufacturer products into one
+            searchable catalogue, with consistent textures, mortar and bond controls, blending tools
+            and texture exports. Manufacturers can also use the same capabilities for their own ranges.
           </p>
         </article>
         <article className="card">
           <h2>Can manufacturers have a private version on their own website?</h2>
           <p>
-            Yes. Manufacturers can deploy a dedicated BLOC-TEC experience on their own website with
-            their own product catalogue only.
+            Yes. A manufacturer can deploy a dedicated BLOC-TEC brick selector on its own website,
+            limited to its brick catalogue and configured for its brand and specification workflow.
             <br />
             See{" "}
             <a className="inline-link" href="https://bloc-tec.com/for-manufacturers" target="_blank" rel="noreferrer">
@@ -450,11 +659,103 @@ function FaqPage() {
           </p>
         </article>
         <article className="card">
-          <h2>Can I buy products directly from Brick Textures?</h2>
+          <h2>Can I buy products directly from Bricktextures?</h2>
           <p>
-            No, Brick Textures helps users discover and evaluate products, but does not directly sell
-            products. The platform features real UK and Ireland market products, and purchasing is handled by
-            the relevant manufacturer or supplier.
+            No. Bricktextures supports product discovery, comparison and early specification; it
+            does not sell bricks. Purchasing and availability enquiries remain with the relevant
+            manufacturer or supplier.
+          </p>
+        </article>
+        <article className="card">
+          <h2>Can I download seamless brick textures?</h2>
+          <p>
+            Yes. Build a seamless texture from a manufacturer brick, setting its physical size,
+            bond, mortar colour and any blend, then export it for design and visualisation software.{" "}
+            <Link className="inline-link" to="/tools/seamless-brick-textures">
+              Read about seamless brick textures
+            </Link>{" "}
+            or{" "}
+            <a className="inline-link" href={SEAMLESS_TEXTURES_APP_URL}>
+              open the texture tool
+            </a>
+            .
+          </p>
+        </article>
+        <article className="card">
+          <h2>Can I blend bricks from different manufacturers?</h2>
+          <p>
+            Yes. The Bricktextures blender can mix products across manufacturers, lock proportions,
+            warn about limited compatibility, and block impractical mixes such as clay with concrete.{" "}
+            <Link className="inline-link" to="/tools/brick-blending">
+              Learn about brick blending
+            </Link>{" "}
+            or{" "}
+            <a className="inline-link" href={BRICK_BLENDING_APP_URL}>
+              open the blend tool
+            </a>
+            .
+          </p>
+        </article>
+
+        <article className="card">
+          <h2>What is the difference between clay and concrete facing bricks?</h2>
+          <p>
+            Concrete facing bricks can offer a lower-cost alternative, while clay bricks offer a
+            wider range of traditional finishes, colours and textures. Concrete also tends to hold
+            tighter size tolerances — useful for bonds that need precise alignment — while clay
+            usually ages better outdoors.{" "}
+            <Link className="inline-link" to="/facing-bricks/clay-vs-concrete">
+              Compare clay and concrete bricks
+            </Link>
+            .
+          </p>
+        </article>
+
+        <article className="card">
+          <h2>What brick sizes can I explore?</h2>
+          <p>
+            Bricktextures groups facing bricks as standard (215 × 65 mm), imperial (taller
+            traditional sizes) and linear (long sizes that emphasise the horizontal).{" "}
+            <Link className="inline-link" to="/facing-bricks/format/standard">
+              Standard
+            </Link>
+            ,{" "}
+            <Link className="inline-link" to="/facing-bricks/format/imperial">
+              imperial
+            </Link>{" "}
+            and{" "}
+            <Link className="inline-link" to="/facing-bricks/format/linear">
+              linear
+            </Link>{" "}
+            guides explain when each size helps.
+          </p>
+        </article>
+
+        <article className="card">
+          <h2>How do mortar colour and joint size affect the look?</h2>
+          <p>
+            Mortar colour — often natural greys, yellows and buffs from local sand — and joint width
+            (typically around 10 mm) change how a brick wall reads as much as the brick itself.{" "}
+            <Link className="inline-link" to="/facing-bricks/mortar">
+              Read about mortar colour
+            </Link>{" "}
+            and{" "}
+            <Link className="inline-link" to="/facing-bricks/joint-size">
+              joint size
+            </Link>
+            .
+          </p>
+        </article>
+
+        <article className="card">
+          <h2>Can I share a design or download a specification?</h2>
+          <p>
+            Yes. Share a link that opens the selected brickwork design, or download a specification
+            recording the selected products and blend proportions.{" "}
+            <Link className="inline-link" to="/tools/share-design">
+              Learn about sharing and specifications
+            </Link>
+            .
           </p>
         </article>
       </div>
@@ -506,36 +807,33 @@ function ContactPage() {
           <p className="eyebrow">Contact</p>
           <h1>Tell us who you are and how we can help.</h1>
           <p className="lead contact-lead">
-            Brick Textures is an experimental environment for viewing, configuring, and testing real
-            products. Use this page to tell us who you are, what you need, and how we can improve it
-            for users and for the manufacturers we support.
+            Contact the Bricktextures team for help with brick selection, product information,
+            technical issues or manufacturer catalogue services. We also welcome concise feedback
+            from people using the tools on live projects.
           </p>
         </div>
 
         <div className="container grid two">
           <article className="card manufacturer-value-card">
-            <h2>Why your feedback matters</h2>
+            <h2>Project and product support</h2>
             <p className="contact-supporting-copy">
-              Whether you are an architect, designer, manufacturer, game developer, or another user,
-              a little context helps us understand what matters most and where the platform should go next.
+              If your enquiry concerns a project, include the products, bond, mortar, blend or export
+              involved. For catalogue enquiries, tell us which range and product data need attention.
             </p>
             <p className="contact-supporting-copy">
-              We want people to look closely at the platform, test it properly, and tell us what works,
-              what feels missing, and what would make it more useful in real projects. When we see the
-              same feedback coming through from multiple users, we treat that as a strong signal for what
-              to improve and integrate next.
+              That context helps us address the immediate question. Suggestions based on specification
+              and visualisation work also help us prioritise improvements to Bricktextures.
             </p>
           </article>
 
           <article className="card manufacturer-value-card">
-            <h2>What we would love to hear about</h2>
+            <h2>What to contact us about</h2>
             <ul className="benefit-list">
-              <li>Suggesting features, exports, or configuration improvements</li>
-              <li>Highlighting product data, image, or presentation issues</li>
-              <li>Requesting tools for design, visualisation, or games workflows</li>
-              <li>Asking about manufacturer participation or dedicated deployments</li>
-              <li>Sharing any other feedback that would help shape the platform</li>
-              <li>Reporting bugs, errors, or workflow issues</li>
+              <li>Product data, imagery or catalogue corrections</li>
+              <li>Brick comparison, blending or texture export questions</li>
+              <li>Manufacturer participation and dedicated catalogue deployments</li>
+              <li>Technical faults or unexpected results</li>
+              <li>Feature requests grounded in a design or specification workflow</li>
             </ul>
           </article>
         </div>
@@ -548,7 +846,7 @@ function ContactPage() {
             <p className="manufacturer-note">
               Use the form to contact us at{" "}
               <a className="inline-link" href={`mailto:${GENERAL_CONTACT_EMAIL}`}>{GENERAL_CONTACT_EMAIL}</a>{" "}
-              and shape the future of our service.
+              about Bricktextures, a product listing or a manufacturer service.
             </p>
             <form className="contact-form" onSubmit={onSubmit}>
               <label>
@@ -643,36 +941,33 @@ function ManufacturersPage() {
       <section className="section">
         <div className="container page-header">
           <p className="eyebrow">Manufacturers</p>
-          <h1>Make beautiful brick ranges stand out digitally.</h1>
+          <h1>Present your brick range for specification.</h1>
         </div>
 
         <div className="container manufacturer-value-stack">
           <article className="card manufacturer-value-card">
-            <h2>Bring your products to Brick Textures</h2>
+            <h2>Bring your products to Bricktextures</h2>
             <p>
-              You've invested significant time and energy in product
-              development and production. We can help you
-              make sure that effort is seen by creating a strong digital
-              presentation, ensuring your products are noticed and selected for use.
+              Give architects a consistent way to review your range by colour, texture and size,
+              then test products with relevant bonds, mortar colours, blends and project scenes.
             </p>
             <ul className="benefit-list">
-              <li>Clear product presentation</li>
-              <li>Give architects the configuration tools they expect</li>
-              <li>Give architects the confidence to specify your products</li>
+              <li>Consistent textures and catalogue information across the range</li>
+              <li>Brick-specific bond, mortar and blending controls</li>
+              <li>Shareable selections and specification outputs</li>
             </ul>
           </article>
 
           <article className="card manufacturer-value-card">
             <h2>Dedicated website deployment</h2>
             <p>
-              Run a dedicated BLOC-TEC experience on your own website, shaped around your own
-              product catalogue, colour scheme, configuration preferences, and scenes that suit your
-              target market.
+              Run a dedicated BLOC-TEC brick selector on your own website, shaped around your own
+              brick catalogue, brand, specification options and scenes suited to your target sectors.
             </p>
             <ul className="benefit-list">
-              <li>Your own website and domain experience</li>
-              <li>Your own product catalogue only, with no competitor products shown</li>
-              <li>Optional modules to suit your needs</li>
+              <li>Integrated with your website and domain</li>
+              <li>Your brick catalogue only, with no competitor products shown</li>
+              <li>Modules selected for your range and customer workflow</li>
             </ul>
           </article>
         </div>
@@ -684,7 +979,7 @@ function ManufacturersPage() {
             <h2>Learn more about our manufacturer service</h2>
             <p>
               For more information on how we work with manufacturers, visit the main BLOC-TEC website,
-              where we focus specifically on helping manufacturers present their products digitally.
+              including catalogue preparation, brick visualisation and dedicated website deployments.
             </p>
             <div className="actions">
               <a className="btn btn-primary" href={BLOC_TEC_CONTACT_URL} target="_blank" rel="noreferrer">
@@ -703,6 +998,15 @@ function Footer() {
 
   return (
     <footer className="site-footer">
+      <div className="container footer-content">
+        <nav className="footer-nav" aria-label="Footer">
+          {FOOTER_LINKS.map(item => (
+            <Link key={item.to} to={item.to}>
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
       <div className="footer-bottom">
         <p className="footer-company-meta">
           © {currentYear} Paver Picker Ltd trading as BLOC-TEC | Registered in Ireland | Company No. 604066
@@ -721,6 +1025,22 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/explore" element={<Navigate to="/explore/colour" replace />} />
+            <Route path="/explore/:group" element={<ExploreGroupPage />} />
+            <Route path="/design" element={<Navigate to="/facing-bricks/bonds" replace />} />
+            <Route path="/tools" element={<Navigate to="/tools/seamless-brick-textures" replace />} />
+            <Route path="/for-architects" element={<Navigate to="/#why-bricktextures" replace />} />
+            <Route path="/facing-bricks/clay-vs-concrete" element={<ClayVsConcretePage />} />
+            <Route path="/facing-bricks/mortar" element={<MortarPage />} />
+            <Route path="/facing-bricks/joint-size" element={<JointSizePage />} />
+            <Route path="/facing-bricks/format/:slug" element={<FormatGuidePage />} />
+            <Route path="/facing-bricks/colour/:slug" element={<ColourGuidePage />} />
+            <Route path="/facing-bricks/finish/:slug" element={<FinishGuidePage />} />
+            <Route path="/facing-bricks/bonds" element={<BondHubPage />} />
+            <Route path="/facing-bricks/bonds/:slug" element={<BondGuidePage />} />
+            <Route path="/tools/seamless-brick-textures" element={<SeamlessTexturesPage />} />
+            <Route path="/tools/brick-blending" element={<BrickBlendingPage />} />
+            <Route path="/tools/share-design" element={<ShareDesignPage />} />
             <Route path="/manufacturers" element={<ManufacturersPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/faq" element={<FaqPage />} />
