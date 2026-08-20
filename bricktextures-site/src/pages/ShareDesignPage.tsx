@@ -1,9 +1,11 @@
 import { MouseEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { GuideImagePlaceholder, GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
+import specPreview from "../assets/share-design/clerkenwell-blend-specification-preview.webp";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const SHARE_APP_URL = "/app/facing-bricks?src=share-design";
+const SPEC_PREVIEW_SRC = specPreview;
+const SPEC_EXAMPLE_HREF = "/examples/clerkenwell-blend-specification.html";
 
 const VISITOR_ROLES = [
   "Architect",
@@ -84,7 +86,7 @@ export function ShareDesignPage() {
         url: "https://bricktextures.com/tools/share-design",
         name: "Share Your Brick Design | Link and Specification | Bricktextures",
         description:
-          "Share a live Bricktextures design for client review or download a fixed product and blend record for specification handoff.",
+          "Share a live Bricktextures design for client review or use Download specification to capture the selected products and blend.",
       },
       {
         "@type": "BreadcrumbList",
@@ -122,10 +124,10 @@ export function ShareDesignPage() {
           </nav>
 
           <p className="eyebrow">Share your design</p>
-          <h1>Share your design and download the specification</h1>
+          <h1>Share a live design or download a specification</h1>
           <p className="lead contact-lead">
-            Use a live link for client and design-team review. Use the downloaded record when the
-            selected products and blend proportions are ready for specification handoff.
+            Send a live link while clients and the design team are reviewing the options. Use
+            Download specification when the products and blend proportions have been agreed.
           </p>
           <div className="actions">
             <a
@@ -148,54 +150,59 @@ export function ShareDesignPage() {
           <h2>Keep client review on the same design state</h2>
           <p>
             A share link captures the current products, blend proportions, bond, mortar and viewer
-            settings. Colleagues and clients can therefore review the same option without reconstructing
-            it or relying on an unrecorded screenshot.
+            settings. Colleagues and clients can review the same option without rebuilding the setup
+            or guessing from a screenshot.
           </p>
           <p>
             From Share design you can copy a link, or send it by email, WhatsApp or SMS. Recipients
             can review the design and, if needed, tweak it and share again.
           </p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: "Share design dialog",
-                caption: "Live design prepared for client or project-team review.",
-              },
-              {
-                label: "Shared design opened in another browser",
-                caption: "The same configuration opened from its share link.",
-              },
-            ]}
-          />
         </div>
       </section>
 
       <section className="section">
         <div className="container colour-guide-content">
           <p className="eyebrow">Download specification</p>
-          <h2>A fixed record for specification handoff</h2>
+          <h2>Download the specification when the selection is agreed</h2>
           <p>
-            Download specification records the selected product and key settings. For a blend, it
-            identifies each product and its proportion, giving the project team a fixed reference
-            independent of later changes to a shared design.
+            Download specification captures the selected product and key settings. For a blend, it
+            identifies each product and its proportion, independently of any later changes to a
+            shared design.
           </p>
           <p>
-            Coordinate this record with drawings, specification clauses, approved samples and
-            manufacturer advice. It supports handoff but does not replace technical review,
+            Use the downloaded specification alongside drawings, specification clauses, approved
+            samples and manufacturer advice. It records the design, but does not replace technical review,
             availability checks or the contractual specification.
           </p>
-          <GuideImagePlaceholder
-            label="Downloaded design specification example"
-            caption="Fixed design record showing products, proportions and settings."
-            wide
-          />
+          <figure className="guide-image-placeholder guide-image-placeholder-wide share-spec-preview">
+            <a
+              className="guide-image-media"
+              href={SPEC_EXAMPLE_HREF}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Open example Clerkenwell Blend design specification"
+            >
+              <img
+                src={SPEC_PREVIEW_SRC}
+                alt="Clerkenwell Blend design from a Bricktextures specification"
+                loading="lazy"
+              />
+            </a>
+            <figcaption>
+              Clerkenwell Blend — example specification.{" "}
+              <a href={SPEC_EXAMPLE_HREF} target="_blank" rel="noopener noreferrer">
+                Open the file
+              </a>
+              .
+            </figcaption>
+          </figure>
         </div>
       </section>
 
       <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">When to use each</p>
-          <h2>Share link vs specification download</h2>
+          <h2>Share link or Download specification</h2>
           <div className="colour-guide-card-grid">
             <article>
               <h3>Use a share link when</h3>
@@ -205,10 +212,10 @@ export function ShareDesignPage() {
               </p>
             </article>
             <article>
-              <h3>Use the specification when</h3>
+              <h3>Use Download specification when</h3>
               <p>
-                The agreed selection needs a dated, portable record for technical coordination,
-                sampling, supplier enquiries or inclusion in the project information.
+                You need a dated record to send to suppliers, use for sampling or file with the
+                project information.
               </p>
             </article>
           </div>
@@ -233,8 +240,8 @@ export function ShareDesignPage() {
           <p className="eyebrow">Start in Bricktextures</p>
           <h2>Configure a design, then share or download</h2>
           <p>
-            Share the live design while it remains under review; download the fixed record when it is
-            ready to pass into specification.
+            Share the live design while it remains under review; use Download specification when the
+            selection is agreed.
           </p>
           <div className="actions">
             <a

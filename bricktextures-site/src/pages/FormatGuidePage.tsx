@@ -155,7 +155,7 @@ export function FormatGuidePage() {
       <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">What it is</p>
-          <h2>How this size reads</h2>
+          <h2>What this brick size is</h2>
           <p>{guide.whatItIs}</p>
           <p>
             <strong>Typical dimensions:</strong> {guide.typicalSizes}
@@ -163,6 +163,8 @@ export function FormatGuidePage() {
           <GuideImagePlaceholder
             label={guide.placeholders[0].label}
             caption={guide.placeholders[0].caption}
+            src={guide.placeholders[0].src}
+            ratio={guide.placeholders[0].ratio}
             wide={guide.placeholders[0].wide}
           />
         </div>
@@ -173,17 +175,53 @@ export function FormatGuidePage() {
           <p className="eyebrow">Why it matters</p>
           <h2>When to choose this size</h2>
           <p>{guide.whyItMatters}</p>
+          {guide.slug === "standard" ? (
+            <p>
+              With a typical 10&nbsp;mm joint, one stretcher equals two headers. See{" "}
+              <Link to="/facing-bricks/joint-size#when-to-change">joint size</Link> for how that
+              module works and when to change from 10&nbsp;mm.
+            </p>
+          ) : null}
           {guide.placeholders[1] ? (
             <GuideImagePlaceholder
               label={guide.placeholders[1].label}
               caption={guide.placeholders[1].caption}
+              src={guide.placeholders[1].src}
+              ratio={guide.placeholders[1].ratio}
               wide={guide.placeholders[1].wide}
             />
           ) : null}
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section id="download-textures" className="section section-alt">
+        <div className="container colour-guide-content">
+          <p className="eyebrow">Seamless textures</p>
+          <h2>Download a seamless {guide.textureSeoNoun} brick texture</h2>
+          <p>
+            Create a <strong>seamless {guide.textureSeoNoun} brick texture</strong> from a
+            manufacturer product in this size group for visualisation and design software. Set the
+            bond, mortar and physical brick area before export, so the digital texture matches the
+            wall you are designing.
+          </p>
+          <p>
+            Open Bricktextures, choose a {guide.shortLabel.toLowerCase()} size product, then export
+            the seamless texture.{" "}
+            <Link to="/tools/seamless-brick-textures">How seamless textures work</Link>.
+          </p>
+          <div className="actions">
+            <a
+              className="btn btn-primary"
+              href={guide.appTextureUrl}
+              onClick={event => onExploreClick(event, guide.appTextureUrl)}
+            >
+              Download a seamless {guide.textureSeoNoun} brick texture
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
         <div className="container colour-guide-content">
           <p className="eyebrow">In Bricktextures</p>
           <h2>Browse this size</h2>
@@ -207,7 +245,7 @@ export function FormatGuidePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">Other sizes</p>
           <h2>Explore other facing brick sizes</h2>

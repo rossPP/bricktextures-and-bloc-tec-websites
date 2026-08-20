@@ -1,6 +1,6 @@
 import { Link, Navigate, useParams } from "react-router-dom";
-import { BondIcon } from "../components/BondIcon";
-import { GuideImagePlaceholder, GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
+import { GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
+import { BOND_EXAMPLE_GROUPS, BOND_HUB_THUMBNAILS } from "../content/bondExamples";
 import { BOND_GUIDES, getBondGuide } from "../content/bondGuides";
 
 export function BondHubPage() {
@@ -13,7 +13,7 @@ export function BondHubPage() {
         url: "https://bricktextures.com/facing-bricks/bonds",
         name: "Brick Bonds for Facing Bricks | Bricktextures",
         description:
-          "Choose classic, modern geometric or traditional brick bonds to suit the surface texture and dimensional tolerance of your facing bricks.",
+          "Choose classic, modern geometric or traditional brick bonds for facing brickwork.",
       },
     ],
   };
@@ -36,9 +36,8 @@ export function BondHubPage() {
           <p className="eyebrow">Brick bonds</p>
           <h1>Bonds to consider with facing bricks</h1>
           <p className="lead contact-lead">
-            Select the bond with the brick size, dimensional tolerance and intended joint. Running
-            bonds accommodate variation; geometric and header-based bonds depend on more exact
-            alignment and module.
+            Classic running bonds suit most facing bricks. Modern geometric bonds need tighter size
+            control. Traditional and herringbone patterns suit character work and feature panels.
           </p>
         </div>
       </section>
@@ -47,23 +46,30 @@ export function BondHubPage() {
         <div className="container">
           <div className="homepage-section-heading">
             <p className="eyebrow">Three bond groups</p>
-            <h2>Match the bond to the brick texture</h2>
+            <h2>Choose the character you want</h2>
             <p>
-              Set the required wall character, then test whether the product’s size, tolerances and
-              surface texture support the bond at corners, openings and movement joints.
+              Decide the character you want, then choose a bond group that fits the brick and the
+              look of the elevation.
             </p>
           </div>
           <div className="bond-hub-grid">
             {BOND_GUIDES.map(guide => (
               <Link key={guide.slug} className="bond-hub-card" to={`/facing-bricks/bonds/${guide.slug}`}>
+                <div className="bond-hub-card-media" aria-hidden="true">
+                  <img src={BOND_HUB_THUMBNAILS[guide.slug]} alt="" loading="lazy" />
+                </div>
                 <p className="eyebrow">{guide.shortLabel}</p>
                 <h3>{guide.title}</h3>
                 <p>{guide.lead}</p>
-                <ul className="bond-hub-finish-list">
-                  {guide.suitedFinishes.map(finish => (
-                    <li key={finish.slug}>{finish.label}</li>
-                  ))}
-                </ul>
+                {guide.suitedFinishes.length > 0 ? (
+                  <ul className="bond-hub-finish-list">
+                    {guide.suitedFinishes.map(finish => (
+                      <li key={finish.slug}>{finish.label}</li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="bond-hub-finish-note">Suits all facing bricks.</p>
+                )}
                 <span className="bond-hub-link-label">View {guide.shortLabel.toLowerCase()}</span>
               </Link>
             ))}
@@ -76,8 +82,8 @@ export function BondHubPage() {
           <p className="eyebrow">In Bricktextures</p>
           <h2>Trial bonds on selected bricks</h2>
           <p>
-            Compare one product across suitable bonds under consistent mortar and lighting. Confirm
-            module, perp alignment and unavoidable cuts before shortlisting.
+            Compare one product across bonds under consistent mortar and lighting before
+            shortlisting.
           </p>
           <div className="actions">
             <a className="btn btn-primary" href="/app/facing-bricks?src=bonds-hub">
@@ -108,6 +114,8 @@ export function BondGuidePage() {
   }
 
   const otherGuides = BOND_GUIDES.filter(item => item.slug !== guide.slug);
+  const suitsAllBricks = guide.suitedFinishes.length === 0;
+  const exampleGroups = BOND_EXAMPLE_GROUPS[guide.slug];
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -170,83 +178,70 @@ export function BondGuidePage() {
 
       <section className="section section-alt">
         <div className="container colour-guide-content">
-          <p className="eyebrow">Best suited textures</p>
-          <h2>Which bricks these bonds suit</h2>
+          <p className="eyebrow">About these bonds</p>
+          <h2>{suitsAllBricks ? "Suits all facing bricks" : "Which bricks these bonds suit"}</h2>
           <p>{guide.whyTheseBonds}</p>
-          <ul className="colour-guide-list">
-            {guide.suitedFinishes.map(finish => (
-              <li key={finish.slug}>
-                <Link to={`/facing-bricks/finish/${finish.slug}`}>{finish.label}</Link>
-              </li>
-            ))}
-          </ul>
-          <GuideImagePlaceholder
-            label={`${guide.shortLabel} with suited brick textures`}
-            caption="Façade example pairing the bond with a suitable surface finish."
-            wide
-          />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Alignment and character</p>
-          <h2>Why texture and bond belong together</h2>
+          {!suitsAllBricks ? (
+            <ul className="colour-guide-list">
+              {guide.suitedFinishes.map(finish => (
+                <li key={finish.slug}>
+                  <Link to={`/facing-bricks/finish/${finish.slug}`}>{finish.label}</Link>
+                </li>
+              ))}
+            </ul>
+          ) : null}
           <p>{guide.alignmentNote}</p>
         </div>
       </section>
 
-      <section className="section section-alt">
+      <section className="section">
         <div className="container">
           <div className="homepage-section-heading">
             <p className="eyebrow">Recommended bonds</p>
             <h2>Bonds to consider</h2>
-            <p>
-              The diagrams use the same bond names as Bricktextures; assess each pattern against the
-              selected product’s dimensions and tolerances.
-            </p>
+            <p>Open any image for a closer look at the layout.</p>
           </div>
           <div className="bond-list">
-            {guide.bonds.map(bond => (
-              <article key={bond.name} className="bond-list-item">
-                <div className="bond-list-icon" aria-hidden="true">
-                  <BondIcon name={bond.iconName} />
-                </div>
-                <div className="bond-list-copy">
+            {guide.bonds.map(bond => {
+              const examples =
+                exampleGroups.find(group => group.title === bond.layoutGroup)?.examples ?? [];
+              return (
+                <article key={bond.name} className="bond-list-item">
                   <h3>{bond.name}</h3>
                   <p>{bond.description}</p>
                   <p>
                     <strong>Best for:</strong> {bond.bestFor}
                   </p>
-                </div>
-                <GuideImagePlaceholder
-                  label={bond.imageLabel}
-                  caption="Bond shown in built brickwork or a Bricktextures view."
-                />
-              </article>
-            ))}
+                  {examples.length > 0 ? (
+                    <GuideImagePlaceholderGrid
+                      className="bond-example-grid"
+                      ratio="square"
+                      items={examples.map(example => ({
+                        label: example.name,
+                        caption: example.name,
+                        src: example.src,
+                      }))}
+                    />
+                  ) : null}
+                </article>
+              );
+            })}
           </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="homepage-section-heading">
-            <p className="eyebrow">Visual examples</p>
-            <h2>Example images for {guide.shortLabel.toLowerCase()}</h2>
-            <p>Compare bond geometry at wall scale and at corners, openings and junctions.</p>
-          </div>
-          <GuideImagePlaceholderGrid items={guide.exampleImages} />
         </div>
       </section>
 
       <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">Compare in the app</p>
-          <h2>See these bonds on manufacturer products</h2>
+          <h2>
+            {suitsAllBricks
+              ? "See these bonds on manufacturer products"
+              : "See these bonds on suitable products"}
+          </h2>
           <p>
-            Select a compatible surface texture, then compare bonds for alignment, module and mortar
-            distribution under the same lighting.
+            {suitsAllBricks
+              ? "Open Bricktextures and compare classic running bonds on any facing brick under the same mortar and lighting."
+              : "Open Bricktextures, choose a compatible product, then compare alignment and course rhythm under the same mortar and lighting."}
           </p>
           <div className="actions">
             <a className="btn btn-primary" href={`/app/facing-bricks?src=bonds-${guide.slug}`}>
@@ -268,6 +263,9 @@ export function BondGuidePage() {
           <div className="bond-hub-grid">
             {otherGuides.map(item => (
               <Link key={item.slug} className="bond-hub-card" to={`/facing-bricks/bonds/${item.slug}`}>
+                <div className="bond-hub-card-media" aria-hidden="true">
+                  <img src={BOND_HUB_THUMBNAILS[item.slug]} alt="" loading="lazy" />
+                </div>
                 <p className="eyebrow">{item.shortLabel}</p>
                 <h3>{item.title}</h3>
                 <p>{item.lead}</p>

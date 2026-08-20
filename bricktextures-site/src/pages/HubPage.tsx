@@ -1,7 +1,6 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import type { AppearanceRoute } from "../content/exploreAppearance";
 import {
-  COLOUR_BLEND_ROUTE,
   COLOUR_ROUTES,
   COLOUR_SECTION,
   SIZE_ROUTES,
@@ -63,7 +62,7 @@ const EXPLORE_GROUPS = {
   colour: {
     label: "Colour",
     ...COLOUR_SECTION,
-    routes: [...COLOUR_ROUTES, COLOUR_BLEND_ROUTE] as AppearanceRoute[],
+    routes: COLOUR_ROUTES as AppearanceRoute[],
   },
   finish: {
     label: "Texture",

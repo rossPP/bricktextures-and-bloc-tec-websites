@@ -46,12 +46,12 @@ export const DESIGN_HUB: NavHub = {
     },
     {
       label: "Mortar colour",
-      description: "Natural mortar colours and pairings by brick colour.",
+      description: "Natural and dyed mortar, context effects and contrast principles.",
       to: "/facing-bricks/mortar",
     },
     {
       label: "Joint size",
-      description: "10 mm joints, tight joints and wider traditional beds.",
+      description: "When to tighten or widen joints from the usual 10 mm.",
       to: "/facing-bricks/joint-size",
     },
   ],
@@ -62,7 +62,7 @@ export const TOOLS_HUB: NavHub = {
   navChildren: [
     {
       label: "Seamless brick textures",
-      description: "Set brick, bond, mortar and physical size, then export a seamless texture.",
+      description: "Download seamless textures from real manufacturer bricks — any bond, mortar or joint.",
       to: "/tools/seamless-brick-textures",
     },
     {

@@ -93,14 +93,16 @@ export function GuideImagePlaceholder({
 type GuideImagePlaceholderGridProps = {
   items: { label: string; caption?: string; src?: string }[];
   ratio?: "landscape" | "square" | "natural";
+  className?: string;
 };
 
 export function GuideImagePlaceholderGrid({
   items,
   ratio = "landscape",
+  className,
 }: GuideImagePlaceholderGridProps) {
   return (
-    <div className="guide-image-placeholder-grid">
+    <div className={["guide-image-placeholder-grid", className].filter(Boolean).join(" ")}>
       {items.map((item, index) => (
         <GuideImagePlaceholder
           key={`${item.label}-${index}`}

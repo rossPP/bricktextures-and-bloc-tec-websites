@@ -1,6 +1,10 @@
 import { MouseEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { GuideImagePlaceholder, GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
+import {
+  GuideImagePlaceholderGrid,
+} from "../components/GuideImagePlaceholder";
+import harmoniousBlend from "../assets/brick-blending/harmonious-neutral-brick-blend.webp";
+import boldBlend from "../assets/brick-blending/bold-multicolour-brick-blend.webp";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const BLEND_APP_URL = "/app/facing-bricks?tab=blend&src=brick-blending";
@@ -82,9 +86,9 @@ export function BrickBlendingPage() {
         "@type": "WebPage",
         "@id": "https://bricktextures.com/tools/brick-blending#webpage",
         url: "https://bricktextures.com/tools/brick-blending",
-        name: "Brick Blending Tool | Mix Real Facing Bricks | Bricktextures",
+        name: "Brick Blending | Why and How to Mix Facing Bricks | Bricktextures",
         description:
-          "Develop facing brick blends across manufacturer ranges, lock product proportions, review compatibility and record the agreed mix.",
+          "Why architects blend facing bricks, how to give each colour a role, and how to choose products that can work together at wall scale.",
       },
       {
         "@type": "BreadcrumbList",
@@ -122,11 +126,11 @@ export function BrickBlendingPage() {
           </nav>
 
           <p className="eyebrow">Brick blending</p>
-          <h1>Design brick blends from manufacturer products</h1>
+          <h1>Why blend facing bricks — and how to do it well</h1>
           <p className="lead contact-lead">
-            Combine facing bricks in controlled proportions and review the mix under a consistent bond
-            and mortar. Products may be selected across manufacturers where procurement and technical
-            compatibility permit.
+            Use a blend to match existing masonry, soften a strong colour or spread variation across
+            a large wall. Give each colour a clear role, choose products that can work together, and
+            review the mix at the scale people will see it.
           </p>
           <div className="actions">
             <a
@@ -146,156 +150,87 @@ export function BrickBlendingPage() {
       <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">Design and site context</p>
-          <h2>Use a blend for a defined project reason</h2>
+          <h2>Why specify a blend?</h2>
           <p>
             A blend can relate new work to retained masonry, respond to local material variation,
-            moderate a dominant colour or distribute tonal variation across a large elevation. Develop
-            the mix against the actual bond, mortar and viewing distance, then agree how it will be
-            sampled and controlled on site.
+            soften a strong colour or spread variation across a large wall so it does not feel flat or
+            overpowering. Review the mix with the actual bond and mortar, and from the distance people
+            will see it, before agreeing a sample for the site.
           </p>
-          <GuideImagePlaceholder
-            label="Brick blend in the Bricktextures viewer"
-            caption="Multi-product blend shown at wall scale."
-            wide
-          />
         </div>
       </section>
 
       <section className="section">
         <div className="container colour-guide-content">
-          <p className="eyebrow">Lock proportions</p>
-          <h2>Lock in a specific blend</h2>
+          <p className="eyebrow">Colour roles</p>
+          <h2>Give each colour a clear role</h2>
           <p>
-            Lock an agreed product proportion while adjusting the remainder of the mix. The locked
-            values stay fixed and the available balance is redistributed, preserving design intent
-            through successive options. Record final percentages for sample panels, scheduling and
-            site quality control.
+            A blend brings several products or colours together in one wall. Choose one main brick
+            colour, add related colours for depth, and use stronger contrasting colours more
+            sparingly so the wall feels balanced rather than patchy or randomly mixed.
+          </p>
+          <p>
+            The blend tool gives you that creative freedom. Mix any facing brick colours you want —
+            a calm, easy-on-the-eye combination that sits quietly in its setting, or a bold statement
+            mix that stands out. Decide the mood first, then set the proportions to match it.
           </p>
           <GuideImagePlaceholderGrid
+            ratio="natural"
             items={[
               {
-                label: "Blend proportions unlocked",
-                caption: "Example of adjusting several products freely.",
+                label: "Harmonious neutral brick colour blend",
+                caption:
+                  "Related tones working together — calm, balanced and easy on the eye.",
+                src: harmoniousBlend,
               },
               {
-                label: "Blend with locked proportions",
-                caption: "Example of locking one or more products while refining others.",
+                label: "Bold multicolour brick blend",
+                caption:
+                  "Strong contrasting colours mixed for a clear, high-impact statement.",
+                src: boldBlend,
               },
             ]}
           />
+          <p>
+            Start with the surroundings — neighbouring buildings and the landscape — and decide
+            whether the blend should connect with that setting or stand out against it. Then decide
+            whether the wall should feel warm and familiar, calm and restrained, or sharper and more
+            contemporary. For complementary colour ideas against a single dominant brick colour, see
+            the{" "}
+            <Link to="/explore/colour">colour guides</Link>.
+          </p>
+          <p>
+            Lighting changes which colours you notice first. Strong daylight brings lighter and
+            brighter bricks forward, while shade can make darker bricks merge together. Warm lighting
+            strengthens reds, buffs and browns; cooler lighting brings grey and blue-grey components
+            forward. View the blend across a large wall area in the light each elevation will
+            receive.
+          </p>
         </div>
       </section>
 
       <section className="section section-alt">
         <div className="container colour-guide-content">
-          <p className="eyebrow">Compatibility</p>
-          <h2>Warnings when products are not fully compatible</h2>
+          <p className="eyebrow">How to build a blend</p>
+          <h2>Choose products that can work together</h2>
           <p>
-            Products with different sizes or available configurations can restrict compatible bonds
-            and joints. Bricktextures flags these constraints early; confirm dimensions, tolerances,
-            durability, availability and manufacturer guidance before specification.
+            Products in one blend need to share a workable size, bond and joint. Confirm dimensions,
+            tolerances, durability, availability and manufacturer guidance before specification.
+            Clay and concrete units should not be mixed in the same wall — their dimensional
+            behaviour, moisture movement and weathering differ. See{" "}
+            <Link to="/facing-bricks/clay-vs-concrete">clay vs concrete</Link>.
           </p>
           <p>
-            Clay and concrete units are not combined. Their dimensional behaviour, moisture movement,
-            tolerances and weathering differ, creating avoidable design and construction risks within
-            one blend.
-          </p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: "Limited compatibility warning example",
-                caption: "Compatibility warning for products with restricted shared options.",
-              },
-              {
-                label: "Clay vs concrete blocked mix example",
-                caption: "Incompatible material categories kept as separate blends.",
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Colour strategy</p>
-          <h2>Set the blend from its context</h2>
-          <p>
-            Use measured proportions to relate brickwork to retained masonry, adjacent stone, timber,
-            landscape or the wider townscape. A blend should have a legible purpose at wall and
-            building scale, not only as an isolated product sample.
+            You can also draw products from more than one manufacturer when colour, availability,
+            local sourcing or an existing material requires it. Check size, performance, supply and
+            warranties with each maker. Agreeing how the wall should look is not the same as treating
+            the products as interchangeable on site or under one warranty.
           </p>
           <p>
-            Review representative areas at the intended viewing distance and confirm the distribution
-            with a site sample panel before fixing the specification.
-          </p>
-          <GuideImagePlaceholder
-            label="Intentional multi-colour brick blend"
-            caption="Blend proportioned to complement an adjacent material or setting."
-            wide
-          />
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Multi-manufacturer</p>
-          <h2>Blend across manufacturers</h2>
-          <p>
-            Bricktextures can combine compatible products from different manufacturers in one design.
-            This is useful where colour, availability, local sourcing or an existing material requires
-            a cross-range specification.
-          </p>
-          <p>
-            Check size, dimensional tolerances, technical performance, supply and warranties with
-            each manufacturer. The visual blend is a design record, not confirmation that products are
-            interchangeable or jointly warranted.
-          </p>
-          <GuideImagePlaceholder
-            label="Blend using products from more than one manufacturer"
-            caption="Compatible products selected across manufacturer ranges."
-            wide
-          />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Share and specify</p>
-          <h2>Pass the blend around, then download the specification</h2>
-          <p>
-            Send a share link during design review so colleagues or clients can open the same blend
-            and compare revisions.
-          </p>
-          <p>
-            For specification handoff, download the product schedule and agreed proportions as a clear
-            design record. Coordinate it with drawings, clauses, samples and manufacturer advice.{" "}
-            <Link to="/tools/share-design">How sharing and specifications work</Link>.
-          </p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: "Shared blend link opened by a colleague",
-                caption: "Shared design opened for project-team review.",
-              },
-              {
-                label: "Downloaded blend design specification",
-                caption: "Design record listing products and agreed proportions.",
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Related tools</p>
-          <h2>From blend to texture and bond</h2>
-          <p>
-            Once a blend looks right, you can{" "}
-            <Link to="/tools/share-design">share the design or download a specification</Link>,
-            continue into <Link to="/tools/seamless-brick-textures">seamless texture export</Link>, or
-            explore <Link to="/facing-bricks/bonds">brick bonds</Link> that suit the surface textures in your
-            mix.
+            Once the proportions are set, review the blend across a representative wall area. A mix
+            that works as a small sample may read differently when its colours and textures are
+            spread across a full elevation. View it from the distance people will actually see it,
+            then confirm the distribution with a site sample panel before fixing the specification.
           </p>
         </div>
       </section>
@@ -305,8 +240,12 @@ export function BrickBlendingPage() {
           <p className="eyebrow">Start blending</p>
           <h2>Create a brick blend in Bricktextures</h2>
           <p>
-            Add the selected products, set and lock their proportions, review compatibility, then
-            issue the design for review or specification handoff.
+            Open the blend tool to try product combinations at wall scale. When the mix is agreed,
+            you can{" "}
+            <Link to="/tools/share-design">share the design or download a specification</Link>,
+            export a{" "}
+            <Link to="/tools/seamless-brick-textures">seamless texture</Link>, or choose a{" "}
+            <Link to="/facing-bricks/bonds">bond</Link> that suits the surfaces in the mix.
           </p>
           <div className="actions">
             <a

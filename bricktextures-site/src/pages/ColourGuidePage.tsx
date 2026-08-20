@@ -2,7 +2,6 @@ import { MouseEvent, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { GuideImagePlaceholder, GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
 import { COLOUR_GUIDES, getColourGuide } from "../content/colourGuides";
-import { MORTAR_COLOUR_BY_BRICK } from "../content/mortarColourByBrick";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const BLEND_PAGE_URL = "/tools/brick-blending";
@@ -45,10 +44,8 @@ export function ColourGuidePage() {
   }
 
   const seoNoun = guide.textureSeoNoun;
-  const mortarColourAdvice =
-    guide.slug === "red-and-orange"
-      ? MORTAR_COLOUR_BY_BRICK.find(item => item.slug === guide.slug)
-      : undefined;
+  const brickChoiceLabel =
+    guide.slug === "red-and-orange" ? "red or orange" : guide.shortLabel.toLowerCase();
 
   const launchCategory = (url: string) => {
     window.location.assign(url);
@@ -167,11 +164,6 @@ export function ColourGuidePage() {
               <li>
                 <a href="#complementary-lighting">Complementary lighting</a>
               </li>
-              {mortarColourAdvice ? (
-                <li>
-                  <a href="#mortar-colours">Mortar colours</a>
-                </li>
-              ) : null}
               <li>
                 <a href="#download-textures">Download a seamless {seoNoun} texture</a>
               </li>
@@ -210,15 +202,20 @@ export function ColourGuidePage() {
             <li>
               <strong>Introduce complementary colours.</strong>
               <div className="colour-idea-list">
-                {guide.designingWith.complementary.items.map(item => (
-                  <article className="colour-example-block" key={item.name}>
+                {guide.designingWith.complementary.items
+                  .flatMap(item => [
+                    ...(item.exampleImage ? [item.exampleImage] : []),
+                    ...(item.additionalExampleImages ?? []),
+                  ])
+                  .map(image => (
+                  <article className="colour-example-block" key={image.label}>
                     <GuideImagePlaceholder
-                      label={item.exampleImage.label}
-                      caption={item.exampleImage.caption}
-                      src={item.exampleImage.src}
+                      label={image.label}
+                      caption={image.caption}
+                      src={image.src}
                     />
                   </article>
-                ))}
+                  ))}
               </div>
             </li>
           </ol>
@@ -245,71 +242,19 @@ export function ColourGuidePage() {
                 </article>
               ))}
             </div>
+          ) : guide.designingWith.lighting.imagePlaceholders?.length ? (
+            <div className="colour-idea-list">
+              {guide.designingWith.lighting.imagePlaceholders.map(item => (
+                <article className="colour-example-block" key={item.label}>
+                  <GuideImagePlaceholder label={item.label} caption={item.caption} />
+                </article>
+              ))}
+            </div>
           ) : null}
         </div>
       </section>
 
-      {mortarColourAdvice ? (
-        <section id="mortar-colours" className="section section-alt">
-          <div className="container colour-guide-content">
-            <p className="eyebrow">Brickwork detail</p>
-            <h2>Mortar colours</h2>
-            {mortarColourAdvice.introduction ? <p>{mortarColourAdvice.introduction}</p> : null}
-            <div className="mortar-colour-comparison-grid">
-              {mortarColourAdvice.items.map(item => (
-                <article key={item.name}>
-                  <h3>{item.name}</h3>
-                  <div className="mortar-colour-image-pair">
-                    <GuideImagePlaceholder
-                      label={item.imageLabel}
-                      src={item.src}
-                      ratio="square"
-                    />
-                    {item.areaSrc ? (
-                      <GuideImagePlaceholder
-                        label={item.areaImageLabel ?? `${item.name} across a larger brick area`}
-                        src={item.areaSrc}
-                        ratio="square"
-                      />
-                    ) : null}
-                  </div>
-                  <p className="mortar-colour-comparison-note">{item.note}</p>
-                </article>
-              ))}
-            </div>
-            {mortarColourAdvice.selectionNote || mortarColourAdvice.warning ? (
-              <div className="mortar-colour-notes">
-                {mortarColourAdvice.selectionNote ? (
-                  <>
-                    <h3>Choosing a mortar colour</h3>
-                    <p>{mortarColourAdvice.selectionNote}</p>
-                  </>
-                ) : null}
-                {mortarColourAdvice.warning ? (
-                  <aside className="mortar-colour-caution">
-                    <h3>Why red mortar is often avoided</h3>
-                    <p>{mortarColourAdvice.warning}</p>
-                  </aside>
-                ) : null}
-                <p className="mortar-guide-link-copy">
-                  Learn more about natural mortar, added dyes and maintaining consistent mortar
-                  colour across a project.
-                </p>
-                <div className="actions mortar-colour-actions">
-                  <Link className="btn btn-secondary" to="/facing-bricks/mortar">
-                    Read the mortar guide
-                  </Link>
-                </div>
-              </div>
-            ) : null}
-          </div>
-        </section>
-      ) : null}
-
-      <section
-        id="download-textures"
-        className={mortarColourAdvice ? "section" : "section section-alt"}
-      >
+      <section id="download-textures" className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">Seamless textures</p>
           <h2>Download a seamless {seoNoun} texture</h2>
@@ -324,7 +269,7 @@ export function ColourGuidePage() {
           />
           <p className="texture-next-step-copy">
             Continue below to choose a{" "}
-            {guide.slug === "red-and-orange" ? "red or orange brick" : seoNoun} and create its{" "}
+            {guide.slug === "red-and-orange" ? "red or orange brick" : seoNoun} and create a{" "}
             <strong>seamless texture</strong>.
           </p>
         </div>
@@ -332,56 +277,27 @@ export function ColourGuidePage() {
 
       <section className="section colour-guide-closing-block">
         <div className="container colour-guide-content colour-guide-closing">
-          {mortarColourAdvice ? (
-            <>
-              <p className="eyebrow">Next step</p>
-              <h2>Choose your red or orange brick</h2>
-              <p>
-                Select a product in Bricktextures, customise the bond, mortar colour and brick area,
-                then download its seamless texture.
-              </p>
-              <div className="actions">
-                <a
-                  className="btn btn-primary"
-                  href={guide.appFilterUrl}
-                  onClick={event => onExploreClick(event, guide.appFilterUrl)}
-                >
-                  Explore red and orange bricks
-                </a>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="eyebrow">Next steps</p>
-              <h2>Continue designing with {guide.title.toLowerCase().replace(" facing", "")}</h2>
-              <div className="next-steps-grid">
-                <article className="next-step-card">
-                  <h3>Explore {guide.title.toLowerCase()}</h3>
-                  <p>Compare products and create a seamless texture in Bricktextures.</p>
-                  <a
-                    className="btn btn-primary"
-                    href={guide.appFilterUrl}
-                    onClick={event => onExploreClick(event, guide.appFilterUrl)}
-                  >
-                    Explore in Bricktextures
-                  </a>
-                </article>
-                <article className="next-step-card">
-                  <h3>Complementary mortar colours</h3>
-                  <p>See mortar guidance for this brick colour.</p>
-                  <Link className="btn btn-primary" to="/facing-bricks/mortar">
-                    Explore complementary mortar colours
-                  </Link>
-                </article>
-              </div>
-            </>
-          )}
+          <p className="eyebrow">Next step</p>
+          <h2>Choose your {brickChoiceLabel} brick</h2>
+          <p>
+            Select a product in Bricktextures, customise the bond, mortar colour and brick area,
+            then download its seamless texture.
+          </p>
+          <div className="actions">
+            <a
+              className="btn btn-primary"
+              href={guide.appFilterUrl}
+              onClick={event => onExploreClick(event, guide.appFilterUrl)}
+            >
+              Explore {brickChoiceLabel} bricks
+            </a>
+          </div>
         </div>
 
         <div className="container colour-guide-closing-more">
           <div className="homepage-section-heading">
-            <p className="eyebrow">Continue exploring</p>
-            <h2>Browse other facing brick colours</h2>
+            <p className="eyebrow">Other brick colours</p>
+            <h2>Explore other facing brick colours</h2>
           </div>
           <div className="colour-guide-other-grid">
             {otherGuides.map(item => (
@@ -405,8 +321,8 @@ export function ColourGuidePage() {
               <span className="appearance-card-copy">
                 <strong>Make your own blend</strong>
                 <span>
-                  Combine any colours — including {guide.shortLabel.toLowerCase()} — and create a custom
-                  brick mix in Bricktextures.
+                  Combine colours — including {guide.shortLabel.toLowerCase()} — into a balanced
+                  custom brick mix.
                 </span>
               </span>
             </Link>

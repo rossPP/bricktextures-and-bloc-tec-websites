@@ -1,0 +1,192 @@
+{
+  "generatedAt": "2026-08-14T17:08:03.823Z",
+  "results": [
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/2 Bond",
+        "variation": "Stretcher"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__stretcher__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/2 Bond",
+        "variation": "Header"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__header__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2688x2700mm_L.jpeg",
+      "size": {
+        "w": 2688,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/2 Bond",
+        "variation": "Block"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__block__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/2 Bond",
+        "variation": "Offset"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__offset__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x3000mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 3000
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/2 Bond",
+        "variation": "Column"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__column__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/4 Bond",
+        "variation": "Right Step"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/4 Bond",
+        "variation": "Right Step Gothic"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step-gothic__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/4 Bond",
+        "variation": "Right Step Monk"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step-monk__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2813x3000mm_L.jpeg",
+      "size": {
+        "w": 2813,
+        "h": 3000
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/4 Bond",
+        "variation": "Left Step"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__left-step__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/4 Bond",
+        "variation": "Toothed"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__toothed__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "A4312A",
+        "productSlug": "swanage-handmade-restoration-red",
+        "layout": "1/4 Bond",
+        "variation": "Toothed Gothic"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__toothed-gothic__swanage-handmade-restoration-red.jpeg",
+      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    }
+  ]
+}

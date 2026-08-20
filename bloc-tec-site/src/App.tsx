@@ -66,6 +66,12 @@ const getAccountAppUrl = (accountName: string) =>
 
 type IntegrationMethodKey = "base" | "category" | "product" | "sku";
 
+type IntegrationQueryParam = {
+  code: string;
+  required: boolean;
+  explanation: string;
+};
+
 type IntegrationMethodOption = {
   buttonLabel: string;
   title: string;
@@ -76,6 +82,7 @@ type IntegrationMethodOption = {
   examplePrefix: string;
   exampleHighlight: string;
   exampleSuffix?: string;
+  queryParams?: IntegrationQueryParam[];
   recommendedIntro?: string;
   recommendedMethods: Array<{
     method: string;
@@ -84,7 +91,7 @@ type IntegrationMethodOption = {
 };
 
 function getSkuDemoUrl(productCode: string) {
-  return `https://app.bloc-tec.com/account/bricktextures/?c=${encodeURIComponent(productCode)}`;
+  return `https://app.bloc-tec.com/account/ag/?c=${encodeURIComponent(productCode)}`;
 }
 
 const INTEGRATION_METHOD_OPTIONS: Record<
@@ -97,21 +104,29 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templatePrefix: "https://app.bloc-tec.com/account/",
     templateHighlight: "<account-name>",
     description:
-      "This route gives access to your full product collection and works for both standalone links and iframe embeds. We provide your account name during account set-up.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/bricktextures",
+      "Loads your full product collection.",
+    demoIframeUrl: "https://app.bloc-tec.com/account/ag",
     examplePrefix: "https://app.bloc-tec.com/account/",
-    exampleHighlight: "bricktextures",
+    exampleHighlight: "ag",
+    queryParams: [
+      {
+        code: "<account-name>",
+        required: true,
+        explanation:
+          "Your BLOC-TEC account name, provided during account set-up.",
+      },
+    ],
     recommendedIntro:
-      "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
+      "These methods avoid double-scroll issues that can occur in embedded mode with large swatch sets.",
     recommendedMethods: [
       {
         method: "New tab",
-        reason: "offers the largest available viewing area.",
+        reason: "largest available viewing area.",
       },
       {
         method: "Modal window",
         reason:
-          "keeps users on your website without opening a new browser tab; the trade-off is a smaller viewing area than New tab.",
+          "keeps users on your site; smaller viewing area than New tab.",
       },
     ],
   },
@@ -119,46 +134,76 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     buttonLabel: "Category",
     title: "Linking to category level",
     templatePrefix: "https://app.bloc-tec.com/account/<account-name>/",
-    templateHighlight: "<category-name>",
+    templateHighlight: "<category-group-name>",
     description:
-      "This is the top level of your account product structure. Pass in the category name to load it directly.",
-    demoIframeUrl: "https://app.bloc-tec.com/account/bricktextures/Facing%20Bricks",
-    examplePrefix: "https://app.bloc-tec.com/account/bricktextures/",
-    exampleHighlight: "Facing Bricks",
+      "Loads one category from your account product structure.",
+    demoIframeUrl: "https://app.bloc-tec.com/account/ag/Paving%20Blocks",
+    examplePrefix: "https://app.bloc-tec.com/account/ag/",
+    exampleHighlight: "Paving Blocks",
+    queryParams: [
+      {
+        code: "<account-name>",
+        required: true,
+        explanation: "Your BLOC-TEC account name.",
+      },
+      {
+        code: "<category-group-name>",
+        required: true,
+        explanation: "Category group name to load.",
+      },
+      {
+        code: "prodBack=false",
+        required: false,
+        explanation:
+          "Hides the product-level back control so users stay in your category-page flow.",
+      },
+    ],
     recommendedIntro:
-      "Both of the following recommended methods allow scrolling of large product swatch sets without double-scroll issues that can occur in embedded mode.",
+      "These methods avoid double-scroll issues that can occur in embedded mode with large swatch sets.",
     recommendedMethods: [
       {
         method: "New tab",
-        reason: "offers the largest available viewing area.",
+        reason: "largest available viewing area.",
       },
       {
         method: "Modal window",
         reason:
-          "keeps users on your website without opening a new browser tab; the trade-off is a smaller viewing area than New tab.",
+          "keeps users on your site; smaller viewing area than New tab.",
       },
     ],
   },
   product: {
     buttonLabel: "Product",
     title: "Linking to product level",
-    templatePrefix: "https://app.bloc-tec.com/account/<account-name>/?",
-    templateHighlight: "viewProduct=<product-name>&src=<source-file-name>",
+    templatePrefix: "https://app.bloc-tec.com/account/<account-name>/",
+    templateHighlight: "<category-group-name>/?viewProduct=<product-name>",
     description:
-      "This loads a specific product, allowing users to browse all available colours and finishes for that product. The source file name keeps the product link independent from category names.",
+      "Loads a product within a category so users can browse its colours and finishes.",
     demoIframeUrl:
-      "https://app.bloc-tec.com/account/bricktextures/?viewProduct=Woodward&src=Concrete%20Facing%20Bricks",
-    examplePrefix: "https://app.bloc-tec.com/account/bricktextures/?",
-    exampleHighlight: "viewProduct=Woodward",
-    exampleSuffix: "&src=Concrete%20Facing%20Bricks",
+      "https://app.bloc-tec.com/account/ag/Paving%20Blocks/?viewProduct=Plaza",
+    examplePrefix: "https://app.bloc-tec.com/account/ag/",
+    exampleHighlight: "Paving Blocks/?viewProduct=Plaza",
+    queryParams: [
+      {
+        code: "<category-group-name>",
+        required: true,
+        explanation:
+          "Category group name that scopes the product lookup.",
+      },
+      {
+        code: "viewProduct=<product-name>",
+        required: true,
+        explanation: "Product to open for colour and finish browsing.",
+      },
+    ],
     recommendedMethods: [
       {
         method: "Modal window",
-        reason: "gives good focus for product-level exploration.",
+        reason: "good focus for product-level exploration.",
       },
       {
         method: "Embedded",
-        reason: "provides a more seamless flow with your website.",
+        reason: "more seamless with your website flow.",
       },
     ],
   },
@@ -168,18 +213,43 @@ const INTEGRATION_METHOD_OPTIONS: Record<
     templatePrefix: "https://app.bloc-tec.com/account/<account-name>/?",
     templateHighlight: "c=<product-sku>",
     description:
-      "This is useful for embedding in a webpage specific to one product, with a category-independent URL format.",
-    demoIframeUrl: getSkuDemoUrl("WO_LE_AN"),
-    examplePrefix: "https://app.bloc-tec.com/account/bricktextures/?",
-    exampleHighlight: "c=WO_LE_AN",
+      "Loads one colour/SKU for a single-product page, independent of category path.",
+    demoIframeUrl: getSkuDemoUrl("BPPL_PE_WAET"),
+    examplePrefix: "https://app.bloc-tec.com/account/ag/?",
+    exampleHighlight: "c=BPPL_PE_WAET",
+    queryParams: [
+      {
+        code: "c=<product-sku>",
+        required: true,
+        explanation: "Exact colour/SKU to load.",
+      },
+      {
+        code: "viewerBack=false",
+        required: false,
+        explanation:
+          "Hides the viewer-level back control so users stay in your product-page flow.",
+      },
+      {
+        code: "canBlend=false",
+        required: false,
+        explanation:
+          "Disables blend controls on single-product pages when the blender module is active.",
+      },
+      {
+        code: "tab=blend",
+        required: false,
+        explanation:
+          "Opens the Blend tab instead of the default configuration tab when the blender module is active.",
+      },
+    ],
     recommendedMethods: [
       {
         method: "Modal window",
-        reason: "gives good focus for product-level exploration.",
+        reason: "good focus for product-level exploration.",
       },
       {
         method: "Embedded",
-        reason: "provides a more seamless flow with your website.",
+        reason: "more seamless with your website flow.",
       },
     ],
   },
@@ -593,10 +663,80 @@ function IntegrationPage() {
                     </code>
                   </pre>
                 </div>
-                <p className="integration-step integration-link-note">
-                  Open Modal window or Embedded preview to see the live example
-                  URL in the top ribbon.
+                <p className="integration-step">{activeMethod.description}</p>
+                {activeMethod.queryParams?.length ? (
+                  <>
+                    {activeMethod.queryParams.some((param) => param.required) ? (
+                      <p className="integration-step">
+                        <span className="integration-subtitle">
+                          Required parameters:
+                        </span>
+                        <br />
+                        {activeMethod.queryParams
+                          .filter((param) => param.required)
+                          .map((param) => (
+                            <span
+                              key={param.code}
+                              className="integration-param-line"
+                            >
+                              <code>{param.code}</code> — {param.explanation}
+                            </span>
+                          ))}
+                      </p>
+                    ) : null}
+                    {activeMethod.queryParams.some((param) => !param.required) ? (
+                      <p className="integration-step">
+                        <span className="integration-subtitle">
+                          Optional parameters:
+                        </span>
+                        <br />
+                        {activeMethod.queryParams
+                          .filter((param) => !param.required)
+                          .map((param) => (
+                            <span
+                              key={param.code}
+                              className="integration-param-line"
+                            >
+                              <code>{param.code}</code> — {param.explanation}
+                            </span>
+                          ))}
+                      </p>
+                    ) : null}
+                  </>
+                ) : null}
+                <p className="integration-step">
+                  <span className="integration-subtitle">Examples</span>
                 </p>
+                <div className="integration-method-actions">
+                  <a
+                    className="btn-small"
+                    href={activeMethod.demoIframeUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    New tab
+                  </a>
+                  <button
+                    className="btn-small"
+                    type="button"
+                    onClick={() => {
+                      setShowIframeModal(true);
+                      setShowIframePreview(false);
+                    }}
+                  >
+                    Modal window
+                  </button>
+                  <button
+                    className={`btn-small${showIframePreview ? " active" : ""}`}
+                    type="button"
+                    onClick={() => {
+                      setShowIframePreview(true);
+                      setShowIframeModal(false);
+                    }}
+                  >
+                    Embedded
+                  </button>
+                </div>
                 {showIframePreview ? (
                   <div className="integration-preview-wrap">
                     <div className="integration-preview-toolbar">
@@ -619,7 +759,6 @@ function IntegrationPage() {
                     />
                   </div>
                 ) : null}
-                <p className="integration-step">{activeMethod.description}</p>
                 <p className="integration-step integration-recommendation">
                   <span className="integration-subtitle">
                     Recommended method:
@@ -639,49 +778,6 @@ function IntegrationPage() {
                     </span>
                   ))}
                 </p>
-                <div className="integration-method-actions">
-                  <a
-                    className="btn-small"
-                    href={activeMethod.demoIframeUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Open in new tab
-                  </a>
-                  <button
-                    className="btn-small"
-                    type="button"
-                    onClick={() => {
-                      setShowIframeModal(true);
-                      setShowIframePreview(false);
-                    }}
-                  >
-                    Open in modal window
-                  </button>
-                  <button
-                    className={`btn-small${showIframePreview ? " active" : ""}`}
-                    type="button"
-                    onClick={() => {
-                      setShowIframePreview(true);
-                      setShowIframeModal(false);
-                    }}
-                  >
-                    Open embedded
-                  </button>
-                </div>
-                {selectedMethod === "category" ? (
-                  <>
-                    <p className="integration-step">
-                      <span className="integration-subtitle">
-                        Additional Parameters:
-                      </span>
-                    </p>
-                    <p className="integration-step">
-                      <code>prodBack=false</code> hides the product-level back
-                      control so users stay in your category-page flow.
-                    </p>
-                  </>
-                ) : null}
                 {selectedMethod === "product" ? (
                   <>
                     <p className="integration-step">
@@ -693,15 +789,11 @@ function IntegrationPage() {
                       Add <code>admin=true</code> to the account or category URL
                       to reveal hidden copy controls beside each product. Use{" "}
                       <code>Copy productView</code> to copy the recommended
-                      product-level URL, including <code>src</code> for the
-                      source file name. The admin flag is removed after loading
-                      and is not included in copied links. Include the trailing
-                      forward slash before the query string, as shown below.
-                    </p>
-                    <p className="integration-step">
-                      Product links intentionally omit the category segment so
-                      category names can be changed or reorganised without
-                      breaking existing product links.
+                      product-level URL with the category group name and{" "}
+                      <code>viewProduct</code> query. The admin flag is removed
+                      after loading and is not included in copied links. Include
+                      the trailing forward slash before the query string, as
+                      shown below.
                     </p>
                     <div className="integration-code-card">
                       <pre className="integration-code-block">
@@ -715,15 +807,6 @@ function IntegrationPage() {
                 ) : null}
                 {selectedMethod === "sku" ? (
                   <>
-                    <p className="integration-step">
-                      <span className="integration-subtitle">
-                        Additional Parameters:
-                      </span>
-                    </p>
-                    <p className="integration-step">
-                      <code>viewerBack=false</code> hides the viewer-level back
-                      control so users stay in your product-page flow.
-                    </p>
                     <p className="integration-step">
                       <span className="integration-subtitle">
                         Admin URL copy helper:
@@ -758,15 +841,8 @@ function IntegrationPage() {
                       </span>
                     </p>
                     <p className="integration-step">
-                      See the Blender integration guidance below.
-                    </p>
-                    <p className="integration-step">
-                      <code>canBlend=false</code> disables blend controls for
-                      single-product pages.
-                    </p>
-                    <p className="integration-step">
-                      <code>tab=blend</code> opens the Blend tab instead of the
-                      default product configuration tab.
+                      See the Blender integration guidance below for when to use{" "}
+                      <code>canBlend=false</code> and <code>tab=blend</code>.
                     </p>
                   </>
                 ) : null}

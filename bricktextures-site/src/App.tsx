@@ -17,7 +17,6 @@ import { MortarPage } from "./pages/MortarPage";
 import { JointSizePage } from "./pages/JointSizePage";
 import { FORMAT_GUIDES } from "./content/formatGuides";
 import {
-  COLOUR_BLEND_ROUTE,
   COLOUR_ROUTES,
   COLOUR_SECTION,
   SIZE_ROUTES,
@@ -36,7 +35,7 @@ const BRICKTEXTURES_APP_URL = "/app/facing-bricks";
 const BLOC_TEC_CONTACT_URL = "https://bloc-tec.com/for-manufacturers";
 const GENERAL_CONTACT_EMAIL = "info@bloc-tec.com";
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
-const HOME_COLOUR_ROUTES = [...COLOUR_ROUTES, COLOUR_BLEND_ROUTE];
+const HOME_COLOUR_ROUTES = COLOUR_ROUTES;
 const CONTACT_REASONS = [
   "Feature request",
   "Existing feature improvement",
@@ -205,15 +204,15 @@ function RouteTitleSync() {
     };
 
     pageMetaByPath["/tools/seamless-brick-textures"] = {
-      title: "Seamless Brick Textures from Facing Bricks | Bricktextures",
+      title: "Seamless Brick Textures from Real Manufacturers | Bricktextures",
       description:
-        "Design and download seamless textures from manufacturer facing bricks. Set the physical texture size, bond, mortar and blend for visualisation software.",
+        "Download correctly scaled seamless brick textures from real UK and Ireland manufacturer facing bricks. Any bond, mortar and joint — so courses align with your building components in Revit, SketchUp, Enscape and V-Ray.",
     };
 
     pageMetaByPath["/tools/brick-blending"] = {
-      title: "Brick Blending Tool | Mix Facing Bricks | Bricktextures",
+      title: "Brick Blending | Why and How to Mix Facing Bricks | Bricktextures",
       description:
-        "Blend facing bricks from multiple manufacturers, lock proportions, get compatibility warnings, share the design and download a clear blend specification.",
+        "Why architects blend facing bricks, how to give each colour a role, and how to choose products that can work together at wall scale.",
     };
 
     pageMetaByPath["/tools/share-design"] = {
@@ -229,15 +228,15 @@ function RouteTitleSync() {
     };
 
     pageMetaByPath["/facing-bricks/mortar"] = {
-      title: "Brick Mortar Colour | Bricktextures",
+      title: "Brick Mortar Colours | Bricktextures",
       description:
-        "How mortar colour changes facing brickwork — natural sand colours, dyed mortars, and pairings for red, buff, brown and neutral bricks.",
+        "Natural and dyed mortar colours, how brick context changes mortar appearance, and contrast principles.",
     };
 
     pageMetaByPath["/facing-bricks/joint-size"] = {
       title: "Brick Joint Size | Bricktextures",
       description:
-        "How joint size changes facing brickwork — the 10 mm joint, tighter joints, wider traditional joints, and how to trial them in Bricktextures.",
+        "When to tighten or widen facing brick joints — thin and glued joints, wider traditional beds, and how that affects bond and appearance.",
     };
 
     for (const guide of FORMAT_GUIDES) {
@@ -299,7 +298,17 @@ function RouteTitleSync() {
     if (canonicalLink) {
       canonicalLink.setAttribute("href", canonicalUrl);
     }
-  }, [location.pathname]);
+
+    if (location.hash) {
+      const target = document.getElementById(location.hash.slice(1));
+      if (target) {
+        target.scrollIntoView();
+        return;
+      }
+    }
+
+    window.scrollTo(0, 0);
+  }, [location.pathname, location.hash]);
 
   return null;
 }
@@ -1034,6 +1043,10 @@ function App() {
             <Route path="/facing-bricks/mortar" element={<MortarPage />} />
             <Route path="/facing-bricks/joint-size" element={<JointSizePage />} />
             <Route path="/facing-bricks/format/:slug" element={<FormatGuidePage />} />
+            <Route
+              path="/facing-bricks/colour/brick-blends"
+              element={<Navigate to="/tools/brick-blending" replace />}
+            />
             <Route path="/facing-bricks/colour/:slug" element={<ColourGuidePage />} />
             <Route path="/facing-bricks/finish/:slug" element={<FinishGuidePage />} />
             <Route path="/facing-bricks/bonds" element={<BondHubPage />} />

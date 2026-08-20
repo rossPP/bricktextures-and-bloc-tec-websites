@@ -5,6 +5,8 @@
   --color-bg: #ffffff;
   --color-surface: #f4f7f6;
   --color-border: #dce6e3;
+  --color-link: #007566;
+  --color-link-hover: #005a4f;
 }
 
 .site-shell {
@@ -194,13 +196,18 @@ h2 {
 }
 
 .material-manufacturer-list a {
-  color: var(--color-primary);
+  color: var(--color-link);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .material-manufacturer-list a:hover {
-  text-decoration: underline;
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
 }
 
 #clay,
@@ -581,6 +588,12 @@ h2 {
     linear-gradient(135deg, #e8eceb 0%, #ffffff 55%, #f3faf8 100%);
 }
 
+.colour-guide-hero-blend {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(243, 250, 248, 0.96) 100%),
+    linear-gradient(135deg, #f3dfd4 0%, #eee2c9 35%, #dce5e7 68%, #f3faf8 100%);
+}
+
 .finish-guide-hero-smooth {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(243, 250, 248, 0.96) 100%),
@@ -629,6 +642,21 @@ h2 {
   transition: transform 0.15s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+.bond-hub-card-media {
+  margin: -1.15rem -1.2rem 0.15rem;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 0.85rem 0.85rem 0 0;
+  background: #e8efed;
+}
+
+.bond-hub-card-media img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .bond-hub-card:hover {
   transform: translateY(-2px);
   border-color: var(--color-primary);
@@ -658,11 +686,40 @@ h2 {
   line-height: 1.5;
 }
 
+.bond-hub-finish-note {
+  margin: 0.25rem 0 0 !important;
+  color: #35524c;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 .bond-hub-link-label {
   margin-top: 0.35rem;
   color: var(--color-primary);
   font-weight: 600;
   font-size: 0.92rem;
+}
+
+.bond-list-item .bond-example-grid {
+  margin-top: 1rem;
+}
+
+.bond-example-grid.guide-image-placeholder-grid {
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+/* Zoom into the seamless panel so individual bricks and the bond read clearly. */
+.bond-example-grid .guide-image-media {
+  overflow: hidden;
+}
+
+.bond-example-grid .guide-image-media-square img {
+  transform: scale(2.4);
+  transform-origin: center;
+}
+
+.bond-list-item .guide-image-placeholder figcaption {
+  font-size: 0.9rem;
 }
 
 .seamless-textures-hero {
@@ -706,7 +763,7 @@ h2 {
 
 .bond-list-item {
   display: grid;
-  gap: 1rem;
+  gap: 0.55rem;
   padding-top: 1.25rem;
   border-top: 1px solid var(--color-border);
 }
@@ -716,36 +773,16 @@ h2 {
   border-top: 0;
 }
 
-.bond-list-icon {
-  width: 4.5rem;
-  height: 4.5rem;
-  display: grid;
-  place-items: center;
-  border-radius: 0.75rem;
-  background: #f3faf8;
-  color: #16312c;
-  border: 1px solid var(--color-border);
-}
-
-.bond-list-icon svg {
-  width: 2.75rem;
-  height: 2.75rem;
-}
-
-.bond-list-copy h3 {
-  margin: 0 0 0.45rem;
+.bond-list-item h3 {
+  margin: 0 0 0.2rem;
   color: #16312c;
   font-size: 1.15rem;
 }
 
-.bond-list-copy p {
-  margin: 0 0 0.55rem;
+.bond-list-item > p {
+  margin: 0;
   color: #35524c;
   line-height: 1.55;
-}
-
-.bond-list-copy p:last-child {
-  margin-bottom: 0;
 }
 
 .colour-guide-content {
@@ -779,6 +816,21 @@ h2 {
 
 .colour-guide-list li + li {
   margin-top: 0.55rem;
+}
+
+.colour-guide-list a {
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.colour-guide-list a:hover {
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
 }
 
 .colour-guide-subheading {
@@ -889,7 +941,7 @@ h2 {
 @media (min-width: 768px) {
   .colour-example-block .guide-image-placeholder {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(14rem, 2fr);
+    grid-template-columns: minmax(0, 2fr) minmax(14rem, 1fr);
     gap: 1.25rem;
     align-items: center;
   }
@@ -899,7 +951,7 @@ h2 {
   }
 
   .colour-example-block:nth-child(even) .guide-image-placeholder {
-    grid-template-columns: minmax(14rem, 2fr) minmax(0, 3fr);
+    grid-template-columns: minmax(14rem, 1fr) minmax(0, 2fr);
   }
 
   .colour-example-block:nth-child(even) .guide-image-media {
@@ -1113,10 +1165,105 @@ h2 {
   margin-top: 1.25rem;
 }
 
+.material-compare-grid {
+  gap: 0;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.material-compare-grid .guide-image-placeholder {
+  margin: 0;
+}
+
+.material-compare-grid .guide-image-media {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.material-compare-grid .guide-image-media-natural {
+  overflow: hidden;
+}
+
+.material-compare-grid .guide-image-placeholder figcaption {
+  margin-top: 0.45rem;
+  padding: 0 0.15rem;
+}
+
+.texture-control-group {
+  margin-top: 1.75rem;
+}
+
+.texture-control-group h3 {
+  margin: 0 0 0.15rem;
+  color: #16312c;
+  font-size: 1.05rem;
+}
+
+.texture-control-group > p {
+  margin: 0.35rem 0 0;
+  color: #35524c;
+  line-height: 1.55;
+}
+
+.texture-control-group .guide-image-placeholder-grid {
+  margin-top: 0.75rem;
+}
+
+.share-spec-preview .guide-image-media {
+  max-width: 22rem;
+  cursor: pointer;
+}
+
+.share-spec-preview .guide-image-media img {
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.share-spec-preview figcaption a {
+  color: var(--color-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.share-spec-preview figcaption a:hover {
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
+}
+
 .mortar-colour-comparison-grid {
   display: grid;
   gap: 0.85rem;
   margin-top: 1.25rem;
+}
+
+.mortar-illusion-grid {
+  display: grid;
+  gap: 0.85rem;
+  margin: 1.25rem 0 1.5rem;
+}
+
+.mortar-illusion-grid article {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.mortar-illusion-grid .guide-image-placeholder {
+  margin: 0;
+}
+
+.mortar-illusion-grid .guide-image-media {
+  border-radius: 0;
+}
+
+.mortar-illusion-grid h3 {
+  margin: 0;
+  color: #16312c;
+  font-size: 1.05rem;
 }
 
 .mortar-colour-comparison-grid article {
@@ -1141,6 +1288,11 @@ h2 {
 
 .mortar-colour-image-pair .guide-image-media {
   border: 0;
+}
+
+.mortar-colour-image-pair .guide-image-placeholder-frame {
+  border: 0;
+  border-radius: 0;
 }
 
 .mortar-colour-image-pair
@@ -1207,6 +1359,10 @@ h2 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .mortar-illusion-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .colour-pairing-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -1227,13 +1383,18 @@ h2 {
 }
 
 .why-bricktextures-grid a {
-  color: var(--color-primary);
+  color: var(--color-link);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .why-bricktextures-grid a:hover {
-  text-decoration: underline;
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
 }
 
 .why-bricktextures-develop {
@@ -1273,14 +1434,19 @@ h2 {
 }
 
 .guide-section-nav a {
-  color: var(--color-primary);
+  color: var(--color-link);
   font-weight: 600;
   font-size: 0.95rem;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .guide-section-nav a:hover {
-  text-decoration: underline;
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
 }
 
 .why-bricktextures-grid h3 {
@@ -1392,13 +1558,36 @@ h2 {
 }
 
 .inline-link {
-  color: var(--color-primary);
+  color: var(--color-link);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .inline-link:hover {
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
+}
+
+/* Body copy links without a dedicated class (default browser blue otherwise). */
+.section :is(p, li, figcaption) > a:not([class]),
+.colour-guide-content :is(p, li) > a:not([class]) {
+  color: var(--color-link);
+  font-weight: 600;
   text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
+}
+
+.section :is(p, li, figcaption) > a:not([class]):hover,
+.colour-guide-content :is(p, li) > a:not([class]):hover {
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
 }
 
 .cta-band {
@@ -1566,13 +1755,18 @@ h2 {
 }
 
 .hub-inline-link a {
-  color: var(--color-primary);
+  color: var(--color-link);
   font-weight: 600;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 117, 102, 0.35);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: from-font;
+  transition: color 0.15s ease, text-decoration-color 0.15s ease;
 }
 
 .hub-inline-link a:hover {
-  text-decoration: underline;
+  color: var(--color-link-hover);
+  text-decoration-color: var(--color-link-hover);
 }
 
 .footer-bottom {
@@ -1636,11 +1830,6 @@ h2 {
 
   .hub-link-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .bond-list-item {
-    grid-template-columns: 4.5rem minmax(0, 1.2fr) minmax(0, 1fr);
-    align-items: start;
   }
 
   .why-bricktextures-grid {

@@ -53,14 +53,13 @@ export const COLOUR_ROUTES: AppearanceRoute[] = [
     to: "/facing-bricks/colour/grey-black-white",
     tone: "neutral",
   },
+  {
+    label: "Brick blending",
+    description: "Mix colours into a custom brick blend.",
+    to: "/tools/brick-blending",
+    tone: "blend",
+  },
 ];
-
-export const COLOUR_BLEND_ROUTE: AppearanceRoute = {
-  label: "Make your own blend",
-  description: "Combine any colours and create a custom brick mix.",
-  to: "/tools/brick-blending",
-  tone: "blend",
-};
 
 export const TEXTURE_SECTION = {
   eyebrow: "Start by texture",

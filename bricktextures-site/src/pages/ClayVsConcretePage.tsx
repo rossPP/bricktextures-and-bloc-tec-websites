@@ -1,6 +1,8 @@
 import { MouseEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { GuideImagePlaceholder, GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
+import { GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
+import kingscourtClay from "../assets/clay-vs-concrete/kingscourt-redwood-clay-half.webp";
+import marshallsConcrete from "../assets/clay-vs-concrete/marshalls-parkview-samwell-haze-concrete-half.webp";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const CLAY_APP_URL =
@@ -147,9 +149,9 @@ export function ClayVsConcretePage() {
           <p className="eyebrow">Facing bricks by material</p>
           <h1>Clay bricks vs concrete bricks</h1>
           <p className="lead contact-lead">
-            Clay and concrete facing bricks differ in manufacture, appearance, dimensional tolerance,
-            moisture movement and weathering. Compare both in Bricktextures, then assess declared
-            performance, detailing, supply and whole-life requirements for the project.
+            Clay offers a wide range of natural colour and texture. Concrete usually gives a more
+            regular size and controlled appearance. Both can make good facing bricks, but they age,
+            move and weather differently.
           </p>
           <div className="actions material-cta-actions">
             <a
@@ -172,18 +174,41 @@ export function ClayVsConcretePage() {
 
       <section className="section section-alt">
         <div className="container colour-guide-content">
-          <p className="eyebrow">Why both exist</p>
-          <h2>Two materials, two reasons to choose</h2>
+          <p className="eyebrow">Choosing the material</p>
+          <h2>Why choose clay or concrete?</h2>
           <p>
-            Fired clay offers established construction practice and a broad range of colours, finishes
-            and degrees of variation. Its kiln-fired production is energy intensive, although impacts
-            vary by raw material, fuel, factory efficiency, transport and service life.
+            Clay is familiar, widely used and available in a broad range of colours, finishes and
+            degrees of variation. Firing clay uses a great deal of energy, although the impact varies
+            with the raw material, fuel, factory, transport distance and life of the product.
           </p>
           <p>
-            Concrete units are moulded and cured rather than kiln fired. They can provide consistent
-            dimensions, controlled colour and competitive cost, but cement content, curing, aggregates
-            and transport all affect embodied impact. Compare current product-specific declarations
-            rather than assuming one material is universally preferable.
+            Concrete bricks are moulded and cured rather than fired. They can offer regular sizing,
+            controlled colour and a competitive price, but cement, aggregates, curing and transport
+            all affect their environmental impact. Compare current information for the actual
+            products rather than assuming one material is always better.
+          </p>
+          <p>
+            Before reading on, look at these two walls side by side. One is clay and one is concrete —
+            which is which?
+          </p>
+          <GuideImagePlaceholderGrid
+            className="material-compare-grid"
+            ratio="natural"
+            items={[
+              {
+                label: "Brick wall A",
+                caption: "Brick A",
+                src: kingscourtClay,
+              },
+              {
+                label: "Brick wall B",
+                caption: "Brick B",
+                src: marshallsConcrete,
+              },
+            ]}
+          />
+          <p className="mortar-colour-comparison-note">
+            The answer is further down the page — after the clay and concrete sections.
           </p>
         </div>
       </section>
@@ -191,16 +216,16 @@ export function ClayVsConcretePage() {
       <section id="clay" className="section">
         <div className="container colour-guide-content">
           <p className="eyebrow">Clay facing bricks</p>
-          <h2>Fired material with broad visual range</h2>
+          <h2>Natural colour and a wide choice of textures</h2>
           <p>
-            Clay units are shaped, dried and fired. Manufacturing method, clay body, firing conditions
-            and surface treatment determine colour, texture and dimensional variation; wirecut,
-            stock, waterstruck and handmade products therefore read differently on the wall.
+            The clay, firing and surface treatment all affect the finished colour and texture.
+            Wirecut, stock, waterstruck and handmade products can therefore look very different when
+            built into a wall.
           </p>
           <p>
-            Many clay products retain colour well because it is developed through the fired body or
-            surface treatment. Exposure, detailing, salts, staining and maintenance still influence
-            long-term appearance, so assess the product and location rather than the material alone.
+            Many clay bricks keep their colour well because it runs through the fired body or is fixed
+            during firing. Exposure, salts, staining, detailing and maintenance will still affect how
+            the wall looks as it ages.
           </p>
           <p>
             Clay ranges in Bricktextures include manufacturers such as Ibstock, Wienerberger,
@@ -234,39 +259,25 @@ export function ClayVsConcretePage() {
       <section id="concrete" className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">Concrete facing bricks</p>
-          <h2>Moulded units with controlled dimensions</h2>
+          <h2>Regular sizing and a controlled appearance</h2>
           <p>
             Concrete facing bricks are formed from cement, aggregates, pigments and water, then cured.
-            They avoid kiln firing but retain the embodied impacts of cement and other constituents.
-            Cost and carbon should be compared using project-specific prices and current environmental
-            product declarations.
+            They avoid kiln firing, but cement still carries an environmental cost. Compare price and
+            carbon using current information for the products you are actually considering.
           </p>
           <p>
             Moulding can produce consistent colour and geometry, including smooth, textured and creased
-            faces. Repeated surface patterns may become visible over large or close-viewed elevations;
-            assess full panels, not single units. Pigment stability and weathering depend on the
-            particular product and exposure.
+            faces. Because the texture is moulded, repeated marks can become noticeable across a large
+            wall or at close range. Look at a full panel rather than one brick. Colour stability and
+            weathering still depend on the chosen product and its exposure.
           </p>
           <p>
-            Concrete units also tend to hold tighter size tolerances. They do not go through the
-            kiln shrinkage and natural variation of clay, so brick-to-brick dimensions stay more
-            exact. That makes concrete a stronger fit for{" "}
+            Concrete bricks also tend to be more regular in size. They do not go through the kiln
+            shrinkage and natural variation of clay, so one brick is more likely to match the next.
+            This can make concrete a good fit for{" "}
             <Link to="/facing-bricks/bonds/modern">modern bonds</Link> that rely on precise
-            alignment — stack, grid, basketweave and similar patterns — where wandering sizes quickly
-            show.
+            alignment, such as stack, grid and basketweave, where size differences quickly show.
           </p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: "Clay creased facing brick",
-                caption: "Creased clay product showing variation between faces.",
-              },
-              {
-                label: "Concrete creased facing brick",
-                caption: "Moulded concrete product showing its surface pattern.",
-              },
-            ]}
-          />
           <p>
             Concrete facing bricks in Bricktextures include manufacturers such as Marshalls, AG
             (Acheson & Glover), Tobermore and Precon — a practical place to review concrete options
@@ -298,35 +309,58 @@ export function ClayVsConcretePage() {
 
       <section className="section">
         <div className="container colour-guide-content">
-          <p className="eyebrow">Ageing</p>
-          <h2>How the two materials tend to change</h2>
+          <p className="eyebrow">The answer</p>
+          <h2>Which wall was clay, and which was concrete?</h2>
           <p>
-            Both materials weather. Clay may develop staining, efflorescence, biological growth or
-            local frost damage where product selection and detailing are unsuitable. Concrete may show
-            pigment change, carbonation effects, efflorescence or differential soiling. Exposure,
-            copings, drips, cavities and water management often matter as much as material category.
+            Brick A is clay: Kingscourt Redwood. Brick B is concrete: Marshalls Parkview Samwell
+            Haze. Side by side like this, the difference is often harder to spot than people expect —
+            especially when colour, bond and joint are similar.
           </p>
-          <p>
-            Review representative aged projects, declared durability and manufacturer guidance for
-            the intended exposure. Confirm movement-joint strategy and cleaning methods before
-            specification.
-          </p>
-          <GuideImagePlaceholder
-            label="Aged clay façade vs aged concrete facing"
-            caption="Weathered clay and concrete facing brickwork in comparable exposure."
-            wide
+          <GuideImagePlaceholderGrid
+            className="material-compare-grid"
+            ratio="natural"
+            items={[
+              {
+                label: "Kingscourt Redwood clay facing brick wall",
+                caption: "Brick A — Kingscourt Redwood (clay)",
+                src: kingscourtClay,
+              },
+              {
+                label: "Marshalls Parkview Samwell Haze concrete facing brick wall",
+                caption: "Brick B — Marshalls Parkview Samwell Haze (concrete)",
+                src: marshallsConcrete,
+              },
+            ]}
           />
         </div>
       </section>
 
       <section className="section section-alt">
         <div className="container colour-guide-content">
+          <p className="eyebrow">Ageing</p>
+          <h2>How clay and concrete change over time</h2>
+          <p>
+            Both materials change in the weather. Clay may stain, show efflorescence, develop
+            biological growth or suffer frost damage if the product or detailing is wrong. Concrete
+            can change colour, carbonate, show efflorescence or soil unevenly. Good copings, drips,
+            cavities and water management matter as much as the material.
+          </p>
+          <p>
+            Look at older projects built with the products you are considering, not only new sample
+            panels. Check durability, movement joints and cleaning advice for the location before
+            making the final choice.
+          </p>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container colour-guide-content">
           <p className="eyebrow">In Bricktextures</p>
           <h2>Compare them as separate materials</h2>
           <p>
             Bricktextures lists clay and concrete facing bricks under separate category filters so
-            you can browse each set on its own. When blending, clay and concrete are not mixed — they
-            are different materials with different behaviour.{" "}
+            you can browse each set on its own. Do not mix clay and concrete in one blend: they are
+            different materials and move differently.{" "}
             <Link to="/tools/brick-blending">How brick blending works</Link>.
           </p>
           <div className="actions material-cta-actions">

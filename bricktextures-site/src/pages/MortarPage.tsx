@@ -1,10 +1,15 @@
 import { MouseEvent, useState } from "react";
 import { Link } from "react-router-dom";
-import { GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
-import { MORTAR_COLOUR_BY_BRICK } from "../content/mortarColourByBrick";
+import { GuideImagePlaceholder } from "../components/GuideImagePlaceholder";
+import { MORTAR_COLOUR_EXAMPLES } from "../content/mortarColourByBrick";
+import naturalMortarDarkBrick from "../assets/mortar/natural-mortar-with-dark-brick.jpeg";
+import naturalMortarDarkBrickArea from "../assets/mortar/natural-mortar-with-dark-brick-large-area.jpeg";
+import naturalMortarLightBrick from "../assets/mortar/natural-mortar-with-light-brick.jpeg";
+import naturalMortarLightBrickArea from "../assets/mortar/natural-mortar-with-light-brick-large-area.jpeg";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const MORTAR_APP_URL = "/app/facing-bricks?src=mortar-colour";
+const MORTAR_ILLUSION_APP_URL = "/app/facing-bricks?src=mortar-context";
 
 const VISITOR_ROLES = [
   "Architect",
@@ -83,9 +88,9 @@ export function MortarPage() {
         "@type": "WebPage",
         "@id": "https://bricktextures.com/facing-bricks/mortar#webpage",
         url: "https://bricktextures.com/facing-bricks/mortar",
-        name: "Brick Mortar Colour | Bricktextures",
+        name: "Brick Mortar Colours | Bricktextures",
         description:
-          "How mortar colour changes facing brickwork — natural sand colours, dyed mortars, and pairings for red, buff, brown and neutral bricks.",
+          "Natural and dyed mortar colours, how brick context changes mortar appearance, and contrast principles.",
       },
       {
         "@type": "BreadcrumbList",
@@ -119,15 +124,14 @@ export function MortarPage() {
           <nav className="breadcrumbs" aria-label="Breadcrumb">
             <Link to="/">Home</Link>
             <span aria-hidden="true">/</span>
-            <span>Mortar colour</span>
+            <span>Mortar colours</span>
           </nav>
 
-          <p className="eyebrow">Mortar colour</p>
-          <h1>Mortar colour</h1>
+          <p className="eyebrow">Brickwork design</p>
+          <h1>Mortar colours</h1>
           <p className="lead contact-lead">
-            Mortar colour changes the apparent tone, contrast and module of brickwork. Compare options
-            in Bricktextures under the same bond and lighting before confirming them against site
-            samples.
+            Mortar colour comes from the sand, aggregate and cement in the mix, or from colour added
+            to it. Know the difference between natural and dyed mortar before you choose.
           </p>
           <div className="actions">
             <a
@@ -137,19 +141,22 @@ export function MortarPage() {
             >
               Trial mortar colour in Bricktextures
             </a>
-            <Link className="btn btn-secondary" to="/facing-bricks/joint-size">
-              Joint size
-            </Link>
           </div>
 
           <nav className="guide-section-nav" aria-label="On this page">
             <p className="eyebrow">On this page</p>
             <ul>
               <li>
-                <a href="#natural-colours">Natural colours</a>
+                <a href="#natural-colours">Natural mortar colours</a>
               </li>
               <li>
-                <a href="#by-brick-colour">By brick colour</a>
+                <a href="#using-dyes">Using dyes</a>
+              </li>
+              <li>
+                <a href="#mortar-perception">How brick colour affects mortar</a>
+              </li>
+              <li>
+                <a href="#choosing-mortar-colour">Choosing a mortar colour</a>
               </li>
             </ul>
           </nav>
@@ -159,84 +166,39 @@ export function MortarPage() {
       <section id="natural-colours" className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">Natural colours</p>
-          <h2>Greys, yellows and light buffs</h2>
+          <h2>Natural mortar colours</h2>
           <p>
             Historically, mortar colour was determined by the natural aggregate and cement used in
             the mix. Local sand can strongly influence the tone; yellow sand, for example, may
-            naturally produce a light buff mortar. Investigate available local aggregates early,
-            particularly on larger projects.
+            naturally produce a light buff mortar. On larger projects, check the available local
+            sand and aggregate before specifying dye.
           </p>
           <p>
             Where natural materials provide the required appearance, mortar without added colour is
-            often preferable because it removes an additional source of variation. Pigments extend
-            the available range, but site-mixed batches can differ as sand moisture and composition
-            change. Small differences in pigment quantity can also produce visible colour shifts,
-            making consistent batching more difficult.
+            often preferable because it keeps the mix simple and leaves one less thing that can
+            shift on site. Natural colours commonly range from grey through yellow to light buff, and
+            may already sit well with the brick, stone and render around them.
           </p>
-          <p>
-            A close colour match reduces the visual weight of joints; contrast makes the bond and
-            module more prominent. Trial both approaches in Bricktextures, then review physical
-            samples because screen colour cannot represent aggregate, curing and site variation.
-          </p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: "Same brick with buff mortar",
-                caption: "Natural buff or light sand mortar against the selected brick.",
-              },
-              {
-                label: "Same brick with contrasting grey mortar",
-                caption: "The same brick with a cooler grey joint for comparison.",
-              },
-            ]}
-          />
         </div>
       </section>
 
-      <section id="by-brick-colour" className="section">
+      <section id="using-dyes" className="section">
         <div className="container colour-guide-content">
-          <p className="eyebrow">By brick colour</p>
-          <h2>Mortar pairings for common facing brick colours</h2>
+          <p className="eyebrow">Added colour</p>
+          <h2>Using dyes</h2>
           <p>
-            Once you know the brick colour family, mortar is one of the fastest ways to tune how the
-            wall reads. Jump to a colour guide for the wider pairing context, or trial the pairing
-            directly in Bricktextures.
+            Dye lets you match or contrast mortar with the brick, and with roof, stone or window
+            colours nearby. It can create dark greys, buffs, reds and other colours that local
+            materials cannot provide on their own.
           </p>
-
-          {MORTAR_COLOUR_BY_BRICK.map(group => (
-            <div key={group.slug} id={`mortar-${group.slug}`} className="mortar-colour-group">
-              <h3 className="colour-guide-subheading">{group.title}</h3>
-              <p>
-                {group.summary}{" "}
-                <Link to={group.colourGuidePath}>Colour guide: {group.title.toLowerCase()}</Link>
-                .
-              </p>
-              <div className="colour-guide-card-grid">
-                {group.items.map(item => (
-                  <article key={item.name}>
-                    <h3>{item.name}</h3>
-                    <p>{item.note}</p>
-                  </article>
-                ))}
-              </div>
-              <GuideImagePlaceholderGrid
-                items={group.items.map(item => ({
-                  label: item.imageLabel,
-                  caption: "Close wall view of the brick and mortar pairing.",
-                }))}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container colour-guide-closing">
-          <p className="eyebrow">Next</p>
-          <h2>Trial colour — then set the joint</h2>
           <p>
-            Compare mortar options under consistent bond and lighting, then coordinate the selected
-            colour with joint width, profile and workmanship.
+            Added colour is another thing that can shift between batches. Moisture and sand can
+            change, while small differences in dye quantity may produce visible colour changes.
+            Careful measuring and mixing are especially important across a large project.
+          </p>
+          <p>
+            Compare natural and dyed mortar against the chosen brick in Bricktextures and on physical
+            sample boards before fixing the specification.
           </p>
           <div className="actions">
             <a
@@ -246,10 +208,151 @@ export function MortarPage() {
             >
               Trial mortar colour in Bricktextures
             </a>
-            <Link className="btn btn-secondary" to="/facing-bricks/joint-size">
-              Joint size guide
-            </Link>
           </div>
+        </div>
+      </section>
+
+      <section id="mortar-perception" className="section section-alt">
+        <div className="container colour-guide-content">
+          <p className="eyebrow">Context and perception</p>
+          <h2>How brick colour affects how we see mortar</h2>
+          <p>
+            Look at the two brickwork samples below — each shown close up and across a larger wall
+            area. Which mortar looks lighter, and which looks darker?
+          </p>
+          <div className="mortar-illusion-grid">
+            <article>
+              <h3>Light brick</h3>
+              <div className="mortar-colour-image-pair">
+                <GuideImagePlaceholder
+                  label="Natural mortar with light brick — close view"
+                  src={naturalMortarLightBrick}
+                  ratio="square"
+                />
+                <GuideImagePlaceholder
+                  label="Natural mortar with light brick — larger wall area"
+                  src={naturalMortarLightBrickArea}
+                  ratio="square"
+                />
+              </div>
+              <p className="mortar-colour-comparison-note">
+                Which mortar looks darker against the pale brick?
+              </p>
+            </article>
+            <article>
+              <h3>Dark brick</h3>
+              <div className="mortar-colour-image-pair">
+                <GuideImagePlaceholder
+                  label="Natural mortar with dark brick — close view"
+                  src={naturalMortarDarkBrick}
+                  ratio="square"
+                />
+                <GuideImagePlaceholder
+                  label="Natural mortar with dark brick — larger wall area"
+                  src={naturalMortarDarkBrickArea}
+                  ratio="square"
+                />
+              </div>
+              <p className="mortar-colour-comparison-note">
+                Which mortar looks lighter against the dark brick?
+              </p>
+            </article>
+          </div>
+          <p>
+            Both samples use exactly the same mortar colour. The difference is only the brick. Our
+            eye judges the joint against its surroundings, so the mortar appears darker beside a
+            pale brick and lighter beside a dark brick — even when nothing in the joint colour has
+            changed.
+          </p>
+          <p>
+            Mortar cannot be chosen from a single swatch in isolation. The same mortar looks
+            different against light and dark bricks, so a sample judged on one product can mislead
+            when it is used with another. The surroundings trick the eye.
+          </p>
+          <p>
+            <strong>
+              This is a core reason to use Bricktextures.
+            </strong>{" "}
+            In the app you can place the same mortar against different bricks and see how the joint
+            changes before you commit on site. Seeing the same mortar on different bricks removes the
+            guesswork.
+          </p>
+          <div className="actions">
+            <a
+              className="btn btn-primary"
+              href={MORTAR_ILLUSION_APP_URL}
+              onClick={event => onExploreClick(event, MORTAR_ILLUSION_APP_URL)}
+            >
+              Compare mortar on different bricks
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="choosing-mortar-colour" className="section">
+        <div className="container colour-guide-content">
+          <p className="eyebrow">Contrast and definition</p>
+          <h2>Choosing a mortar colour</h2>
+          <p>
+            Mortar is a thin line between the bricks, so brick colour alone does not dictate the
+            choice. The more important decision is how strongly you want the joints and bond to show.
+          </p>
+          <ol className="colour-design-process">
+            <li>
+              <strong>Define the brickwork.</strong> A mortar that contrasts with the brick gives
+              each unit a clearer outline and makes the bond more prominent.
+            </li>
+            <li>
+              <strong>Blend the brickwork.</strong> A mortar close to the brick tone reduces joint
+              contrast and makes the wall appear closer to one continuous colour.
+            </li>
+            <li>
+              <strong>Keep the effect restrained.</strong> A natural or mid-tone mortar can leave
+              the joint visible without strongly defining it or blending it away.
+            </li>
+          </ol>
+          <p>
+            The same principles apply across red, buff, brown and neutral bricks. Mortar can also
+            connect brickwork with nearby stone, render, roofing or window colours. This is a wider
+            choice about how the whole building works together, not a rule set by brick colour alone.
+          </p>
+
+          {MORTAR_COLOUR_EXAMPLES.map(group => (
+            <div className="mortar-colour-notes" key={group.slug}>
+              <h3>{group.title}</h3>
+              <p>
+                Each option is shown close up and on a larger wall so you can judge the joints at
+                both scales.
+              </p>
+              <div className="mortar-colour-comparison-grid">
+                {group.items.map(item => (
+                  <article key={item.name}>
+                    <h3>{item.name}</h3>
+                    <div className="mortar-colour-image-pair">
+                      <GuideImagePlaceholder
+                        label={item.imageLabel}
+                        src={item.src}
+                        ratio="square"
+                      />
+                      {item.areaSrc ? (
+                        <GuideImagePlaceholder
+                          label={item.areaImageLabel ?? `${item.name} across a larger brick area`}
+                          src={item.areaSrc}
+                          ratio="square"
+                        />
+                      ) : null}
+                    </div>
+                    <p className="mortar-colour-comparison-note">{item.note}</p>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+          <p>
+            If you want almost no visible mortar — thin or glued joints rather than a coloured bed —
+            see{" "}
+            <Link to="/facing-bricks/joint-size#tight-joints">tighter joints</Link>.
+          </p>
         </div>
       </section>
 

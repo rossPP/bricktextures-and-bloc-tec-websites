@@ -1,7 +1,6 @@
 import { MouseEvent, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
-import { GuideImagePlaceholder, GuideImagePlaceholderGrid } from "../components/GuideImagePlaceholder";
-import { getBondGuide } from "../content/bondGuides";
+import { GuideImagePlaceholder } from "../components/GuideImagePlaceholder";
 import { FINISH_GUIDES, getFinishGuide } from "../content/finishGuides";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
@@ -157,12 +156,16 @@ export function FinishGuidePage() {
       <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">What it is</p>
-          <h2>How this texture reads</h2>
+          <h2>What this texture is</h2>
           <p>{guide.whatItIs}</p>
           <p>{guide.overallFeel}</p>
           <GuideImagePlaceholder
-            label={`${guide.shortLabel} brick close-up`}
-            caption="Face and edge detail showing the surface texture."
+            label={guide.introImage?.label ?? `${guide.shortLabel} brick close-up`}
+            caption={
+              guide.introImage?.caption ?? "Face and edge detail showing the surface texture."
+            }
+            src={guide.introImage?.src}
+            ratio={guide.introImage ? "natural" : "landscape"}
             wide
           />
         </div>
@@ -171,179 +174,31 @@ export function FinishGuidePage() {
       <section className="section">
         <div className="container colour-guide-content">
           <p className="eyebrow">Why choose it</p>
-          <h2>Reasons to select this texture</h2>
+          <h2>Why choose this texture?</h2>
           <ul className="colour-guide-list">
             {guide.whyChoose.map(item => (
               <li key={item}>{item}</li>
             ))}
           </ul>
           <GuideImagePlaceholder
-            label={`${guide.shortLabel} brick in a finished project`}
-            caption="Built example showing the texture at façade scale."
+            label={guide.projectImage?.label ?? `${guide.shortLabel} brick in a finished project`}
+            caption={
+              guide.projectImage?.caption ??
+              "Built example showing the texture at façade scale."
+            }
+            src={guide.projectImage?.src}
             wide
           />
         </div>
       </section>
 
       <section className="section section-alt">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">How it is made</p>
-          <h2>Production and surface character</h2>
-          <p>{guide.howMade}</p>
-          <GuideImagePlaceholder
-            label={`${guide.shortLabel} brick production / process diagram`}
-            caption="Production process responsible for the surface finish."
-            wide
-          />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Light and atmosphere</p>
-          <h2>How light changes the texture</h2>
-          <p>{guide.lightAndAtmosphere}</p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: `${guide.shortLabel} brick in raking / low sun`,
-                caption: "Shows how texture or sheen responds to directional light.",
-              },
-              {
-                label: `${guide.shortLabel} brick in soft overcast light`,
-                caption: "Comparison under flatter daylight.",
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Where it is used</p>
-          <h2>Typical scenarios and project types</h2>
-          <p>{guide.useCases.summary}</p>
-          <div className="colour-guide-card-grid">
-            {guide.useCases.items.map(item => (
-              <article key={item.name}>
-                <h3>{item.name}</h3>
-                <p>{item.note}</p>
-              </article>
-            ))}
-          </div>
-          <GuideImagePlaceholderGrid
-            items={guide.useCases.items.slice(0, 2).map(item => ({
-              label: `${item.name} with ${guide.shortLabel.toLowerCase()} brick`,
-              caption: "Built example of this application.",
-            }))}
-          />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Complementary materials</p>
-          <h2>Material choices that support the texture</h2>
-          <p>{guide.complementaryMaterials.summary}</p>
-          <div className="colour-guide-card-grid">
-            {guide.complementaryMaterials.items.map(item => (
-              <article key={item.name}>
-                <h3>{item.name}</h3>
-                <p>{item.note}</p>
-              </article>
-            ))}
-          </div>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: `${guide.shortLabel} brick with complementary materials`,
-                caption: "Timber, metal, stone or other pairings.",
-              },
-              {
-                label: `${guide.shortLabel} brick detail junction`,
-                caption: "Opening, plinth or material junction example.",
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Blending</p>
-          <h2>Mixing for more character</h2>
-          <p>{guide.blendingNote}</p>
-          <GuideImagePlaceholder
-            label={`${guide.shortLabel} brick blend example`}
-            caption="Blend using this surface texture in controlled proportions."
-            wide
-          />
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Façade and interior</p>
-          <h2>Outside and inside</h2>
-          <p>{guide.facadeAndInterior}</p>
-          <GuideImagePlaceholderGrid
-            items={[
-              {
-                label: `${guide.shortLabel} brick exterior façade`,
-                caption: "Street or courtyard elevation.",
-              },
-              {
-                label: `${guide.shortLabel} brick interior application`,
-                caption: "Internal wall or feature example.",
-              },
-            ]}
-          />
-        </div>
-      </section>
-
-      <section className="section section-alt">
-        <div className="container colour-guide-content">
-          <p className="eyebrow">Bonds to consider</p>
-          <h2>Bond groups suited to this texture</h2>
-          <p>{guide.bondsSummary}</p>
-          <ul className="colour-guide-list">
-            {guide.recommendedBonds.map(bond => (
-              <li key={bond}>{bond}</li>
-            ))}
-          </ul>
-          <GuideImagePlaceholder
-            label={`${guide.shortLabel} brick in a recommended bond`}
-            caption="Wall or Bricktextures view using a recommended bond."
-            wide
-          />
-          <div className="actions colour-guide-actions">
-            {guide.bondGroups.map(groupSlug => {
-              const bondGuide = getBondGuide(groupSlug);
-              if (!bondGuide) return null;
-              return (
-                <Link
-                  key={groupSlug}
-                  className="btn btn-primary"
-                  to={`/facing-bricks/bonds/${groupSlug}`}
-                >
-                  {bondGuide.shortLabel}
-                </Link>
-              );
-            })}
-            <Link className="btn btn-secondary" to="/facing-bricks/bonds">
-              All brick bonds
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
         <div className="container colour-guide-closing">
           <p className="eyebrow">Compare products</p>
           <h2>Browse {guide.shortLabel.toLowerCase()} facing bricks</h2>
           <p>
-            Compare manufacturer products with this surface texture under consistent bond, mortar and
-            lighting conditions.
+            See how different {guide.shortLabel.toLowerCase()} bricks look with the same mortar, bond
+            and lighting, so you can compare the products fairly.
           </p>
           <div className="actions">
             <a

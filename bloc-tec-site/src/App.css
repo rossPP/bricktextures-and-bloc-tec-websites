@@ -935,6 +935,11 @@ main.product-samples-page {
   margin-top: 0.2rem;
 }
 
+.integration-param-line {
+  display: block;
+  margin-top: 0.35rem;
+}
+
 .integration-resource-links {
   word-break: break-word;
 }
