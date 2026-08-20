@@ -170,9 +170,9 @@ export function ShareDesignPage() {
             shared design.
           </p>
           <p>
-            Use the downloaded specification alongside drawings, specification clauses, approved
-            samples and manufacturer advice. It records the design, but does not replace technical review,
-            availability checks or the contractual specification.
+            Use the downloaded specification alongside drawings and specification clauses. It
+            records the design, but does not replace technical review or the contractual
+            specification.
           </p>
           <figure className="guide-image-placeholder guide-image-placeholder-wide share-spec-preview">
             <a
@@ -214,8 +214,8 @@ export function ShareDesignPage() {
             <article>
               <h3>Use Download specification when</h3>
               <p>
-                You need a dated record to send to suppliers, use for sampling or file with the
-                project information.
+                You need a dated record of the selected products and settings to file with the
+                project information or share with the design team.
               </p>
             </article>
           </div>
@@ -228,7 +228,8 @@ export function ShareDesignPage() {
           <h2>Blends, textures and more</h2>
           <p>
             Sharing and specification download work with the designs you build in Bricktextures,
-            including multi-product blends. After shortlisting, you can also move into{" "}
+            including multi-product blends. Once you have refined a selection, you can also move
+            into{" "}
             <Link to="/tools/brick-blending">brick blending</Link> or{" "}
             <Link to="/tools/seamless-brick-textures">seamless texture export</Link>.
           </p>

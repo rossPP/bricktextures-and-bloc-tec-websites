@@ -13,7 +13,7 @@ import blendWarmRedOrange from "../assets/seamless-textures/blend-warm-red-orang
 import blendRedWithDarkAccents from "../assets/seamless-textures/blend-red-with-dark-accents.webp";
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
-const TEXTURE_APP_URL = "/app/facing-bricks?tab=texture&src=seamless-textures";
+const TEXTURE_APP_URL = "/app/facing-bricks";
 
 const MANUFACTURERS = [
   { label: "Ibstock", filter: "Ibstock" },
@@ -26,10 +26,6 @@ const MANUFACTURERS = [
   { label: "Tobermore", filter: "Tobermore" },
   { label: "Precon", filter: "Precon" },
 ] as const;
-
-function manufacturerTextureUrl(filter: string) {
-  return `/app/facing-bricks?tab=texture&filterManufacturer=${encodeURIComponent(filter)}&src=seamless-textures-mfr`;
-}
 
 const VISITOR_ROLES = [
   "Architect",
@@ -288,16 +284,13 @@ export function SeamlessTexturesPage() {
             for your visualisation software.
           </p>
           <ul className="material-manufacturer-list">
-            {MANUFACTURERS.map(mfr => {
-              const url = manufacturerTextureUrl(mfr.filter);
-              return (
-                <li key={mfr.filter}>
-                  <a href={url} onClick={event => onExploreClick(event, url)}>
-                    {mfr.label}
-                  </a>
-                </li>
-              );
-            })}
+            {MANUFACTURERS.map(mfr => (
+              <li key={mfr.filter}>
+                <a href={TEXTURE_APP_URL} onClick={event => onExploreClick(event, TEXTURE_APP_URL)}>
+                  {mfr.label}
+                </a>
+              </li>
+            ))}
           </ul>
           <div className="actions">
             <a

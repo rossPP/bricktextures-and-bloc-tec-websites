@@ -1,17 +1,21 @@
 {
-  "generatedAt": "2026-08-14T17:08:03.823Z",
+  "generatedAt": "2026-08-20T11:11:25.808Z",
+  "product": {
+    "sku": "QUA",
+    "productSlug": "quartis"
+  },
   "results": [
     {
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/2 Bond",
         "variation": "Stretcher"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__stretcher__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__stretcher__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
@@ -22,13 +26,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/2 Bond",
         "variation": "Header"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__header__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2688x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__header__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2688x2700mm_L.jpeg",
       "size": {
         "w": 2688,
         "h": 2700
@@ -39,13 +43,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/2 Bond",
         "variation": "Block"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__block__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__block__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
@@ -56,13 +60,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/2 Bond",
         "variation": "Offset"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__offset__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x3000mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__offset__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x3000mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 3000
@@ -73,13 +77,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/2 Bond",
         "variation": "Column"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__column__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-2-bond__column__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
@@ -90,13 +94,30 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "1/4 Bond",
+        "variation": "Left Step"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__left-step__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "classic",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/4 Bond",
         "variation": "Right Step"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
@@ -107,13 +128,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/4 Bond",
         "variation": "Right Step Gothic"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step-gothic__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step-gothic__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
@@ -124,13 +145,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/4 Bond",
         "variation": "Right Step Monk"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step-monk__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2813x3000mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__right-step-monk__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2813x3000mm_L.jpeg",
       "size": {
         "w": 2813,
         "h": 3000
@@ -141,30 +162,13 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
-        "layout": "1/4 Bond",
-        "variation": "Left Step"
-      },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__left-step__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
-      "size": {
-        "w": 2700,
-        "h": 2700
-      },
-      "jointOk": true
-    },
-    {
-      "ok": true,
-      "job": {
-        "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/4 Bond",
         "variation": "Toothed"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__toothed__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__toothed__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
@@ -175,16 +179,441 @@
       "ok": true,
       "job": {
         "group": "classic",
-        "sku": "A4312A",
-        "productSlug": "swanage-handmade-restoration-red",
+        "sku": "QUA",
+        "productSlug": "quartis",
         "layout": "1/4 Bond",
         "variation": "Toothed Gothic"
       },
-      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__toothed-gothic__swanage-handmade-restoration-red.jpeg",
-      "suggested": "IbstockSwanageSwanageHandmadeRestorationRed_2700x2700mm_L.jpeg",
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\classic\\classic__1-4-bond__toothed-gothic__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
       "size": {
         "w": 2700,
         "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Stacked",
+        "variation": "Stretcher"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__stacked__stretcher__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Stacked",
+        "variation": "Header"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__stacked__header__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2688x2700mm_L.jpeg",
+      "size": {
+        "w": 2688,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Stacked",
+        "variation": "Stretcher Header"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__stacked__stretcher-header__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Stacked",
+        "variation": "Stretcher 1 Soldier"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__stacked__stretcher-1-soldier__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2699x2700mm_L.jpeg",
+      "size": {
+        "w": 2699,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Stacked",
+        "variation": "Stretcher 2 Soldiers"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__stacked__stretcher-2-soldiers__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2624x2700mm_L.jpeg",
+      "size": {
+        "w": 2624,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Stacked",
+        "variation": "Stretcher 3 Soldiers"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__stacked__stretcher-3-soldiers__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Standard"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__standard__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Double"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__double__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Triple"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__triple__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Offset 1 Soldier"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__offset-1-soldier__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Offset 2 Soldiers"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__offset-2-soldiers__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2625x2700mm_L.jpeg",
+      "size": {
+        "w": 2625,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Aligned 1 Soldier"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__aligned-1-soldier__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Aligned 2 Soldiers"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__aligned-2-soldiers__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2625x2700mm_L.jpeg",
+      "size": {
+        "w": 2625,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "modern",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Basketweave",
+        "variation": "Stepped"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\modern\\modern__basketweave__stepped__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Traditional",
+        "variation": "English"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__traditional__english__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Traditional",
+        "variation": "English Garden Wall"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__traditional__english-garden-wall__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Traditional",
+        "variation": "Flemish"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__traditional__flemish__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2700x2700mm_L.jpeg",
+      "size": {
+        "w": 2700,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Traditional",
+        "variation": "Flemish Garden Wall"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__traditional__flemish-garden-wall__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2363x2700mm_L.jpeg",
+      "size": {
+        "w": 2363,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Traditional",
+        "variation": "Monk"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__traditional__monk__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2813x2700mm_L.jpeg",
+      "size": {
+        "w": 2813,
+        "h": 2700
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Traditional",
+        "variation": "Random"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__traditional__random__quartis.jpeg",
+      "suggested": "VandersandenQuartis_3038x3150mm_L.jpeg",
+      "size": {
+        "w": 3038,
+        "h": 3150
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Herringbone",
+        "variation": "Standard"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__herringbone__standard__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2544x2650mm_L.jpeg",
+      "size": {
+        "w": 2544,
+        "h": 2650
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Herringbone",
+        "variation": "Linear Double"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__herringbone__linear-double__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2544x2650mm_L.jpeg",
+      "size": {
+        "w": 2544,
+        "h": 2650
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Herringbone",
+        "variation": "Linear Triple"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__herringbone__linear-triple__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2862x2650mm_L.jpeg",
+      "size": {
+        "w": 2862,
+        "h": 2650
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Herringbone",
+        "variation": "Block"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__herringbone__block__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2862x2756mm_L.jpeg",
+      "size": {
+        "w": 2862,
+        "h": 2756
+      },
+      "jointOk": true
+    },
+    {
+      "ok": true,
+      "job": {
+        "group": "traditional",
+        "sku": "QUA",
+        "productSlug": "quartis",
+        "layout": "Herringbone",
+        "variation": "Block to Single"
+      },
+      "outPath": "C:\\Users\\rossw\\Source\\gitRepos\\Websites\\bricktextures-site\\src\\assets\\bonds\\_raw\\traditional\\traditional__herringbone__block-to-single__quartis.jpeg",
+      "suggested": "VandersandenQuartis_2544x2862mm_L.jpeg",
+      "size": {
+        "w": 2544,
+        "h": 2862
       },
       "jointOk": true
     }

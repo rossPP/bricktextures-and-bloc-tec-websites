@@ -81,10 +81,6 @@ type ExploreGroupKey = keyof typeof EXPLORE_GROUPS;
 export function ExploreGroupPage() {
   const { group = "" } = useParams();
 
-  if (group === "material") {
-    return <Navigate to="/facing-bricks/clay-vs-concrete" replace />;
-  }
-
   const config = EXPLORE_GROUPS[group as ExploreGroupKey];
 
   if (!config) {

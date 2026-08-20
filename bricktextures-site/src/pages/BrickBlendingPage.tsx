@@ -129,8 +129,8 @@ export function BrickBlendingPage() {
           <h1>Why blend facing bricks — and how to do it well</h1>
           <p className="lead contact-lead">
             Use a blend to match existing masonry, soften a strong colour or spread variation across
-            a large wall. Give each colour a clear role, choose products that can work together, and
-            review the mix at the scale people will see it.
+            a large wall. Give each colour a clear role, let the blend tool check what can mix, and
+            review the result at the scale people will see it.
           </p>
           <div className="actions">
             <a
@@ -155,7 +155,7 @@ export function BrickBlendingPage() {
             A blend can relate new work to retained masonry, respond to local material variation,
             soften a strong colour or spread variation across a large wall so it does not feel flat or
             overpowering. Review the mix with the actual bond and mortar, and from the distance people
-            will see it, before agreeing a sample for the site.
+            will see it, so you can judge the mix at a realistic scale.
           </p>
         </div>
       </section>
@@ -212,25 +212,22 @@ export function BrickBlendingPage() {
       <section className="section section-alt">
         <div className="container colour-guide-content">
           <p className="eyebrow">How to build a blend</p>
-          <h2>Choose products that can work together</h2>
+          <h2>Compatibility is checked for you</h2>
           <p>
-            Products in one blend need to share a workable size, bond and joint. Confirm dimensions,
-            tolerances, durability, availability and manufacturer guidance before specification.
-            Clay and concrete units should not be mixed in the same wall — their dimensional
-            behaviour, moisture movement and weathering differ. See{" "}
-            <Link to="/facing-bricks/clay-vs-concrete">clay vs concrete</Link>.
+            Bricktextures only allows combinations that can work together. Incompatible sizes are
+            blocked, and clay cannot be mixed with concrete. When a mix will not work, the tool
+            warns you and prevents it — so you do not have to check sizes or materials by hand.
+            That leaves you free to focus on colour, proportion and how the wall looks.
           </p>
           <p>
-            You can also draw products from more than one manufacturer when colour, availability,
-            local sourcing or an existing material requires it. Check size, performance, supply and
-            warranties with each maker. Agreeing how the wall should look is not the same as treating
-            the products as interchangeable on site or under one warranty.
+            You can still draw products from more than one manufacturer when colour or an existing
+            material requires it. Combine ranges for appearance, then review the blend at wall scale.
           </p>
           <p>
             Once the proportions are set, review the blend across a representative wall area. A mix
-            that works as a small sample may read differently when its colours and textures are
-            spread across a full elevation. View it from the distance people will actually see it,
-            then confirm the distribution with a site sample panel before fixing the specification.
+            that looks balanced in a small preview may read differently when its colours and
+            textures are spread across a full elevation. View it from the distance people will
+            actually see it before fixing the specification.
           </p>
         </div>
       </section>

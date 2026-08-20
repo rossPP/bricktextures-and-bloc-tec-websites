@@ -41,7 +41,7 @@ export const DESIGN_HUB: NavHub = {
   navChildren: [
     {
       label: "Brick bonds",
-      description: "Classic, modern and traditional bond groups.",
+      description: "Running, traditional, stack, basketweave and herringbone patterns.",
       to: "/facing-bricks/bonds",
     },
     {

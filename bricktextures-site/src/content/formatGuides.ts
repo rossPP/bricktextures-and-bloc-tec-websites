@@ -61,8 +61,7 @@ export const FORMAT_GUIDES: FormatGuide[] = [
     relatedLinks: [
       { label: "10 mm joint and stretcher module", to: "/facing-bricks/joint-size#when-to-change" },
       { label: "Mortar colour", to: "/facing-bricks/mortar" },
-      { label: "Classic brick bonds", to: "/facing-bricks/bonds/classic" },
-      { label: "Traditional brick bonds", to: "/facing-bricks/bonds/traditional" },
+      { label: "Traditional brick bonds", to: "/facing-bricks/bonds#half-bond" },
       { label: "Clay vs concrete bricks", to: "/facing-bricks/clay-vs-concrete" },
     ],
     placeholders: [
@@ -102,7 +101,7 @@ export const FORMAT_GUIDES: FormatGuide[] = [
       "In Bricktextures, open the Size filter and choose the Imperial entries (for example Imperial : 215 x 73 and Imperial : 228 x 68). Compare colour, texture and coursing against the existing wall to find the closest available match, then adjust joint width when you want a tighter traditional reading.",
     relatedLinks: [
       { label: "Joint size", to: "/facing-bricks/joint-size" },
-      { label: "Traditional brick bonds", to: "/facing-bricks/bonds/traditional" },
+      { label: "Traditional brick bonds", to: "/facing-bricks/bonds#half-bond" },
       { label: "Traditional texture guide", to: "/facing-bricks/finish/traditional" },
       { label: "Clay vs concrete bricks", to: "/facing-bricks/clay-vs-concrete" },
     ],
@@ -148,7 +147,7 @@ export const FORMAT_GUIDES: FormatGuide[] = [
       "In Bricktextures, open the Size filter and choose Linear. That one choice covers all long-format sizes in the catalogue, including new ones as they are added.",
     relatedLinks: [
       { label: "Joint size", to: "/facing-bricks/joint-size" },
-      { label: "Modern brick bonds", to: "/facing-bricks/bonds/modern" },
+      { label: "Modern brick bonds", to: "/facing-bricks/bonds#stack-bond" },
       { label: "Smooth texture guide", to: "/facing-bricks/finish/smooth" },
       { label: "Clay vs concrete bricks", to: "/facing-bricks/clay-vs-concrete" },
     ],

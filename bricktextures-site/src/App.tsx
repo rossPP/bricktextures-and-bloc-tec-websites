@@ -1,7 +1,6 @@
 import { FormEvent, MouseEvent, useEffect, useState } from "react";
-import { BrowserRouter, Link, Navigate, NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Link, NavLink, Route, Routes, useLocation } from "react-router-dom";
 import conceptToRealityHero from "../../bloc-tec-site/public/images/conceptToRealityHero.webp";
-import { BOND_GUIDES } from "./content/bondGuides";
 import { COLOUR_GUIDES } from "./content/colourGuides";
 import { FINISH_GUIDES } from "./content/finishGuides";
 import { BondGuidePage, BondHubPage } from "./pages/BondGuidePage";
@@ -198,9 +197,9 @@ function RouteTitleSync() {
     }
 
     pageMetaByPath["/facing-bricks/bonds"] = {
-      title: "Brick Bonds for Facing Bricks | Bricktextures",
+      title: "Brick Bonds and Patterns for Facing Bricks | Bricktextures",
       description:
-        "Choose classic, modern geometric or traditional brick bonds to suit the texture and dimensional tolerance of your facing bricks.",
+        "Why change from stretcher bond? Compare half-bond, Flemish, English, herringbone, stack and basketweave brick patterns for facing brickwork.",
     };
 
     pageMetaByPath["/tools/seamless-brick-textures"] = {
@@ -212,7 +211,7 @@ function RouteTitleSync() {
     pageMetaByPath["/tools/brick-blending"] = {
       title: "Brick Blending | Why and How to Mix Facing Bricks | Bricktextures",
       description:
-        "Why architects blend facing bricks, how to give each colour a role, and how to choose products that can work together at wall scale.",
+        "Why architects blend facing bricks, how to give each colour a role, and how Bricktextures checks size and material compatibility for you.",
     };
 
     pageMetaByPath["/tools/share-design"] = {
@@ -259,18 +258,17 @@ function RouteTitleSync() {
       description: SIZE_SECTION.metaDescription,
     };
 
-    for (const guide of BOND_GUIDES) {
-      pageMetaByPath[`/facing-bricks/bonds/${guide.slug}`] = {
-        title: guide.metaTitle,
-        description: guide.metaDescription,
-      };
-    }
+    const pageMeta = pageMetaByPath[location.pathname];
+    const knownPath = Boolean(pageMeta);
+    const resolvedMeta = pageMeta ?? {
+      title: "Page not found | Bricktextures",
+      description: "This page is not available on Bricktextures.",
+    };
+    const canonicalUrl = knownPath
+      ? `https://bricktextures.com${location.pathname === "/" ? "/" : location.pathname}`
+      : "https://bricktextures.com/";
 
-    const defaultMeta = pageMetaByPath["/"];
-    const pageMeta = pageMetaByPath[location.pathname] ?? defaultMeta;
-    const canonicalUrl = `https://bricktextures.com${location.pathname === "/" ? "/" : location.pathname}`;
-
-    document.title = pageMeta.title;
+    document.title = resolvedMeta.title;
 
     const setMetaTag = (selector: string, content: string, attributeName: "name" | "property", attributeValue: string) => {
       const element = document.querySelector(selector);
@@ -285,13 +283,14 @@ function RouteTitleSync() {
       document.head.appendChild(meta);
     };
 
-    setMetaTag('meta[name="description"]', pageMeta.description, "name", "description");
-    setMetaTag('meta[property="og:title"]', pageMeta.title, "property", "og:title");
-    setMetaTag('meta[property="og:description"]', pageMeta.description, "property", "og:description");
+    setMetaTag('meta[name="description"]', resolvedMeta.description, "name", "description");
+    setMetaTag('meta[name="robots"]', knownPath ? "index, follow" : "noindex, follow", "name", "robots");
+    setMetaTag('meta[property="og:title"]', resolvedMeta.title, "property", "og:title");
+    setMetaTag('meta[property="og:description"]', resolvedMeta.description, "property", "og:description");
     setMetaTag('meta[property="og:url"]', canonicalUrl, "property", "og:url");
     setMetaTag('meta[property="og:image"]', new URL(conceptToRealityHero, window.location.origin).href, "property", "og:image");
-    setMetaTag('meta[name="twitter:title"]', pageMeta.title, "name", "twitter:title");
-    setMetaTag('meta[name="twitter:description"]', pageMeta.description, "name", "twitter:description");
+    setMetaTag('meta[name="twitter:title"]', resolvedMeta.title, "name", "twitter:title");
+    setMetaTag('meta[name="twitter:description"]', resolvedMeta.description, "name", "twitter:description");
     setMetaTag('meta[name="twitter:image"]', new URL(conceptToRealityHero, window.location.origin).href, "name", "twitter:image");
 
     const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -526,11 +525,11 @@ function HomePage() {
               </p>
             </article>
             <article>
-              <p className="eyebrow">Shortlist</p>
-              <h3>Build a practical shortlist</h3>
+              <p className="eyebrow">Refine</p>
+              <h3>Filter until you find it</h3>
               <p>
-                Identify the products worth sampling, then confirm availability, technical
-                performance and specification details with the manufacturer or supplier.
+                Use colour, texture, size and manufacturer filters to narrow the catalogue to the
+                bricks that fit your project, then open products to check them in detail.
               </p>
             </article>
           </div>
@@ -556,8 +555,8 @@ function HomePage() {
                 <p className="eyebrow">Blending</p>
                 <h3>Combine bricks into the mix you need</h3>
                 <p>
-                  Blend up to five products, lock proportions, check compatibility and review the
-                  distribution across the wall.{" "}
+                  Blend up to five products and lock proportions. The tool blocks incompatible sizes
+                  and clay–concrete mixes, so you can focus on colour and appearance.{" "}
                   <Link to="/tools/brick-blending">How brick blending works</Link>
                 </p>
               </article>
@@ -671,8 +670,7 @@ function FaqPage() {
           <h2>Can I buy products directly from Bricktextures?</h2>
           <p>
             No. Bricktextures supports product discovery, comparison and early specification; it
-            does not sell bricks. Purchasing and availability enquiries remain with the relevant
-            manufacturer or supplier.
+            does not sell bricks or manage ordering.
           </p>
         </article>
         <article className="card">
@@ -693,8 +691,10 @@ function FaqPage() {
         <article className="card">
           <h2>Can I blend bricks from different manufacturers?</h2>
           <p>
-            Yes. The Bricktextures blender can mix products across manufacturers, lock proportions,
-            warn about limited compatibility, and block impractical mixes such as clay with concrete.{" "}
+            Yes. The Bricktextures blender can mix products across manufacturers and lock
+            proportions. It warns about limited compatibility and blocks impractical mixes such as
+            clay with concrete or mismatched sizes — so you do not have to check those constraints
+            by hand.{" "}
             <Link className="inline-link" to="/tools/brick-blending">
               Learn about brick blending
             </Link>{" "}
@@ -1002,6 +1002,26 @@ function ManufacturersPage() {
   );
 }
 
+function NotFoundPage() {
+  return (
+    <section className="section">
+      <div className="container page-header">
+        <p className="eyebrow">404</p>
+        <h1>Page not found</h1>
+        <p className="lead">This page is not available. Try the links below or return home.</p>
+        <div className="material-cta-actions">
+          <Link className="btn btn-primary" to="/">
+            Back to home
+          </Link>
+          <Link className="btn btn-secondary" to="/explore/colour">
+            Explore by colour
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Footer() {
   const currentYear = new Date().getFullYear();
 
@@ -1034,19 +1054,11 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/explore" element={<Navigate to="/explore/colour" replace />} />
             <Route path="/explore/:group" element={<ExploreGroupPage />} />
-            <Route path="/design" element={<Navigate to="/facing-bricks/bonds" replace />} />
-            <Route path="/tools" element={<Navigate to="/tools/seamless-brick-textures" replace />} />
-            <Route path="/for-architects" element={<Navigate to="/#why-bricktextures" replace />} />
             <Route path="/facing-bricks/clay-vs-concrete" element={<ClayVsConcretePage />} />
             <Route path="/facing-bricks/mortar" element={<MortarPage />} />
             <Route path="/facing-bricks/joint-size" element={<JointSizePage />} />
             <Route path="/facing-bricks/format/:slug" element={<FormatGuidePage />} />
-            <Route
-              path="/facing-bricks/colour/brick-blends"
-              element={<Navigate to="/tools/brick-blending" replace />}
-            />
             <Route path="/facing-bricks/colour/:slug" element={<ColourGuidePage />} />
             <Route path="/facing-bricks/finish/:slug" element={<FinishGuidePage />} />
             <Route path="/facing-bricks/bonds" element={<BondHubPage />} />
@@ -1057,6 +1069,7 @@ function App() {
             <Route path="/manufacturers" element={<ManufacturersPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/faq" element={<FaqPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </main>
         <Footer />

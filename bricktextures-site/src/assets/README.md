@@ -19,9 +19,9 @@ Drop new images into the folder for that page. Keep each page’s assets separat
 | `formats` (root) | Size hub card images only (`metric.webp`, `imperial.webp`, `linear.webp`) |
 | `mortar` | Mortar colour page |
 | `joint-sizes` | Joint size page |
-| `bonds/classic` | Classic bonds — Swanage Handmade Restoration Red examples |
-| `bonds/modern` | Modern bonds — Throckley Smooth Red examples |
-| `bonds/traditional` | Traditional bonds — Oud Maasland examples |
+| `bonds/classic` | Half-bond / quarter-bond examples (Quartis) |
+| `bonds/modern` | Stack / basketweave examples (Quartis) |
+| `bonds/traditional` | Traditional + herringbone examples (Quartis) |
 | `clay-vs-concrete` | Clay vs concrete |
 | `brick-blending` | Tools — brick blending |
 | `seamless-textures` | Tools — seamless textures (joint/layout/blend pairs + tile size pair) |

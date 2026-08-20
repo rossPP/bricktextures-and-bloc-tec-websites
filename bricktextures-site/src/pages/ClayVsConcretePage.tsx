@@ -6,9 +6,9 @@ import marshallsConcrete from "../assets/clay-vs-concrete/marshalls-parkview-sam
 
 const VISITOR_ROLE_STORAGE_KEY = "bt_visitor_role";
 const CLAY_APP_URL =
-  "/app/facing-bricks?filterCategory=Clay%20Facing%20Bricks&src=material-clay";
+  "/app/facing-bricks?filterCategory=Clay%20Facing%20Bricks";
 const CONCRETE_APP_URL =
-  "/app/facing-bricks?filterCategory=Concrete%20Facing%20Bricks&src=material-concrete";
+  "/app/facing-bricks?filterCategory=Concrete%20Facing%20Bricks";
 
 const CONCRETE_MANUFACTURERS = [
   { label: "Marshalls", filter: "Marshalls" },
@@ -27,7 +27,7 @@ const CLAY_MANUFACTURERS = [
 function manufacturerAppUrl(filter: string, material: "clay" | "concrete") {
   const category =
     material === "clay" ? "Clay%20Facing%20Bricks" : "Concrete%20Facing%20Bricks";
-  return `/app/facing-bricks?filterCategory=${category}&filterManufacturer=${encodeURIComponent(filter)}&src=material-${material}-mfr`;
+  return `/app/facing-bricks?filterCategory=${category}&filterManufacturer=${encodeURIComponent(filter)}`;
 }
 
 const VISITOR_ROLES = [
@@ -275,7 +275,7 @@ export function ClayVsConcretePage() {
             Concrete bricks also tend to be more regular in size. They do not go through the kiln
             shrinkage and natural variation of clay, so one brick is more likely to match the next.
             This can make concrete a good fit for{" "}
-            <Link to="/facing-bricks/bonds/modern">modern bonds</Link> that rely on precise
+            <Link to="/facing-bricks/bonds#stack-bond">modern bonds</Link> that rely on precise
             alignment, such as stack, grid and basketweave, where size differences quickly show.
           </p>
           <p>
